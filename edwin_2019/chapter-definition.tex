@@ -1,0 +1,293 @@
+\chapter{相关概念介绍}
+\label{chp:definition}
+
+
+在本节，我们将给出拓展动态函数调用图构建过程中的基本术语，并基于这些概念定义Android系统中常见的触发关系，结合具体示例进行解释说明。
+
+\section{概念说明}
+方法执行是一个方法执行相关信息的描述，方法对象对应是和方法执行相关的对象\footnote{在Java语言中，函数称为方法。在本文中，两者可以相互替换，不做区分。}；
+调用关系和触发关系描述了方法执行之间的关系。
+函数调用图为所有调用关系的集合，在函数调用图上添加和方法相关的对象信息，补全方法间触发关系得到拓展函数调用图。
+
+\subsection{关于方法和对象的定义}
+
+\begin{Def}
+	方法对象%（Method Object，MO）
+\end{Def}
+
+和方法执行相关的对象称为方法对象，可以体现对象和执行方法的相互关系。
+在本文中，方法对象通常用符号$o$表示。
+	
+
+	对于方法执行$m$，对象和方法执行的关系（简称为方法对象关系）如下所示：
+	\begin{itemize}
+%				\setlength{\itemsep}{-5pt}
+				\setlength{\itemsep}{1pt}
+				\setlength{\parskip}{0pt}
+				\setlength{\parsep}{0pt}
+		\item 参数关系：若对象$o_p$是这个方法$m$的参数，记为$m \joinrel\xrightarrow{parameter} o_p$；%，或者 $ rel(m,o_p) = parameter$；%，或者三元组$\left\langle m, o_p, parameter\right\rangle $；
+		\item 返回值关系：若对象$o_r$是这个方法$m$的返回值，记为$m \joinrel\xrightarrow{return} o_r$；%，或者 $ rel(m,o_r) = return$；%，或者三元组$\left\langle m, o_p, return\right\rangle $；
+		\item 实例关系：若方法$m$是非静态方法，则方法执行时我们可以获取到关联到的this指针对象$o_i$，记为$m \joinrel\xrightarrow{instance} o_i$；%，或者 $ rel(m,o_i) = instance$；%，或者三元组$\left\langle m, o_p, instance\right\rangle $；
+	\end{itemize}
+
+通常情况下，一个方法执行过程中，返回值对象和实例对象不允许超过一个，而方法参数可以有多个\footnote{返回值为void的方法无返回值对象，静态方法无实例对象。}。
+一个对象可以同时是一个方法执行过程中的实例、参数或者返回值，具体情况由函数执行过程决定。
+
+
+
+\begin{Def}方法执行\end{Def}
+
+方法执行是对方法执行过程中的相关信息的描述，完整的信息包括对应方法的完整签名、执行时所处的线程以及相关的方法对象。
+在本文中，方法执行通常用符号$m$表示。
+
+\subsection{关于方法间关系的定义}
+\begin{Def}
+	调用关系%（Invoke）
+\end{Def}
+
+对于程序$P$的两个方法执行$m_1$和$m_2$，方法$m_1$调用了方法$m_2$，则记作$m_1 \to m_2$，称为方法$m_1$调用方法$m_2$。
+
+\eat{
+\begin{equation}
+m_0 \to  m_1 \to  \dots \to m_n \to m   ( n \geqslant 0)  
+\end{equation}
+}
+
+
+\begin{equation}
+m_0 \to  m_1 , m_1 \to  m_2 , \dots , m_n \to m  ( n \geqslant 0)  
+ \label{equ:extend_invoke}
+\end{equation}
+
+对于方法执行$m$，若存在方法执行$m_i$（$i=0,\dots,n , n \geqslant 0$），使得\autoref{equ:extend_invoke}成立，则记作$m_0 \to  m_1 \to  \dots \to m_n \to m$，简写为$m_0 \stackrel{\ast}{\to} m$，称为方法$m_0$扩展调用方法$m_n$。
+方法$m_0$扩展调用方法$m$的路径用$\left[ m_0 ,   \dots , m_n , m \right] $ 表示。
+特殊的，当$n=0$时，对于方法$m_0$和方法$m$，$m_0 \to m$成立，则$m_0  \stackrel{\ast}{\to}  m$也成立。
+
+
+
+\important{在系统源代码的层面上}，对于方法$m$和$m'$，若方法$m$的执行过程总是会调用方法$m'$（即$m \to m'$\important{总是}成立），可以记为 $m \Rightarrow m'$；
+类似的，若\eat{对于方法$m$和$m'$，}$m  \stackrel{\ast}{\to}  m'$总是成立，可以记为 $m  \stackrel{\ast}{ \Rightarrow } m'$。
+
+\begin{Def}
+	触发关系%（Trigger）
+\end{Def}
+	
+	%如果对于动态函数调用图$DCG$中两个方法（不妨记为$m_a$和$m_b$，$m_a \in DCG$，$m_b \in DCG $），
+	若方法$m_a$和方法$m_b$之间同时需要满足以下三个条件，
+	则两个方法存在触发关系，记为$m_a \hookrightarrow m_b$ 或者$m_{a} \lhook\joinrel\xrightarrow{\text{因果关系}}  m_{b} $，称为$m_a$触发调用$m_b$：
+	
+	\begin{itemize}
+		\setlength{\itemsep}{-5pt}
+		\item  方法执行$m_a$的执行时间总是在方法执行$m_b$的执行时间之前；
+		\item 方法$m_a$和$m_b$之间不存在一条调用路径，即$m_a \stackrel{\ast}{\to} m_b $不成立；
+		\item $m_a$、$m_b$之间存在着因果关系，包括但不限于事件回调或多线程交互等。
+	\end{itemize}
+
+
+以多线程中的Thread为例，方法\code{Thread.start()}（记为$m_{start}$）的执行会使JVM/Dalvik虚拟机创建一个新的线程。
+最终，虚拟机会在新的线程中回调该Thread对象的方法\code{Thread.run()}（记为$m_{run}$）。
+上述描述可以表示成$m_{start} \hookrightarrow m_{run}$。由于这个触发关系和多线程相关，也可以记作$m_{start} \lhook\joinrel\xrightarrow{Thread}  m_{run} $。
+同样的，触发关系也适用于UI事件注册与响应\eat{UI事件注册与响应指的是控件的点击事件，例如\code{View.setOnClickeListener(View\$OnClickListener)}和\code{View\$OnClickListener.onClick(View)}的关系} 、基于Handler的多线程交互。
+
+\important{在系统源代码的层面上}，对于方法$m_a$ ,$m_b$ ,$m_c$ ，
+若$m_a  \stackrel{\ast}{ \Rightarrow } m_b$ 、 $m_b \hookrightarrow m_c$\important{同时}成立，则$m_a \hookrightarrow m_c$成立；
+若$m_a  \hookrightarrow m_b$ 、 $m_b \stackrel{\ast}{ \Rightarrow }  m_c$\important{同时}成立，则$m_a \hookrightarrow m_c$成立。
+
+\subsection{关于调用图的定义}
+
+\begin{Def}
+	函数调用图%（CallGraph，CG）
+\end{Def}	
+
+
+	函数调用图是对程序运行时行为的描述，用有向图$CG = ( V , E)$表示。 图中的点和\textbf{方法执行} $m$一一对应；
+	如果方法$m_1$调用方法$m_2$（即$m_1 \to m_2$），则有向边 $e = \left\langle m_1  \to m_2 \right\rangle $属于有向边集合 $E$；
+	如果方法$m_1$触发方法$m_2$（即$m_1 \hookrightarrow m_2$），则有向边 $e' = \left\langle m_1  \hookrightarrow m_2 \right\rangle $属于有向边集合 $E$。 
+
+
+\textbf{注意：}
+在应用执行过程中，方法A被调用了两次，方法A的每次执行都调用了方法B，则对应的函数调用图$CG$如\autoref{equ:dcg_sample}所示。
+在调用图$CG$中，$m_a$ 和 $m_b$ 各有两个，分别对应的两次\textbf{方法执行}。
+$\left\langle m_{a_{1}} \to m_{b_{1}}\right\rangle $对应的是第一次函数A调用函数B，
+$\left\langle m_{a_{2}} \to m_{b_{2}} \right\rangle    $对应的是第二次函数A调用函数B，
+
+\eat{
+\begin{equation}
+\begin{aligned}
+CG = &(V,E) ,\\ 
+V = & \{m_{a_{1}},m_{b_{1}},m_{a_{2}},m_{b_{2}}\}, \\ 
+E = & \{  
+\left\langle  m_{a_{1}} \to m_{b_{1}} \right\rangle  ,\left\langle  m_{a_{2}} \to m_{b_{2}}\right\rangle 
+\} 
+\end{aligned}
+\end{equation}
+}
+{ 
+\equwuhao
+
+
+\begin{equation}  
+\left\{  
+\begin{array}{lll}
+CG &= &(V,E) ,\\ 
+  V &= & \{m_{a_{1}},m_{b_{1}},m_{a_{2}},m_{b_{2}}\}, \\ 
+  E &= & \{  
+\left\langle  m_{a_{1}} \to m_{b_{1}} \right\rangle  ,\left\langle  m_{a_{2}} \to m_{b_{2}}\right\rangle 
+\}. 
+\end{array}  
+\right.  
+\label{equ:dcg_sample} 
+\end{equation} 
+
+}
+
+
+\begin{Def}
+	拓展函数调用图%（Extended CallGraph，ECG）
+\end{Def}
+
+
+	在函数调用图的基础上，添加了方法对象和函数间的触发关系。
+	拓展函数调用图中的节点包括方法执行节点和方法对象节点。图中的边包括描述方法间关系的边和描述方法和对象间的边：
+	前者的方法间关系包括调用关系和触发关系；而后者的关系包括和方法对象相关的三个关系（即参数关系、返回值关系与实例关系）。
+	
+\eat{
+	具体定义如\autoref{equ:def_edcg}所示：
+
+\begin{equation}
+\begin{aligned}
+EDCG =              & (V_{EDCG},E_{EDCG}) ,\\ 
+DCG =                & (V_{DCG},E_{DCG}) ,\\ 
+V_{EDCG} =      & V_{method} \bigcup V_{object} ,\\
+V_{method} =   & V_{DCG}, \\ 
+G_{EDCG} =      & G_{method} \bigcup G_{object} , \\
+G_{method} =  & E_{DCG} \bigcup \{ \left\langle m_1 , m_2 \right\rangle  \mid m_1 \hookrightarrow m_2 \}
+\end{aligned}
+\label{equ:def_edcg} 
+\end{equation}
+}
+	
+	
+\section{Android系统中的触发关系}
+
+触发关系描述的是方法执行间的关系。
+触发定义通常由对象与方法的属性约束条件和对象与方法的关系约束条件两个部分组成。
+前者描述的是对象和方法执行的属性约束条件，即对对象$o$本身的类型$o.class$、定义方法$m$的类$m.class$、方法执行$m$的方法签名$m.sign$和方法执行$m$的方法完整签名$m.methodSign$（即$m.class$和$m.sign$的组合）等属性的约束；
+后者对应的则是对象和方法之间的关系，包括方法对象关系、方法间的调用关系。
+本文中涉及的触发关系包括以下几种。
+
+
+
+\subsection{基于事件响应的触发关系}
+
+
+Andoid事件回调的触发关系描述的是控件点击事件的注册和响应之间的因果关系，即方法\code{View.setOnClickeListener(View\$OnClickListener)}（用$m_{register}$表示）和\code{View\$OnClickListener.onClick(View)}间的因果关系（用$m_{click}$表示）。
+在上述方法中，方法$m_{register}$的实例对象$o_{view}$是方法$m_{click}$的参数对象，而方法$m_{register}$的参数对象$o_{listener}$是方法$m_{click}$的实例对象。
+因此，当两个方法$m_{register}$ 、$m_{register}$及其方法对象$o_{view}$、$m_{register}$满足\autoref{equ:rule_ui}时，$m_{register} \lhook\joinrel\xrightarrow{UiEvent}  m_{register}  $ 成立。
+%我们观察发现：
+%因此，在构建Andoid事件回调的触发关系过程中，当方法$m_{register} $、$m_{click} $满足第19$\sim$22行的条件时，这两个方法之间存在触发关系，即$m_{register} \lhook\joinrel\xrightarrow{UiEvent}  m_{click}  $（第23行）。
+
+
+{ 
+	\equwuhao
+\begin{equation}  
+\left\{
+\begin{array}{ll}
+&o_{view}.class =\text{\codeInEqu{View}};\\
+& o_{listener}.class  \in  \{ c \mid  c \text{为类\codeInEqu{View\$OnClickListener}  的子类}  \};\\
+&m_{register}.methodSign =\text{\codeInEqu{View.setOnClickListener(View\$OnClickListener)}};\\
+& m_{click}.class \in  \{ c \mid  c \text{为类\codeInEqu{View\$OnClickListener}  的子类}  \};\\
+&m_{click}.sign =\text{\codeInEqu{onClick(View)}};\\
+&m_{register}\joinrel\xrightarrow{instance} o_{view}   ,  m_{register} \joinrel\xrightarrow{parameter}   o_{listener};\\
+&m_{click} \joinrel\xrightarrow{parameter}   o_{view} ,  m_{click} \joinrel\xrightarrow{instance}   o_{listener}.
+%\left\langle m_{register}\joinrel\xrightarrow{instance} o_{view}\right\rangle,\left\langle m_{register} \joinrel\xrightarrow{parameter}   o_{listener}\right\rangle  \in ecg			 \\ 
+%\left\langle m_{click} \joinrel\xrightarrow{parameter}   o_{view}\right\rangle,\left\langle m_{click} \joinrel\xrightarrow{instance}   o_{listener}\right\rangle  \in ecg
+\end{array}  
+\right.  
+\label{equ:rule_ui} 
+\end{equation}  
+}
+
+\subsection{基于Java 多线程交互的触发关系}
+
+
+基于Java的多线程交互往往是以{Runnable}作为传递对象，通常通过调用方法\code{Thread.start()} （用$m_{start}$表示）和\code{Activity.runOnUiThread(Runnable)}（用$m_{runOnUiThread}$表示）等API，进而触发类{Thread}和{Runnable}的方法\code{run()}（用$m_{run}$表示）的执行。
+
+通过方法$m_{start}$触发方法$m_{run}$的执行时，方法$m_{start}$和$m_{run}$的实例对象均为同一个{Thread}对象$o_{thread}$。
+%因此，对于方法，如果存在一个\code{Runnable}类型的对象\code{r}，它既是方法$m_{start}$的实例，又是方法$m_{run}$的实例，则两个方法间存在触发关系，即$m_{start} \hookrightarrow m_{run}$。
+因此，当两个方法$m_{start}$ 、$m_{run}$及{Thread}对象$o_{thread}$满足\autoref{equ:rule_thread}时，$m_{start} \lhook\joinrel\xrightarrow{Thread}  m_{run}  $ 成立。
+{ 
+	\equwuhao
+\begin{equation}
+\left\{  
+\begin{array}{ll}
+&m_{start}.methodSign  = \text{\codeInEqu{Thread.start()}};\\
+&m_{run}.class \in  \{ c \mid c \text{为类\codeInEqu{Thread}的子类} \} ;\\
+&m_{run}.sign = \text{\codeInEqu{run()}};\\
+&o_{thread} \in  \{  c \mid \text{c为类\codeInEqu{Thread}的子类}  \} ;\\
+&m_{start}\joinrel\xrightarrow{instance} o_{thread} , m_{run} \joinrel\xrightarrow{instance}   o_{thread} .
+\end{array}  
+\right.  
+\label{equ:rule_thread} 
+\end{equation}
+}
+
+同样的，对于方法\code{Activity.runOnUiThread(Runnable)}，也存在类似的关系：
+在该触发关系中，{Runnable}类型的对象$o_r$，既是方法$m_{runOnUiThread}$的参数，又是方法$m_{run}$的实例。
+因此，当两个方法$m_{runOnUiThread}$ 、$m_{run}$及其方法对象$o_{r}$满足\autoref{equ:rule_runOnUiThread}时，$m_{runOnUiThread} \lhook\joinrel\xrightarrow{runOnUiThread}  m_{run}  $ 成立。
+{ 
+	\equwuhao
+\begin{equation}
+\left\{  
+\begin{array}{ll}
+&m_{runOnUiThread}.methodSign = \text{\codeInEqu{Activity.runOnUiThread(Runnable)}};\\
+&m_{run}.class \in  \{ c \mid c \text{为接口\codeInEqu{Runnable}的实现类} \} ;\\
+& m_{run}.sign = \text{\codeInEqu{run()}};\\
+&o_{r}.class\in  \{  c \mid  c \text{为接口\codeInEqu{Runnable}的实现类}  \} ;\\
+& m_{runOnUiThread} \joinrel\xrightarrow{parameter}   o_r ,  m_{run} \joinrel\xrightarrow{instance}   o_r  .
+\end{array}  
+\right.  
+\label{equ:rule_runOnUiThread} 
+\end{equation}
+}
+
+\subsection{基于{Handler} 多线程消息调度的触发关系}
+
+根据第\ref{chp:background}章中关于{Handler}的介绍，我们知道{Handler}通过{Message}进行多线程消息调度：
+通过方法\code{enqueueMessage(Message)}（用$m_{enqueue}$表示）向消息队列从放入消息（用$o_m$表示）；
+通过方法\code{dispatchMessage(Message)}（用$m_{dispatch}$表示）从消息队列中取出消息$o_m$，进行对应业务逻辑处理。
+%首先，我们利用类\code{Handler}的方法\code{enqueueMessage(Message)}（用$m_{enqueue}$表示）和\code{dispatchMessage(Message)}（用$m_{dispatch}$表示）公用同一个Message对象的特点，
+因此，当两个方法$m_{enqueue}$ 、$m_{dispatch}$及其方法对象$o_{m}$满足\autoref{equ:rule_handler}时，$m_{enqueue} \lhook\joinrel\xrightarrow{Handler}  m_{dispatch}  $ 成立。
+{ 
+	\equwuhao
+\begin{equation}
+\left\{  
+\begin{array}{ll}
+&m_{enqueue}.methodSign = \text{\codeInEqu{Handler.enqueueMessage(Message)}};\\
+&m_{dispatch}.methodSign = \text{\codeInEqu{Handler.dispatchMessage(Message)}};\\
+& o_m.class =   \text{\codeInEqu{Message}}; \\
+ &m_{enqueue}\joinrel\xrightarrow{parameter} o_m  , m_{dispatch}\joinrel\xrightarrow{parameter} o_m.
+\end{array}  
+\right.  
+\label{equ:rule_handler} 
+\end{equation}
+}
+
+\section{举例说明}
+
+
+
+以第\ref{chp:background}章中的\autoref{fig:handler-code}为例，我们将简要阐述上述概念。
+在线程WorkerThread中，方法\code{run()}\eat{$m_{run}$}依次调用了方法\code{Message.obtain()}（用$m_{obtain}$表示）和方法\code{Handler.sendMessage(Message)}（用$m_{send}$表示），则有$m_{run} \to m_{obtain} $和$m_{run} \to m_{send}$。
+对于方法$m_{ontain}$，$o_{m} \joinrel\xrightarrow{return} m_{obtain} $成立。
+对于方法$m_{send}$，$o_{m} \joinrel\xrightarrow{parameter} m_{send} $、$o_{handler} \joinrel\xrightarrow{instance} m_{send} $成立。
+%在Handler的方法handleMessage(Message)中，则有$m_handle \to $
+通过对Android Handler 运行机制的分析，我们知道$m_{enqueue} \hookrightarrow m_{dispatch}$。
+从\autoref{fig:handler-apis}、\autoref{fig:handler-framework}中可知，所有的Handler API最后就会调用到\code{Handler.enqueueMessage( MessageQueue, Message, long)}方法，即$m_{send} \stackrel{\ast	}{\Rightarrow} m_{enqueue} $，以及$m_{dispatch} \stackrel{\ast}{\Rightarrow}  m_{handle}$，
+因此，方法$m_{send}$ 触发调用了方法$m_{handle}$ ，即$m_{send} \hookrightarrow m_{handle}$或$m_{send} \lhook\joinrel\xrightarrow{Handler}  m_{handle} $。
+
+\section{本章总结}
+
+本章介绍了本文使用到的基本概念，从方法和对象的关系、方法间关系、调用图等几个方面对方法关系、方法执行、调用关系、触发关系、函数调用图、拓展调用图等概念做了符号化的定义。
+在此基础上，本章从对象与方法的属性约束条件、对象与方法的关系约束条件两个方面对Android系统中的触发关系做了详细的定义。
+同时，本章还结合第二章的Handler例子简单阐述了上述概念。
