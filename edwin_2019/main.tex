@@ -176,7 +176,7 @@
 \CTEXsetup[format={\raggedright\zihao{4}\heiti}]{section}
 \CTEXsetup[format={\zihao{-4}\heiti}]{subsection}
 
-\CTEXsetup[beforeskip=17pt]{chapter}
+\CTEXsetup[beforeskip=13pt]{chapter}
 \CTEXsetup[afterskip=16.5 pt]{chapter}
 
 
@@ -185,7 +185,7 @@
 
 \renewcommand{\baselinestretch}{1.5}
 
-%\setlength{\baselineskip}{25pt}  %%正文设为25磅行间距
+\setlength{\baselineskip}{25pt}  %%正文设为25磅行间距
 
 
 %\CTEXsetup[beforeskip=\cftbeforetitleskip]{chapter}
@@ -223,7 +223,7 @@
 \def\schoolNameEng{School of Computer Science and Technology}
 
 
-\newcommand{\anonymous}[1]{\phantom{ #1 }} % 匿名开关
+% \newcommand{\anonymous}[1]{\phantom{ #1 }} % 匿名开关
 \ifdefined \anonymous
   \def\stuID{***********}
   \def\cmajor{*****}
@@ -355,9 +355,9 @@
 %\clearPaperPage
 
 \pagenumbering{arabic}
-\pagestyle{fancy}
-\fancyhead[LE,RO]{\small{\articleCategory}}
-\fancyhead[RE,LO]{ \small\leftmark}
+% \pagestyle{fancy}
+% \fancyhead[LE,RO]{\small{\articleCategory}}
+% \fancyhead[RE,LO]{ \small\leftmark}
 
 % 正文
 % 在章首页添加页眉
@@ -367,7 +367,7 @@
 \fancyhead[RE,LO]{ \small\leftmark}
 }
 
-%\banxiaosi
+% \banxiaosi
 \xiaosi
 
 \clearPaperPage
@@ -379,20 +379,19 @@
 \input{chapter-background.tex}
 \clearPaperPage
 
-\input{chapter-definition.tex}
+\input{chapter-certificate.tex}
 \clearPaperPage
 
-\input{chapter-design.tex}
+\input{chapter-dataCollection.tex}
 \clearPaperPage
 
-
-\input{chapter-implement.tex}
+\input{chapter-discoveries.tex}
 \clearPaperPage
 
-\input{chapter-display.tex}
+\input{chapter-case.tex}
 \clearPaperPage
 
-\input{chapter-application.tex}
+\input{chapter-feedback.tex}
 \clearPaperPage
 
 \input{chapter-future.tex}

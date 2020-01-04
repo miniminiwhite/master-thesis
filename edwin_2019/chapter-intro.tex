@@ -3,244 +3,187 @@
 
 \section{研究背景}
 
-%随着移动互联网时代的到来，Android应用
-根据著名网站Statista的统计\cite{GoogleP55:online}显示，Android官方应用平台 Google Play Store在2009年12月至2018年6月期间的应用数量变化如~\autoref{fig:app_number}所示。
-%Google Play Store于2008年8月上线，
-截止2018年3月，在Google Play Store 上架的应用已经超过330 万，而这个数字在2013年7月才刚刚突破100万。
-这反映出移动应用迅猛的增长趋势。
+% With the growing attention of mobile markets, Android has accounted for 85.9\% of global market share~\cite{Gartner_report}. Over 1.5 million apps were released within 2017 alone.
+% Along with the booming of Android markets is the flourish of the mobile underground industry. \emph{Fake apps}, i.e., apps without official certificates, account for a major part of such underground industry.
+% Specifically, we consider fake apps as those who simulate the corresponding official ones or look almost the same as their official correspondences, with ultimate goal to elicit download or manifest malicious behaviors.
+% Early observation reveals fake apps come in two different forms.
+% The first category is called \texttt{imitators}, a group of apps with similar names or functionalities to their official correspondences so that users are fooled to download them.
+% While imitators are just similar to official apps, \texttt{imposters}~\cite{Andow2016ASO} refer to the category of apps that have exactly the same metadata with their official correspondences, for example, they may have the same names, icons, or version numbers, some of the imposters are even made by repackaging official apk files directly.
+随着移动市场于近年逐渐兴起，安卓系统作为一个主流的移动端操作系统也在蓬勃发展。
+根据数据统计机构Statista的资料显示，从发布之日起，安卓的市场占有率就在逐年稳步增长。截至2019年第二季度，安卓系统已经占据了76.08\%的全球移动端市场份额~\cite{StatistaMktShare}。
+与此同时，安卓应用的数量也伴随着安卓市场的蓬勃发展节节攀高。
+仅看安卓官方的应用商店Google Play，其在2017年一年中就新上架了近一百万个可供下载的应用程序。
+虽然因为各种原因，Google Play上的应用数量在2018年有所回落，但如图~\ref{fig:app_number}所示，应用市场上目前仍有近三百万个可用的应用程序，安卓应用市场依然充满活力~\cite{StatistaAppNumber}。
 
-\begin{figure*}[h]
+\begin{figure*}
 	\centering
-	\includegraphics[width=0.9\textwidth]{./Figures/app-numbers.png}
-	\caption{Google Play Store上架的应用总数的变化趋势}
+	\includegraphics[width=0.9\textwidth]{./Figures/edwin-intro-app-number.png}
+	\caption{Google Play Store上应用总数变化趋势}
 	\label{fig:app_number}
 \end{figure*}
 
+伴随着应用数量爆发式增长的，还有欣欣向荣的移动黑产。
+\emph{仿冒应用}构建了移动黑产工业链中十分重要的一环。
+本文提及的仿冒应用指代模仿市面上热门的应用、甚至外观与热门应用相差无几的移动应用，其目的是诱导用户下载以赚取流量，甚至是窃取用户信息、触发有害行为从而盈利。
+根据的前期观察，作者发现仿冒应用以两种不同的形式出现。
+第一类为\texttt{模仿应用}，这类应用具有和原版热门应用相似的外观（比如名字、图标等），诱导用户下载。
+而第二类，\texttt{高仿应用}~\cite{Andow2016ASO, luo2016repackage}，已不单单是与原应用``相似''了，这类应用采用和原应用一模一样的外观，乃至连版本号都相同，其中的部分应用就是直接通过对原应用重打包做成的。
 
+% Such fake apps pose significant problems to not only the official developers' interest but also the end users' right.
+% For example, when users try to search an app for installation in market, multiple fake apps with similar names or icons will be retrieved at the same time.
+% As a result, the user experience of app searching and downloading is greatly affected by the fake apps in real world.
+这些仿冒应用不仅大大损害了原应用开发者的利益，也侵犯了用户的权益。
+我们可以假设一个十分普遍的场景：当用户尝试通过应用市场搜索安装一个应用，应用市场往往会返回多个无论是名字或是图标都十分相像的结果，在这种情况下，用户十分有可能安装一个仿冒应用。
+就算用户最后通过某些途径安装上了原版应用，也浪费了时间和人力成本，遑论某些仿冒应用中潜藏着恶意行为，一旦被触发就会对用户造成更大的损害。
+于是，用户搜索与下载应用时的安全和体验就被仿冒应用严重影响了。
 
-在移动应用迅猛增长的同时，研究人员开始研究如何通过技术手段分析移动应用的代码内容，了解应用本身的运行时行为，进行相关学术研究和工业生产。
-利用程序分析技术，研究人员对应用程序的项目相关源代码、配置文件或者二进制分发文件进行分析，监控程序的运行时行为，总结出应用程序相关特征。
-结合具体应用场景，我们对以上特征进行归纳总结并找出相关规律，应用在应用分析、安全风险以及质量保障等领域，进一步提升应用程序的易用性、安全性和可靠性。
+% Even worse, as the doorsill to develop an app has been set low, the cost to develop a fake app is much lower than what it takes to develop a desktop program, providing an ideal hotbed for the underground industry to thrive on~\cite{wasserman2010software}. Moreover, the flexibility of Android app implementation~\cite{storydroid} contributes the fake apps' complexity.
+更糟糕的是，随着开发移动应用的门槛逐渐下降，开发一个仿冒应用的成本已经远低于开发一个桌面级应用所需的成本，这为地下产业涌入移动端发展提供了绝佳的温床~\cite{wasserman2010software}。
+此外，移动应用功能在实现上的灵活性~\cite{storydroid}也增加了仿冒应用的复杂度，让分析移动应用变得更加困难。
 
+% Despite the ubiquity, little is known about fake apps and their ecosystem -- their common characteristics, the number of fake apps at large, their production process and speed, and their evasive strategies, etc.
+% Most research studies to date show greater interests on malware detection techniques~\cite{chen2016stormdroid,chen2018automated, chen2016towards, fan2016poster}. To the best of authors' knowledge, there exists no work in understanding fake apps, and their ecosystem.
+% Similarly, we witness the same deficiency in industry.
+% Most attention in analysis and threat reports focuses on malicious apps while neglecting the fake apps~\cite{McAfee_mobile_thread_report}.
+% On the other hand, the knowledge gained from desktop era regarding malicious or fake software are of less use, due to differences in operating system properties~\cite{yin2007panorama}.
+尽管如今仿冒应用随处可见，我们对仿冒应用和他们的生态却依然知之甚少——他们有何共同特征、数量多少、迭代速度如何、以及他们如何规避应用市场检测等问题依然有待解答。
+遗憾的是，如今关于移动应用的学术研究大多关注于恶意应用的检测技术~\cite{chen2016stormdroid,chen2018automated, chen2016towards, fan2016poster}。据作者所知，目前还未有任何关于仿冒应用或其生态系统的研究。
+类似地，工业界中也鲜见关于仿冒应用的课题。多数分析与威胁报告都聚焦于恶意应用上，忽略了仿冒应用~\cite{McAfee_mobile_thread_report}。
+而在另一方面，由于底层、实现等各个层面上的差异，从桌面平台上获取的关于仿冒软件的知识也不能很好地用于了解移动端仿冒应用~\cite{yin2007panorama}。
 
 \section{国内外研究现状}
-\subsection{Android分析技术}
+% \subsection{Empirical study on grayware}
+\subsection{针对灰色应用的实证研究}
 
-在软件分析领域，根据分析过程中是否需要运行目标程序，我们可以将软件分析技术分为静态分析技术和动态分析技术。
-如果分析过程不依赖于目标程序的运行，这种分析技术称为静态分析技术，反之则为动态分析技术。
+% Andow et al.~\cite{Andow2016ASO} proposed a study of grayware, in which 9 types of greyware are defined and triaged from data retrieved from google play. We referred the definition on \textit{imposter} from this article.
+Andow等人曾发表过一篇针对灰色应用的研究文献~\cite{Andow2016ASO}。其中，他们从Google Play应用商店中采集了应用样本，并将样本分类，定义出了9种不同的灰色应用。
+灰色应用即那些并非具有明显的恶意行为，但应用意图存疑、又或是会向系统申请过多权限的应用程序。
+本文中对\texttt{高仿应用}的定义参考了这篇文献中的内容。
 
-静态分析技术通常以二进制程序文件或者程序源代码作为研究主体，结合控制流分析、数据流分析技术、指针分析以及程序依赖分析，得出应用程序相关的函数调用图、UML类图和序列图等，并在此基础上进行学术研究。
-%\footnote{在Java语言中，函数称为方法。在本文中，两者可以相互替换，不做区分。}。
-%的控制依赖和数据依赖（两者统称为程序依赖）；
-%根据程序方法内相关函数/方法调用，可以得到函数调用图、UML类图和序列图；
-%我们将程序依赖数据和函数调用图相结合，可以进一步得到过程间程序依赖，
-%帮助研究人员了解程序整体层面的业务间的依赖关系，进行污点传播分析\cite{stafford2000formal}。
+% \subsection{Empirical studies on malware ecosystem}
+\subsection{针对恶意应用生态系统的实证研究}
 
-动态分析技术依赖目标程序的运行，通过修改目标程序的运行文件，搭建目标程序的运行环境，记录程序运行过程中相关操作信息，监控目标程序在运行过程中的状态变迁或指标变化，
-进而得出程序在运行过程中的行为特征，帮助研究人员进行程序安全性分析，提升程序的质量可靠性。
-
-
-
-上述两种技术各有优劣。
-静态分析技术有着较为扎实的理论基础，覆盖较多的场景，分析较为全面，分析结果通常情况下精确可靠。
-但是，静态分析技术在枚举所有情况时，往往会遇到状态爆炸的问题，具体实验效果受到实验运行环境的硬件条件和算法实现程度的限制。
-而且，当静态分析技术分析的问题依赖于外部环境（例如，用户实时操作序列、手机所处环境因素等）时，分析得到的结果并不是非常准确。
-动态分析技术却能解决上述问题，通过对程序运行状态的监控，帮助研究人员了解程序的运行行为，掌握程序的安全性信息和可靠性信息。
-另外，动态分析技术还能解决动态代码加载的问题。
-但动态分析技术的短板也非常明显。
-动态运行环境的搭建需要一定的技术要求，构建系统的时间成本大。
-另外，动态分析技术的分析结果往往只适用程序某次运行过程，无法直接推广到其它运行情况。%，结果的拓展性差。
+% 46 malware samples on various platforms are dissected to gain understanding on their incentive system as in a survey conducted by Felt et al.~\cite{Felt2011ASO}. Meanwhile, several strategies are proposed by them to defend again these type of malware.
+% Zhou and Jiang~\cite{Zhou2012DissectingAM} gathered over 1,200 malware samples across major Android malware families, systematically characterizing their different natures including installation methods, activation mechanisms and how the payload is carried out.
+% These researches help expand practitioners' horizon in terms of malicious app's behavior, but the insight they provide may not suit fake app identification well.
+在Felt主导的一次研究~\cite{Felt2011ASO}中，研究人员仔细剖析了来自多个不同平台的46个恶意程序样本以了解这些样本的激励机制。该篇文献也揭示了这些样本的运行机制和行为策略，为后人抵御此类恶意行为提供参考。
+另外，Zhou和Jiang搜集了来自多个主要恶意应用家族的、超过1,200个恶意应用样本，系统性地描绘了这批样本的不同性质，包括其安装手段、激活机制和其如何执行有效负载（实现恶意行为）。
+这类研究帮助了从业者拓宽视野，使得从业者对恶意应用的行为更加了解。
+然而正如上文提及，非安卓平台样本的相关知识并不完全适用于应对安卓平台上的应用分析，而仿冒应用与恶意应用亦有不同点，不可一概而论。针对仿冒应用的专门研究依然是有必要的。
 
 
+% \subsection{Repackage detection}
+\subsection{重打包应用检测}
+% Prior work on repackage detection generally falls into five categories.
+% The first one is based on apps' \textit{instruction sequences}, which uses fuzzy hashing techniques to extract the digest of apps, then calculates similarity between every two digests~\cite{DroidMOSS,Zheng2013DroidAnalyticsA}.
+% The second one is based on \textit{semantic information}.
+% CLANdroid~\cite{CLANdroid} detects similar apps through analyzing five semantic anchors (e.g., identifiers and Android APIs).
+% The third kind leverages \textit{lib detection} methods.
+% CodeMatch~\cite{CodeMatch} filters out libraries used in apps then compares the hash of their remnant.
+% Wukong~\cite{Wukong} detects repackage apps in two steps, but that it processes the second step by using a counting-based code clone detection approach, instead of hash.
+% ViewDroid~\cite{ViewDroid} picks out repackage apps by rebuilding and comparing the viewgraph of different apps, belongs to the forth kind which makes use of \textit{visualizes information}.
+% The fifth kind applies \textit{graph theory} on measuring app similarity.
+% DNADroid~\cite{DNADroid} calculate apps' similarity based on program dependency graph (PDG), while AnDarwin~\cite{AnDarwin} builds semantic vectors with PDG extracted from every methods.
+% Centroid~\cite{Centroid} even constructs 3D-control-flow-graph (3D-CFG) for each method in an app and see how alike the centroid in different apps are.
+针对重打包检测的前人研究大致可划分为五个类别。
+第一类是基于应用\textit{指令序列}的。这种方法使用模糊哈希的方法提取出应用的摘要信息，然后通过比对两两应用之间的摘要信息来获得应用之间的相似度~\cite{DroidMOSS, Zheng2013DroidAnalyticsA}。
+第二类凭借\textit{语义信息}比对应用。如CLANdroid~\cite{CLANdroid}通过分析五种语义特征点（比如代码中的标识符和调用到的安卓API等）。
+第三类利用了\textit{第三方库检测}手段。CodeMatch~\cite{CodeMatch}筛选出应用中使用的第三方库代码后，计算并比对剩余部分代码的哈希值。
+Wukong~\cite{Wukong}也分两步检测重打包应用，但与CodeMatch相比，其第二步使用了基于计数的代码克隆检测手段，而非基于哈希的技术。
+ViewDroid~\cite{ViewDroid}通过重建和比对应用的视图来筛出重打包应用，这种技术属于第四类\textit{信息可视化}。
+第五类依赖\textit{图论}衡量应用相似性。
+DNADroid~\cite{DNADroid}基于应用的程序依赖图(Program Dependency Graph, PDG)来比对应用相似性，而AnDarwin~\cite{AnDarwin}则用从每个方法从提取的PDG构建出语义向量，再计算向量间相似度以检测重打包应用。
+Centroid~\cite{Centroid}甚至为应用中的每个函数构建了三维控制流图(3-Dimensional Control Flow Graph, 3D-CFG)，然后再将三位控制流图聚合，通过检测不同应用在控制图聚合后的质心位置判断应用间的相似程度。
 
-
-\subsection{静态分析技术}
-
-
-在不执行应用程序的情况下，静态分析技术通过对应用程序的源代码或者执行文件进行控制流分析和数据流分析，进而推断应用程序在运行过程中可能产生的行为。
-这方面相关工作包括[\citenum{vallee1999soot,arzt2014flowdroid,AmanDroid,iccta,androguard:online,pxb1988d85,javadeco45,iBotPeac46,maaaazan93}]。
-%Soot\cite{vallee1999soot}、FlowDroid\cite{arzt2014flowdroid}、AmanDroid\cite{AmanDroid}、IccTA\cite{iccta}、AndroGuard\cite{androguard:online}、Dex2Jar \cite{pxb1988d85}、JD-GUI\cite{javadeco45}、APKTool\cite{iBotPeac46}、AndroWarn\cite{maaaazan93}等。
-Soot\cite{vallee1999soot}是传统的静态分析工具，其思路是将所有的Java字节码文件转化成一种中间语言Jimple，并在Jimple的基础上进行常规的控制流分析、数据流分析，理论上适用于所有可以在Java虚拟机上运行的语言（例如Scala、Groovy等等）的分析。
-由于Android程序本身的字节码Davlik和Java字节码在格式上保持一致，因此，Soot也支持Android应用程序的静态分析。
-但是，Soot在分析过程中没有考虑一些Android的特性难免会出现一些问题。
-为此，德国达姆施塔特工业大学的Steven Arzt等人在Soot的基础上考虑Android程序中Activity的生命周期特性，推出了一个针对Android的静态分析工具FlowDroid\cite{arzt2014flowdroid}，可以做到上下文、路径、对象、字段等层面上的敏感。
-FlowDroid通过定义数据源点和数据泄漏点，在Android应用生命周期的基础上，可以实现数据流敏感的污点分析。
-但其不足之处在于缺少跨组件通信的分析不考虑多线程调用问题。
-在FlowDroid基础上，卢森堡大学的Li Li等人推出了IccTA\cite{iccta}，利用跨组件通信分析工具IC3提取跨组件通信\eat{（Inter-Component Communication, ICC）}的方法调用，并结合AndroidManifest.xml文件定义的Intent Filter信息，连接跨组件通信的两端组件，避免了FlowDroid因缺少跨组件通信而导致的数据流信息的缺失。
-%Yang等人\cite{yang2015static}利用静态分析技术并将回调函数添加到控制流图（调用图）中，形成了回调函数控制流图\eat{（Callback control-flow gragh）}。
-%法国和意大利的学者~\cite{payet2012static}通过对Java字节码静态分析器Julia进行扩展，使得其支持对 Android 应用程序的静态分析；
-%他们通过改写 Android 库中 Activity、LayoutInflater 等类的代码逻辑，规避了Android系统分析常见难点(如程序的事件机制，基于反射的视图加载等)，
-%实现了包括死代码检查、空指针检查在内的7种静态分析技术。
-
-
-
-%由此可见，静态分析工具在分析过程中虽然可以对应用程序进行较为全面的分析，覆盖应用程序的所有代码，但由于缺少和程序执行过程相关的部分必要信息（应用程序的执行序列、和设备所处环境相关的传感器（如GPS、温度等）信息等），可能导致部分情况下分析结果的不精确。为了解决这一问题，研究人员提出了动态分析技术。
-
-
-\subsection{动态分析技术}
-
-% 为了解决这一问题，研究人员提出了动态分析技术。
-和静态分析技术相对应，动态分析技术通过执行应用程序，获取程序运行过程的相关信息，从而实现对应的研究目的。
-动态分析技术往往需要对运行环境做适当的修改或者调用特殊的系统接口，记录应用程序运行过程的关键信息，结合数据流追踪等技术，实现对应用程序的运行时行为的监控与记录。
-这方面的工作代表包括[\citenum{chun2014taintdroid,droidbox:online,van2013dynamic,droidscope,acpmInsp34}]等。
-Enck等人提出的TaintDroid\cite{chun2014taintdroid}，是一个高效的系统级的动态污点跟踪和分析系统。它通过修改Dalvik虚拟机，利用动态污点分析技术实时监控敏感数据的生成、传播和泄露，实现了变量层面、方法层面、文件层面的数据追踪。
-此外，TaintDroid还支持跨进程通信（IPC）层面上的污点分析，因此可以精确分析出应用程序从消费者手机上获取和发布隐私信息的完整传播过程。
-TaintDroid虽然提供了较为完备的数据流分析技术，但是不支持控制流追踪，也无法给出相关语句的执行路径。
-DroidBox\cite{droidbox:online}在TaintDroid基础上，对Android Framework的部分API做了修改，可以记录一些开发人员感兴趣的API（例如文件读写、网络请求、SMS服务等）的调用，并提供分析结果的可视化。
-同时，DroidBox还实现了应用程序的自动安装和执行，弥补了TaintDroid在软件测试自动化方面的不足。
-和TaintDroid不同，TraceDroid\cite{van2013dynamic}采用的是另一种思路，利用字节码插装技术AspectJ，使得方法在执行时输出相应的日志信息。根据这些信息TraceDroid可以还原函数调用图，得到分析结果。
-由于Aspect在进行字节码编织时引入的新的方法会导致方法数65K限制问题（即构建APK文件的过程中，方法总数超过65536，进而使得APK文件无法成功构建~\cite{Configur27}），因此该方案存在不稳定的情况。
-Inspeckage\cite{acpmInsp34}是一个基于Xposed框架开发的动态分析工具，通过拦截应用程序相关的Android API，帮助用户实时了解应用程序的运行时行为（例如文件读写、加解密、网络服务等）。
-
-
-
-
-
-\subsection{分析技术的应用}
-
-静态分析技术和动态分析技术可以分析软件行为表现，常运用在安全性分析、质量保障等领域。
-
-
-%\point{安全性分析：}
-
-安全性分析包括隐私泄露、权限机制研究、恶意软件排查等。
-为了弥补Android官方文档权限说明不完整的状况，多伦多大学的Kathy Au等人提出的PScout\cite{au2012pscout}利用Soot对Android系统程序进行静态分析，
-构建出Android系统的函数调用图，在调用图中标识权限相关的Binder跨进程调用，结合逆向可达性分析技术得出系统API接口与权限的映射关系。
-%相比其他类似工作，由于考虑了Android系统特性，PScout分析的到结果更加完整，但受到可达性分析的精度限制，存在部分错误的映射关系。
-%此外，该团队对Android 2.1 $\sim$  4.0等四个版本的系统源代码进行了广泛的分析，就权限设计的冗余性、无文档说明API的权限要求、权限在Android系统升级的演变等多个研究问题进行深入的探讨。
-在PScout的基础上，\textsc{WhyPer}\cite{pandita2013whyper}将自然语言处理技术和传统静态分析技术相结合，
-可以帮人们找出应用市场中那些应用描述和实际使用到的权限不符的应用。
-{Wei Yang等人发现一部分恶意应用试图通过模仿正常应用的行为模式，以躲避安全系统的检测。}
-%虽然，这些恶意软件和常规软件具备相同的功能，但是行为的执行时机和%，例如恶意软件用到了和正常软件经常使用到的发送短信的功能，
-%不同的是恶意软件的行为一般在特定条件下（例如深夜）运行。
-为此，Wei Yang等人提出了一种基于静态分析技术的解决方案AppContext\cite{yang2015appcontext}。
-在FlowDroid提供的函数调用图的基础上，AppContext结合Android常见的系统事件形成ICFG，提取出安全敏感行为的上下文，
-并利用机器学习算法通过明敏感行为及其上下文将应用行为分类为良性行为以及恶意行为。
-%并利用SVM技术对这些信息进行机器学习，得到最终的安全检测模型。
-通过实验分析发现，AppContext的准确率和召回率分别达到了87.7\%和95\%，可验证安全敏感行为的恶意性与该行为的意图(通过上下文反映)的密切关系。
-AppIntent\cite{yang2013appintent}利用静态分析技术提取应用程序的时间约束条件，再结合符号执行技术，最后得到用户信息泄露的序列。
-类似的，AppAudit\cite{xia2015effective}采用了静动态分析结合的技术方案，利用静态分析技术找出函数调用图中潜在的数据泄露路径，并利用动态污点分析技术进行进一步确认，在一定程度上减低了结果的假阳性。
-相比AppIntent，AppAudit得到的数据泄露路径，准确度更高，同时时间开销较小。
-Marvin\cite{lindorfer2015marvin}从静动态分析技术的分析结果中提取应用的特征（例如应用元数据、类结果、应用运行时行为等），并利用机器学习技术进行训练。
-在对大规模数据验证时，Marvin可以识别出98.24\%的恶意软件，假阳性低于0.04\%。
-由于网络通信在Android应用中的普遍性，文献[\citenum{Shao2016The,Jia2017Open,bu2017program}]专门研究Android应用上的网络安全问题，涵盖UNIX Domain Socket、Internet Socket等多个不同的方面，探讨了不同使用场景下的网络安全问题。
-
-
-
-
-
-
-%PATDroid\cite{sadeghi2017patdroid}动静态结合
-
-
-%\point{质量保障}
-
-分析技术在质量保障领域的应用包括提升软件测试的代码覆盖率\cite{azim2013targeted,yang2013grey,su2016fsmdroid,androidtest2}、错误定位\cite{mirzaei2015exception,machado2013mzoltar}、错误修复分析\cite{tan2018repairing,QingGaoASE15}以及变异测试\cite{MutationOperatorsAndroid,deng2015towards,linares2017enabling}等。
-%t, most GUI testing techniques, e.g., random testing [39, 57], search-based testing [58, 60], and model-based testing [2, 3, 8, 78, 85]
-文献[\citenum{azim2013targeted}]利用静态分析工具SCanDroid得到静态Activity迁移图，并结合基于目标探索策略和深度优先探索策略进而达到了较好的Activity覆盖率。
-Wei Yang等人的工作\cite{yang2013grey}通过对APP的状态进行建模，在深度优先算法的基础上，使得程序在当前状态无可再遍历状态的情况下进行回溯。
-相比传统的深度优先算法，Wei Yang的工作对应的时间开销更小，效率更高。
-此外，Stoat\cite{su2016fsmdroid,androidtest2}利用静态、动态分析技术标识出程序本身的状态和事件，从应用中抽象出有限状态机（FSM）模型。
-基于该模型，Stoat进行模型变异、测试用例生成与执行、模型迭代，使得应用程序的覆盖率相比之前工作[\citenum{hao2014puma,amalfitano2015mobiguitar}]提升了17$\sim$31\%。
-文献[\citenum{mirzaei2015exception,machado2013mzoltar}]等将\eat{传统软件的错误定位技术——}基于频谱的错误定位技术\eat{（spectrum-based fault location，SBFL）}运用在Android应用上，取得了不错的成绩。
-文献[\citenum{tan2018repairing,QingGaoASE15}]等主要聚焦如何在Android应用程序出现问题时，根据异常的堆栈信息结合软件变异技术或者问答网站生成补丁代码，实现程序的自动修复。
-范玲玲等人的工作\cite{fan2018large}通过开源社区中应用的issue分析，从异常种类（应用异常、系统异常、库（Library）异常）、系统异常分类、错误检查工具以及错误修复方式等若干方面进行较为深入的分析、探讨和总结。
-
-
-%\point{应用分类：}
-%Simapp\cite{chen2015simapp}
-%mobile app tagging \cite{chen2016mobile}
-
-
-
-% 例如错误定位、自动化分析、profiling等
+% Each of these approaches has its own advantages and drawbacks, from the perspective of scalability and accuracy, which are beyond the topic in this article.
+% One common they all do share, however, are that the verification step, without any exception, is based on certificate system.
+% Once the illegal developers poison data with legal certificates through apps with vulnerable signature scheme, even the state of the art detecting approach can do nothing about it.
+检测方法林林总总，在此不一一列举，从检测的准确性和可伸缩性上看，每种都均有优缺点，其并不在本文的讨论范围之内。
+然而，他们全都有一个共同之处：在验证阶段，无一例外，都是基于证书系统进行的。
+一旦非法开发者利用具有漏洞的证书签名机制，污染了实验中的部分应用数据，即使是最先进的重打包检测机制也无用武之地。
 
 \section{论文研究意义}
 
+正如前文所述，大量仿冒应用就存在我们身边，蠢蠢欲动。
+为了保障正当开发者的利益与消费者的权益，我们需要对仿冒应用有更全面、更深入的理解，从而更好地抵御仿冒应用。
+然而，现有研究提供的知识仍有空缺部分。
 
-从上述工作中，我们不难发现，分析技术的应用往往需要构建Android应用程序的函数调用图，对程序执行过程进行建模。
-但是，Android应用程序的特性（例如，基于事件驱动的架构、面向组件的开发方式、对回调函数和多线程交互的依赖等）会导致函数调用关系缺失或者不准确，丢失函数关联的必要信息，使得分析工具无法对程序执行过程进行准确建模，对程序分析工作造成挑战。
-
-
-
-
-为此，本文提出了一种可用于还原Android动态函数调用图的技术方案——RunDroid。
-%RunDroid通过对程序源代码和运行环境进行预处理，获得程序的运行时信息，最终还原出Android应用程序的动态函数调用图。
-RunDroid产出的函数调用图不仅包括方法调用关系，还展示了方法对象、方法间触发关系等信息，可以帮助研究人员全面的了解函数间的关系，辅助程序分析工作的完成。
+为了填补本领域的研究空白，作者借助犇众信息的移动安全威胁数据平台Janus\footnote{\url{https://www.appscan.io/}}搜集并分析了大量数据，对仿冒应用作出了较为全面的剖析。
+作者亦希望能凭借此文抛砖引玉，吸引更多研究者对仿冒应用进行更多更深入的研究。
 
 
-%，提供较为全面地了解应用程序运行时的状态变化。
 \section{论文研究内容}
-本文的主要研究工作如下：
+简而言之，本文所作贡献可分为以下几点：
 \begin{itemize}
 	%				\setlength{\itemsep}{-5pt}
 	\setlength{\itemsep}{1pt}
 	\setlength{\parskip}{0pt}
 	\setlength{\parsep}{0pt}
-%	\item 本文调研最近几年Android应用分析领域的静动态分析工具，了解各项工具的优劣以及相关的应用案例。
-%	\item 本文深入Android系统的平台特性，在传统调用图的方法调用关系的基础上，提出了函数触发关系的观念。
-%	\item 本文提出并实现Android动态函数调用图构建系统RunDroid。RunDroid生成的函数调用图不仅体现了传统调用图的方法调用关系，还展示方法执行过程相关的对象信息和函数间的触发关系，反映Android平台相关的特性。
-%	\item   将RunDroid和静态分析工具进行对比，分析两种技术在生成函数调用图上的优缺点。
 
-	\item 本文在传统的方法调用关系的基础上，提出了函数触发关系的定义，并定义了Android系统中常见的触发关系。
-
-	\item  本文提出了一个可用于生成Android动态函数调用图的系统——RunDroid。
-	RunDroid通过获取应用程序运行时的执行信息，还原出程序的动态函数调用图。
-	RunDroid生成的函数调用图可以体现函数间的调用关系和触发关系，反映Android平台相关的特性，为分析程序执行提供更为详细的信息。
-		
-		
-	\item 本文利用RunDroid构建开源Android应用的动态函数调用图，研究方法间触发关系在程序运行过程中的普遍性。
+	% \item {\bf The first comprehensive empirical study on Android fake apps at a finer granularity}.
+	% To the best of our knowledge, we are the first to provide the empirical study on fake apps.
+	% We measure the fake apps from three different perspectives, allowing examining its nature at a finer granularity.
+	\item{\bf 首篇具有较细粒度的针对安卓仿冒应用的全面实证研究}
+	据作者所知，本文是第一篇提供安卓仿冒应用实证研究的文献内容。
+	本文从三个不同视角分析了仿冒应用，从细粒度角度验证了他们的性质。
 	
-	\item 本文对RunDroid的运行效果进行实验，将其产生的函数调用图与经典的静动态分析工具FlowDroid产生的函数调用图进行对比分析，并从不同的角度比较了两者的异同，分析两种技术的优劣。
+	% \item {\bf A large-scale quantitative measurements on fake apps in the industry}.
+	% We collected more than 150,000 data entries to carry out this study to dig out valuable insights or suggestions for the industry.
+	\item{\bf 对工业界中仿冒应用的一次大规模定量分析}
+	在本次研究中，作者搜集了超过15万条数据条目，从中为工业界挖掘出了有价值的建议与见解。
 	
-	\item  本文将RunDroid应用在错误定位领域， RunDroid与错误定位技术结合的实验说明RunDroid可以提供更多程序依赖信息，有助于提高错误定位技术技术结果的准确性。
+	% \item {\bf An observation on the fakes of the most popular apps in the real world}.
+	% We conducted our study based on the top 50 popular apps in China and their fake apps.
+	% As these apps are some of the most popular app in the real world and their counterfeits, we consider our study objects to be representative enough.
+	\item {\bf 一次对现实世界中最热门应用的仿冒品的观测}
+	本研究基于在中国内地最受欢迎的50个安卓应用的仿冒应用数据完成。
+	鉴于这批应用的原版受众之广，作者认为其本文的研究对象，即这批仿冒应用的数据，具有足够的代表性。
+	
+	% \item {\bf Findings on fake apps' characteristics based on real cases}.
+	% Discoveries and conclusions emerged from our measurement are further supported by real-world case studies.
+	\item {\bf 基于真实案例发掘仿冒应用特征}
+	从本文测量结果中浮现的发现结果与结论都有现实世界中的案例进一步支持。
+	本文亦会将几个具有代表性的案例一一列出并作案例分析。
 
 
 \end{itemize}
 
 
-
 \section{本文遇到的困难与挑战}
+在实证研究的过程之中，作者遇到了以下几点困难和挑战：
 
+1)	如何确定应用是否仿冒应用？
 
-本文解决的关键问题有如下几点：
+由于研究主体是50个热门应用的对应仿冒应用，作者先从应用中筛选出与热门应用外观相似或是相同的样本，其后再使用安卓本身自带的证书机制，将获得样本的证书信息与原版应用的证书信息进行比对，鉴别出仿冒的样本。
 
-1)	如何获取应用程序中各个函数的执行信息？
+2)	如何获得针对仿冒应用的大量数据？
 
-在应用程序执行过程中，获取各函数执行信息是本文的基础。
-函数按照函数的声明者可以分为用户定义的方法和系统预定义的方法。
-对于前者，我们可以通过修改程序源代码实现；但对于后者，由于我们无法直接修改系统程序的源代码，而构建一个符合本文业务需求的系统的成本较高，
-为此，我们需要寻找对应的解决方案以帮助我们获取系统方法的执行信息。
+数据搜集是科研工作中公认的难点。
+本文想要提供一次全面的研究结果，除了搜集的目标应用需要由多样性之外，也必须获得不同应用市场上的数据，增加研究的代表性。
+前文提及犇众信息的移动安全威胁数据平台Janus是一个数据整合平台。该平台每天从各大安卓应用市场爬取应用样本入库，免去了我们要针对各个市场重新定制爬虫代码的麻烦。
+结合网络爬虫技术，作者顺利从Janus搜寻到了与仿冒应用相关的超过15万条数据条目，其中每条数据条目代表Janus从应用市场上获得的一个应用样本。
 
-2)	如何根据程序中各函数的的执行信息，还原应用程序的函数调用图？
+3)	如何对大量的数据进行有效处理？
 
-为了还原应用程序的函数调用图，依靠以上执行信息还不够，需要组织各种执行信息，以挖掘执行信息见的关联关系。本文将对这一问题的解决作为一个关键研究点。
-
-3)	如何在生成的函数调用图中体现Android特性？
-
-正如上文所提的，Android系统中有很多常规应用中不具备的特性，例如Activity的生命周期、基于多线程调用的触发关系。
-若要在生成的函数调用图上体现上述特性，需要对Android系统源代码有一定了解，并基于图中的相关信息创建与特性相对应的关系。
-这既是本文研究的重点，也是本文的创新点。
+数据规模和处理效率一直是一对矛盾。
+由于一条数据条目代表一个应用样本，要对超过15万个应用样本进行详尽分析，明显太耗费时间成本与计算成本；然而，如果只对样本进行简单处理，获得的分析结果就不够全面和深入。
+在尽量确保分析全面性的前提下，对于每个样本，作者只抽取关键信息进行分析，而不对整个应用的代码进行详尽的静态分析或者动态分析，以节省时间与计算成本。
 
 
 \section{本文组织结构}
-
-
-本文共分为七章，环绕着Android动态函数调用图构建系统的设计与实现展开，各章节内容如下：
+本文共分为八章，环绕着本次实证研究的数据搜集和分析过程、分析结果展开，各章节内容如下：
 
 \fullref{chp:intro}主要介绍了本文的研究背景、相关工作、研究意义、研究内容及本文遇到的困难与挑战。
 
-\fullref{chp:background}从Android的体系结构出发，介绍了Android系统相关的背景知识，包括Activity组件和Android多线程交互方式等。
+\fullref{chp:background}介绍了安卓系统、应用市场相关的背景知识，包括现有的Google Play市场和多个第三方市场共存的局面介绍。
 
-\fullref{chp:definition}对本文使用到的基本概念做基本的介绍，定义Android系统中常见的触发关系，并结合具体示例简单解释这些概念。
+\fullref{chp:certificate}阐述本文主要使用到的安卓安全证书机制，包括此机制有何作用、如何运作。
 
+\fullref{chp:dataCollection}提供了本篇研究的概览，并仔细分布解释了数据收集流程。
 
-\fullref{chp:design}对RunDroid系统的系统功能做了基本的介绍，从整体上阐述了RunDroid的工作原理，并详细地介绍了RunDroid获取运行时的方法信息，并根据日志构建\ecg 的完整过程。
+\fullref{chp:discoveries}从多个视角分类提出并解说针对这批仿冒应用数据得到的发现。三个视角包括仿冒应用特征、针对仿冒应用的定量分析和仿冒应用的发展轨迹，每个视角都被进一步分解成了多个不同的研究问题。
 
-
-\fullref{chp:implement}对RunDroid运行流程做了基本的阐述，并详细介绍了RunDroid中预处理器、运行时拦截器、日志记录器、调用图构建器等组件的技术实现。
-
-\fullref{chp:testing} 将利用RunDroid构建开源应用的动态函数调用图；将RunDroid产出的调用图与静态分析工具FlowDroid进行对比；并将RunDroid与错误定位技术结合进行探索性的实验。
+\fullref{chp:case}结合上一章中提出的各个发现，挑出数据中具有代表性的一些案例进行案例分析，以案例进一步佐证分析结果的正确性。
 
 \fullref{chp:future}对本文工作进行总结，并对下一步工作进行展望。
 
