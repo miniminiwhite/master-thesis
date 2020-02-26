@@ -9,18 +9,18 @@
 % Early observation reveals fake apps come in two different forms.
 % The first category is called \texttt{imitators}, a group of apps with similar names or functionalities to their official correspondences so that users are fooled to download them.
 % While imitators are just similar to official apps, \texttt{imposters}~\cite{Andow2016ASO} refer to the category of apps that have exactly the same metadata with their official correspondences, for example, they may have the same names, icons, or version numbers, some of the imposters are even made by repackaging official apk files directly.
-随着移动市场于近年逐渐兴起，安卓系统作为一个主流的移动端操作系统也在蓬勃发展。
-根据数据统计机构Statista的资料显示，从发布之日起，安卓的市场占有率就在逐年稳步增长。截至2019年第二季度，安卓系统已经占据了76.08\%的全球移动端市场份额~\cite{StatistaMktShare}。
-与此同时，安卓应用的数量也伴随着安卓市场的蓬勃发展节节攀高。
-仅看安卓官方的应用商店Google Play，其在2017年一年中就新上架了近一百万个可供下载的应用程序。
-虽然因为各种原因，Google Play上的应用数量在2018年有所回落，但如图~\ref{fig:app_number}所示，应用市场上目前仍有近三百万个可用的应用程序，安卓应用市场依然充满活力~\cite{StatistaAppNumber}。
+随着移动市场于近年逐渐兴起，Android系统作为一个主流的移动端操作系统也在蓬勃发展。
+根据数据分析机构StatCounter的资料显示，从发布之日起，Android的市场占有率就在逐年稳步增长。截至2020年，Android系统已经占据了74.3\%的全球移动端市场份额~\cite{MobileOSMktShare}。
+与此同时，Android应用的数量也伴随着Android市场的蓬勃发展节节攀高。
+仅看Android官方的应用商店Google Play，其在2017年一年中就新上架了近一百万个可供下载的应用程序。
+虽然因为各种原因，Google Play上的应用数量在2018年有所回落，但如图~\ref{fig:app_number}所示，应用市场上目前仍有近三百万个可用的应用程序，Android应用市场依然充满活力~\cite{StatistaAppNumber}。
 
-\begin{figure*}
+\begin{figure}
 	\centering
 	\includegraphics[width=0.9\textwidth]{./Figures/edwin-intro-app-number.png}
-	\caption{Google Play Store上应用总数变化趋势}
+	\caption{Google Play 应用商店架上应用总数变化趋势}
 	\label{fig:app_number}
-\end{figure*}
+\end{figure}
 
 伴随着应用数量爆发式增长的，还有欣欣向荣的移动黑产。
 \emph{仿冒应用}构建了移动黑产工业链中十分重要的一环。
@@ -69,7 +69,7 @@ Andow等人曾发表过一篇针对灰色应用的研究文献~\cite{Andow2016AS
 在Felt主导的一次研究~\cite{Felt2011ASO}中，研究人员仔细剖析了来自多个不同平台的46个恶意程序样本以了解这些样本的激励机制。该篇文献也揭示了这些样本的运行机制和行为策略，为后人抵御此类恶意行为提供参考。
 另外，Zhou和Jiang搜集了来自多个主要恶意应用家族的、超过1,200个恶意应用样本，系统性地描绘了这批样本的不同性质，包括其安装手段、激活机制和其如何执行有效负载（实现恶意行为）。
 这类研究帮助了从业者拓宽视野，使得从业者对恶意应用的行为更加了解。
-然而正如上文提及，非安卓平台样本的相关知识并不完全适用于应对安卓平台上的应用分析，而仿冒应用与恶意应用亦有不同点，不可一概而论。针对仿冒应用的专门研究依然是有必要的。
+然而正如上文提及，非Android平台样本的相关知识并不完全适用于应对Android平台上的应用分析，而仿冒应用与恶意应用亦有不同点，不可一概而论。针对仿冒应用的专门研究依然是有必要的。
 
 
 % \subsection{Repackage detection}
@@ -87,7 +87,7 @@ Andow等人曾发表过一篇针对灰色应用的研究文献~\cite{Andow2016AS
 % Centroid~\cite{Centroid} even constructs 3D-control-flow-graph (3D-CFG) for each method in an app and see how alike the centroid in different apps are.
 针对重打包检测的前人研究大致可划分为五个类别。
 第一类是基于应用\textit{指令序列}的。这种方法使用模糊哈希的方法提取出应用的摘要信息，然后通过比对两两应用之间的摘要信息来获得应用之间的相似度~\cite{DroidMOSS, Zheng2013DroidAnalyticsA}。
-第二类凭借\textit{语义信息}比对应用。如CLANdroid~\cite{CLANdroid}通过分析五种语义特征点（比如代码中的标识符和调用到的安卓API等）。
+第二类凭借\textit{语义信息}比对应用。如CLANdroid~\cite{CLANdroid}通过分析五种语义特征点（比如代码中的标识符和调用到的AndroidAPI等）。
 第三类利用了\textit{第三方库检测}手段。CodeMatch~\cite{CodeMatch}筛选出应用中使用的第三方库代码后，计算并比对剩余部分代码的哈希值。
 Wukong~\cite{Wukong}也分两步检测重打包应用，但与CodeMatch相比，其第二步使用了基于计数的代码克隆检测手段，而非基于哈希的技术。
 ViewDroid~\cite{ViewDroid}通过重建和比对应用的视图来筛出重打包应用，这种技术属于第四类\textit{信息可视化}。
@@ -123,22 +123,22 @@ Centroid~\cite{Centroid}甚至为应用中的每个函数构建了三维控制�
 	% \item {\bf The first comprehensive empirical study on Android fake apps at a finer granularity}.
 	% To the best of our knowledge, we are the first to provide the empirical study on fake apps.
 	% We measure the fake apps from three different perspectives, allowing examining its nature at a finer granularity.
-	\item{\bf 首篇具有较细粒度的针对安卓仿冒应用的全面实证研究}
-	据作者所知，本文是第一篇提供安卓仿冒应用实证研究的文献内容。
+	\item{\bf 首篇具有较细粒度的针对Android仿冒应用的全面实证研究}
+	据作者所知，本文是第一篇提供Android仿冒应用实证研究的文献内容。
 	本文从三个不同视角分析了仿冒应用，从细粒度角度验证了他们的性质。
-	
+
 	% \item {\bf A large-scale quantitative measurements on fake apps in the industry}.
 	% We collected more than 150,000 data entries to carry out this study to dig out valuable insights or suggestions for the industry.
 	\item{\bf 对工业界中仿冒应用的一次大规模定量分析}
 	在本次研究中，作者搜集了超过15万条数据条目，从中为工业界挖掘出了有价值的建议与见解。
-	
+
 	% \item {\bf An observation on the fakes of the most popular apps in the real world}.
 	% We conducted our study based on the top 50 popular apps in China and their fake apps.
 	% As these apps are some of the most popular app in the real world and their counterfeits, we consider our study objects to be representative enough.
 	\item {\bf 一次对现实世界中最热门应用的仿冒品的观测}
-	本研究基于在中国内地最受欢迎的50个安卓应用的仿冒应用数据完成。
+	本研究基于在中国内地最受欢迎的50个Android应用的仿冒应用数据完成。
 	鉴于这批应用的原版受众之广，作者认为其本文的研究对象，即这批仿冒应用的数据，具有足够的代表性。
-	
+
 	% \item {\bf Findings on fake apps' characteristics based on real cases}.
 	% Discoveries and conclusions emerged from our measurement are further supported by real-world case studies.
 	\item {\bf 基于真实案例发掘仿冒应用特征}
@@ -154,13 +154,13 @@ Centroid~\cite{Centroid}甚至为应用中的每个函数构建了三维控制�
 
 1)	如何确定应用是否仿冒应用？
 
-由于研究主体是50个热门应用的对应仿冒应用，作者先从应用中筛选出与热门应用外观相似或是相同的样本，其后再使用安卓本身自带的证书机制，将获得样本的证书信息与原版应用的证书信息进行比对，鉴别出仿冒的样本。
+由于研究主体是50个热门应用的对应仿冒应用，作者先从应用中筛选出与热门应用外观相似或是相同的样本，其后再使用Android本身自带的证书机制，将获得样本的证书信息与原版应用的证书信息进行比对，鉴别出仿冒的样本。
 
 2)	如何获得针对仿冒应用的大量数据？
 
 数据搜集是科研工作中公认的难点。
 本文想要提供一次全面的研究结果，除了搜集的目标应用需要由多样性之外，也必须获得不同应用市场上的数据，增加研究的代表性。
-前文提及犇众信息的移动安全威胁数据平台Janus是一个数据整合平台。该平台每天从各大安卓应用市场爬取应用样本入库，免去了我们要针对各个市场重新定制爬虫代码的麻烦。
+前文提及犇众信息的移动安全威胁数据平台Janus是一个数据整合平台。该平台每天从各大Android应用市场爬取应用样本入库，免去了我们要针对各个市场重新定制爬虫代码的麻烦。
 结合网络爬虫技术，作者顺利从Janus搜寻到了与仿冒应用相关的超过15万条数据条目，其中每条数据条目代表Janus从应用市场上获得的一个应用样本。
 
 3)	如何对大量的数据进行有效处理？
@@ -171,13 +171,11 @@ Centroid~\cite{Centroid}甚至为应用中的每个函数构建了三维控制�
 
 
 \section{本文组织结构}
-本文共分为八章，环绕着本次实证研究的数据搜集和分析过程、分析结果展开，各章节内容如下：
+本文共分为七章，环绕着本次实证研究的数据搜集和分析过程、分析结果展开，各章节内容如下：
 
 \fullref{chp:intro}主要介绍了本文的研究背景、相关工作、研究意义、研究内容及本文遇到的困难与挑战。
 
-\fullref{chp:background}介绍了安卓系统、应用市场相关的背景知识，包括现有的Google Play市场和多个第三方市场共存的局面介绍。
-
-\fullref{chp:certificate}阐述本文主要使用到的安卓安全证书机制，包括此机制有何作用、如何运作。
+\fullref{chp:background}介绍了Android系统、应用市场相关的背景知识，包括现有的Google Play应用商店和多个第三方市场共存的局面介绍，以及仿冒应用的背景介绍，还会阐述本文使用到的Android安全证书机制，如此机制有何作用、如何运作等。
 
 \fullref{chp:dataCollection}提供了本篇研究的概览，并仔细分布解释了数据收集流程。
 
@@ -185,6 +183,6 @@ Centroid~\cite{Centroid}甚至为应用中的每个函数构建了三维控制�
 
 \fullref{chp:case}结合上一章中提出的各个发现，挑出数据中具有代表性的一些案例进行案例分析，以案例进一步佐证分析结果的正确性。
 
+\fullref{chp:feedback}在前文基础上，从应用市场上搜集了部分仿冒应用的评论进行分析，进而了解用户对这些应用持有的态度。
+
 \fullref{chp:future}对本文工作进行总结，并对下一步工作进行展望。
-
-

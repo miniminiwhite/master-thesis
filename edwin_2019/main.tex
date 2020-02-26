@@ -223,7 +223,7 @@
 \def\schoolNameEng{School of Computer Science and Technology}
 
 
-% \newcommand{\anonymous}[1]{\phantom{ #1 }} % 匿名开关
+\newcommand{\anonymous}[1]{\phantom{ #1 }} % 匿名开关
 \ifdefined \anonymous
   \def\stuID{***********}
   \def\cmajor{*****}
@@ -301,6 +301,11 @@
 \dottedcontents{section}[1.5cm]{\xiaosi\heiti}{2.8em}{9.5pt}
 \lhead{\articleCategory}
 
+% \setlength{\parindent}{2em}
+% %默认的弹性间距会导致文中某些排版flush的时候，出现大量空白。
+% \setlength{\parskip}{0.5em} %指定固定段后间距，默认为弹性间距。
+% \setlength{\intextsep}{10pt} %固定浮浮动体前后间距。
+
 %=============================== 代码格式定义 ================================%
 
 
@@ -355,9 +360,9 @@
 %\clearPaperPage
 
 \pagenumbering{arabic}
-% \pagestyle{fancy}
-% \fancyhead[LE,RO]{\small{\articleCategory}}
-% \fancyhead[RE,LO]{ \small\leftmark}
+\pagestyle{fancy}
+\fancyhead[LE,RO]{\small{\articleCategory}}
+\fancyhead[RE,LO]{ \small\leftmark}
 
 % 正文
 % 在章首页添加页眉
@@ -377,9 +382,6 @@
 \clearPaperPage
 
 \input{chapter-background.tex}
-\clearPaperPage
-
-\input{chapter-certificate.tex}
 \clearPaperPage
 
 \input{chapter-dataCollection.tex}
