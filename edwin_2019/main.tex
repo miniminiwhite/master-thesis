@@ -89,8 +89,6 @@
 \renewcommand{\algorithmicrequire}{\textbf{Input:}}
 \renewcommand{\algorithmicensure}{\textbf{Output:}}
 
-\newtheorem{Def}{定义}
-
 \newcommand{\yihao}{\fontsize{26pt}{36pt}\selectfont}           % 一号, 1.4 倍行距
 \newcommand{\erhao}{\fontsize{22pt}{28pt}\selectfont}          % 二号, 1.25 倍行距
 \newcommand{\xiaoer}{\fontsize{18pt}{18pt}\selectfont}          % 小二, 单倍行距
@@ -114,7 +112,7 @@
 %交叉引用格式
 \renewcommand\figureautorefname{图}
 \renewcommand\tableautorefname{表}
-\renewcommand\equationautorefname{式子}
+\renewcommand\equationautorefname{式}
 \renewcommand{\algorithmautorefname}{算法}
 
 \renewcommand{\contentsname}{\hfill\bfseries\Large {目~~~~录}\hfill}
@@ -124,7 +122,12 @@
 \renewcommand{\listfigurename}{\hfill\bfseries\Large 插~~~~图\hfill}
 
 \renewcommand{\listalgorithmcfname}{\centering\bfseries\Large 算~~~~法}
+% 章引用
 \newcommand*{\fullref}[1]{\textbf{\hyperref[{#1}]{第\ref*{#1}章~}}}
+% 节引用
+\newcommand*{\secref}[1]{\textbf{\hyperref[{#1}]{第\ref*{#1}节~}}}
+% 概念定义
+\newtheorem{Def}{定义}
 
 %=============================段前段后定义=============================%
 \def  \cftbeforetitleskip {25pt}

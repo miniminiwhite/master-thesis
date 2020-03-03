@@ -13,7 +13,7 @@
 \end{figure}
 
 % Fig.~\ref{fig:Workflow} shows the workflow of our study, which can be divided into two main phases:
-图~\ref{fig:Workflow} 展示了本文的工作流程，其可以分为两个主要阶段：
+\autoref{fig:Workflow} 展示了本文的工作流程，其可以分为两个主要阶段：
 
 % (1)\ \emph{Data Collection}, which collects fake apps from all sorts of app markets based on the maintained official certificates, as well as the metadata of apps (e.g., package names and app names).
 1)\ \emph{数据收集} \quad
@@ -28,7 +28,7 @@
 
 % 2)\ \emph{Large-scale Empirical Study}, which measures the collected fake apps from several perspectives: the characteristics of fake apps, as well as the quantitative analysis of fake apps.
 2)\ \emph{大规模实证研究} \quad
-在这一步，我们对搜集到的仿冒样本，从以下角度进行大规模的实证研究：仿冒应用特征、针对仿冒应用的定量分析。
+在这一步，我们对搜集到的仿冒样本，从以下角度进行大规模的实证研究：仿冒的基本应用特征、针对仿冒应用的定量分析。
 % We also aim to unveil the developing trend of fake authors to help fake app detection and shine light on the nature of the fake apps' ecosystem for both academia and industry.
 我们也试图从收集到的信息中挖掘出仿冒应用作者的开发轨迹，以求为学术界和工业界揭示仿冒应用生态系统的更多信息。
 
@@ -54,7 +54,7 @@
 
 % To address challenge (1), we collaborate with our industry partner and leverage the Pwnzen platform to conduct \emph{sample crawling} from markets and build a \texttt{\small sample database};
 为了应对挑战(1)，我们与工业界合作，利用了犇众信息公司的Janus平台对各大第三方应用商店进行\emph{样本爬取}，然后用得到的样本构建了一个\texttt{\small 样本数据库}。
-事实上，如图~\ref{fig:Janus-data}显示，Janus平台自2017年起就开始对各大第三方应用商店的App进行样本收集，至今已收集到上千万个App样本。
+事实上，如\autoref{fig:Janus-data}显示，Janus平台自2017年起就开始对各大第三方应用商店的App进行样本收集，至今已收集到上千万个App样本。
 除样本搜集外，Janus也提供按规则搜索功能，用户可以创建自己的规则过滤平台中的应用数据，以获取自己需要的App样本。
 
 \begin{figure}[htbp]
@@ -80,7 +80,7 @@
 % To achieve this, we first extract the package names of our pre-downloaded samples.
 要做这件事，我们首先从预先下载好的正版样本APK文件中提取App的包名和应用名，放入查询队列中。
 % These package names are later sent to the sample database for query (i.e., step 1 marked in Fig.~\ref{fig:Workflow}).
-这些包名和应用名接下来会被输入到样本数据库中进行查询（即图~\ref{fig:Workflow}中标识的步骤1）。
+这些包名和应用名接下来会被输入到样本数据库中进行查询（即\autoref{fig:Workflow}中标识的步骤1）。
 % And then, for each metadata entry returned from step 2, we check if it is official using the certificate identifier.
 之后，数据库会返回一系列对应的样本结果（步骤2）。
 对每个结果，我们会提取其中的安全证书哈希码字段，输入到安全证书识别器中，判定对应的样本是否持有正版应用的证书。
@@ -93,7 +93,7 @@
 
 之所以要这样操作，是因为开发者推出的App的应用名和包名并不是一成不变的。
 一些热门应用会出于商业原因频繁地更改自己的应用名（比如爱奇艺视频，会根据其近期热播的电视剧/电影变更其应用名以吸引更多用户使用）；
-也有个别的热门应用可能会更换自己的包名，比如App有重大改版、又或者是开发者安全证书有变更，开发者不得不更换包名（具体原因可参考\fullref{chp:background}中Android App签名机制部分）。
+也有个别的热门应用可能会更换自己的包名，比如App有重大改版、又或者是开发者安全证书有变更，开发者不得不更换包名（具体原因可参考\secref{sec:signature}的Android App签名机制部分）。
 % For each app, once all of the official names have been used for query, the data collection on it is finished.
 对于每个热门应用来说，当其对应的查询队列中的所有包名、应用名都已经被查询过，我们对这个热门应用的数据收集就结束了。
 
