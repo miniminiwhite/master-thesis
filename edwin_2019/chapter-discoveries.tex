@@ -80,10 +80,10 @@
 这个发现与我们的猜想（即大多数仿冒样本都有他们对应的独一无二的安全证书）部分相符。
 虽然并不是大多数仿冒样本都有其单独对应的安全证书，但多数安全证书的确只对应少量样本。
 % We consider this as a strategy to bypass app markets' security scheme, as even if one fake sample is exposed, other fake samples developed by the same developer will not be implicated directly.
-结合\secref{sec:signature}Android App签名机制最后的说明，我们认为这是规避第三方应用市场监管机制的一个策略。
+结合\secref{sec:signature}Android App签名机制最后的说明，我们认为这是规避应用市场监管机制的一个策略。
 如果以同一开发者的身份，用一个安全证书上传多个仿冒App，万一其中App被投诉下架，其他的App很可能会受到牵连。
 然而，一个仿冒开发者其实也可以持有多个安全证书。
-如果使用多个安全证书分别上传仿冒App，第三方应用市场就不容易找到这些App的关联，即使其中一部分被举报下架，余下的也得以被保全。
+如果使用多个安全证书分别上传仿冒App，应用市场就不容易找到这些App的关联，即使其中一部分被举报下架，余下的也得以被保全。
 % Nevertheless, when reviewing certificates linked with multiple fake samples, we find some very surprising findings that we will expound in Section~\autoref{sec:casestudy}.
 另外，在整理对应多个仿冒样本的安全证书时，我们得到了一些意料之外的发现。相关内容会在\fullref{chp:casestudy}中加以拓展。
 
@@ -151,7 +151,7 @@
 与此同时，我们也留意到了一些仿冒应用有着异乎寻常的长名称（其中最长的仿冒样本的应用名中甚至有146个字符）。
 % Many of those outliers are samples uploaded by fake authors, maybe for testing purpose to explore the vetting mechanism.
 % The other purpose is to associate users' search keywords as far as possible.
-我们认为这些异常样本有可能是出于测试第三方市场审查机制的目的而被上传到市场上的。
+我们认为这些异常样本有可能是出于测试市场审查机制的目的而被上传到市场上的。
 另一种可能是，一些长应用名拼合了多个热门App的名称（比如``潮流女装-美丽说蘑菇街淘宝天猫京东美团精选''），这可能是为了应用更容易地被用户搜索到而采取的策略。
 
 % Fig.~\autoref{fig:pkgname} shows the result on package names.
@@ -200,20 +200,20 @@
 \end{figure*}
 
 % To a large extent, we owe the first point to the incompleteness of the information the app store displays on apps.
-在很大程度上，我们认为产生第一点结论的原因是第三方应用市场上提供的App信息的缺失和用户对Android App了解的缺乏。
+在很大程度上，我们认为产生第一点结论的原因是应用市场上提供的App信息的缺失和用户对Android App了解的缺乏。
 % In most app stores, when users browse an app's detail page, they can only see the app's name, description, user comments and ratings which are positive for leading users to download that app.
-如\autoref{fig:app_detail_page}所示，在第三方应用市场上，当用户浏览App的详情页时，能看到应用名、下载量、应用描述、其他用户对应用的评论和评分等信息。
+如\autoref{fig:app_detail_page}所示，在应用市场上，当用户浏览App的详情页时，能看到应用名、下载量、应用描述、其他用户对应用的评论和评分等信息。
 % However, technical information rarely appears.
 但是，大部分应用详情页上并不会出现技术详情，比如应用包名。而普通用户也不会了解Android App中包名和应用名的区别和关联。
 % In some app markets, users don't even know how large an apk file is.
-个别第三方应用市场（如\autoref{fig:xiaomi_detail}所示的小米应用市场）上，应用的某些信息甚至被折叠了起来，用户要点开折叠页才能发现一个App会有多大。
+个别应用市场（如\autoref{fig:xiaomi_detail}所示的小米应用市场）上，应用的某些信息甚至被折叠了起来，用户要点开折叠页才能发现一个App会有多大。
 因此，不会被普通用户关注的包名自然可能会出现各种五花八门的情况，而一定会显示的应用名则是越接近正版App越容易诱导用户下载。
 
 \vspace{5mm}
 \noindent\fbox{
 	\parbox{0.95\linewidth}{
 		% \textbf{Remark 1}: Most certificates link with only a number of fake apps, which is highly possible to be a fake developers' evasive strategy.
-		\textbf{本节小结}: 绝大部分安全证书只与少数仿冒样本有所关联。这很可能是仿冒开发者规避第三方市场监管机制采用的策略。
+		\textbf{本节小结}: 绝大部分安全证书只与少数仿冒样本有所关联。这很可能是仿冒开发者规避市场监管机制采用的策略。
 		% Moreover, we observe that fake apps do tend to use official app names or names alike.
 		同时，我们也观测到仿冒应用倾向于于官方App相同或者是十分相似的应用名。
 		% Nonetheless, fake apps and official apps are not resemble in terms of package names or apk sizes, disclosing that repackaged apps are not mainstream in fake apps.
@@ -236,7 +236,7 @@
 对应地，我们假设以下这些因素可能会影响某款App对应的仿冒样本数量：
 
 % \noindent{\bf Hypo 2.1:} {The rate of fake samples is related to the number of apps a market contains.}
-{\bf 假设 2.1}：仿冒样本的比率与第三方应用市场架上的App数量有关联。
+{\bf 假设 2.1}：仿冒样本的比率与应用市场架上的App数量有关联。
 
 % \noindent{\bf Hypo 2.2:} The number of fake apps are closely related to how popular an app is.
 {\bf 假设 2.2}：仿冒应用的数量与其对应的正版App的受欢迎程度有密切联系。
@@ -252,7 +252,7 @@
 与之相对，我们定义了下面几个研究问题：
 
 % \noindent{\bf RQ 2.1}: Where are these fake samples mainly from?
-{\bf RQ 2.1}：这些仿冒应用市场都集中来源于哪里？哪个第三方应用市场有最多的仿冒应用？
+{\bf RQ 2.1}：这些仿冒应用市场都集中来源于哪里？哪个应用市场有最多的仿冒应用？
 
 % \noindent{\bf RQ 2.2}: Does the popularity of an app affect the number of its fake samples?
 {\bf RQ 2.2}：一个App受欢迎的程度会影响对其仿冒的应用数量吗？
@@ -268,7 +268,7 @@
 % \noindent{\bf Answer to RQ 2.1.} Fig.~\autoref{fig:Sample_source} shows the samples' origin.
 {\bf RQ 2.1. 结果} \autoref{fig:Sample_source} 展示了我们收集到的所有样本的来源。
 % From the left subplot, \texttt{Baidu App Store} not only provides the largest sample number among all 31 different app sources, but is also the source where most fake samples are from.
-在左边的图中，我们可以看到，在我们收集数据的所有31个第三方应用商店中，源于\texttt{百度手机助手}的样本量是最大的。
+在左边的图中，我们可以看到，在我们收集数据的所有31个应用商店中，源于\texttt{百度手机助手}的样本量是最大的。
 同时，从\texttt{百度手机助手}中搜集到的仿冒样本也是最多的。
 % Fake sample rates are displayed on the right subplot.
 各个应用市场的仿冒率在右图呈现。
@@ -277,7 +277,7 @@
 	\centering
   \setlength{\belowcaptionskip}{-10pt}
 	\includegraphics[width=\textwidth]{./Figures/edwin-Number_of_samples_collected_markets_3.png}
-	\caption{从不同第三方应用市场中收集到的应用数量以及各市场仿冒率}
+	\caption{从不同应用市场中收集到的应用数量以及各市场仿冒率}
 	\label{fig:Sample_source}
 \end{figure*}
 
@@ -286,7 +286,7 @@
 
     某款App~$a$的仿冒率$fake~sample~rate_a$指与其关联的仿冒样本的数量$fake_a$与该App正版样本的数量$total_a$的商（\autoref{equ:fake_rate_app}）。
 
-    某第三方应用市场$AS$的仿冒率$fake~sample~rate_{AS}$则是其中包含的所有目标App的均值（\autoref{equ:fake_rate_mkt}）。
+    某应用市场$AS$的仿冒率$fake~sample~rate_{AS}$则是其中包含的所有目标App的均值（\autoref{equ:fake_rate_mkt}）。
 \end{Def}
 
 \begin{equation}
@@ -297,9 +297,10 @@
     fake~sample~rate_{AS} = Avg(fake~sample~rate_a, \forall a \in \text{\{目标App\}})
     \label{equ:fake_rate_mkt}
 \end{equation}
+\vspace{0.5mm}
 
 % Although both \texttt{Baidu App Store}~\cite{Baiduappstore} and \texttt{Hiapk}~\cite{Hiapk} hold a fake sample rate of about 40\%, the number of fake samples from \texttt{Baidu App Store} exceeds \texttt{Hiapk} to a great extent due to its dominant total sample number.
-尽管\texttt{百度手机助手}~\cite{Baiduappstore}和\texttt{安卓市场}~\cite{Hiapk}的仿冒率均为40\%左右，在所有的31个渠道中处于中等水平，但由于源于这两个渠道的样本基数最大，所以从这两个第三方应用市场搜集到的仿冒样本数也是最多的。
+尽管\texttt{百度手机助手}~\cite{Baiduappstore}和\texttt{安卓市场}~\cite{Hiapk}的仿冒率均为40\%左右，在所有的31个渠道中处于中等水平，但由于源于这两个渠道的样本基数最大，所以从这两个应用市场搜集到的仿冒样本数也是最多的。
 
 % Although no connection between the number of fake samples and market can be found from our data, we notice that the relationship between apps and markets may affect the fake rate.
 图中数据显示，应用市场的样本数量和仿冒率并没有直接联系，但是我们仍然有一个有趣的发现，那就是App本身和市场的关系有可能是影响App仿冒率的一个因素。
@@ -328,6 +329,7 @@
     p_x,_y = corr(X,Y)=\frac{cov(X,Y)}{\sigma_x\sigma_y}=\frac{E[(X-u_x)(Y-u_y)]}{\sigma_x\sigma_y}
     \label{equ:PPMCC}
 \end{equation}
+\vspace{0.5mm}
 
 % This value ranges from -1 to 1, the closer the PPMCC value is to 0, the weaker correlation between the two factors is indicated.
 \autoref{equ:PPMCC}的值域为$[-1, 1]$，该值越接近0，表示两个变量之间的相关关系越弱。
