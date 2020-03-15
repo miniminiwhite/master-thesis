@@ -191,7 +191,53 @@ Jaccard(set_i, set_j) = \frac{|set_i \cap set_j|}{|set_i \cup set_j|}
 
 在计算完权重之后，我们可以分别按其中的两个子权重对应用进行排名，筛选出可能购买了排名欺诈服务的App。
 
-在我们将$T_1$设置为0.6的情况下，{\textcolor{orange}{[Edwin: 实验数据还在服务器上运行，等运行出来之后再补上结果]}
+我们分别将$T_1$设置为0.4，0.6和0.8，尝试对可疑用户进行聚类，结果分别将42,325名给出好评次数大于1的用户分到了10,024，14,520，15,493个聚类中。
+之后，我们对这些聚类进行了简单分析。
+绝大多数聚类中都只有一名用户，即使是在相似度阈值只有0.4的情况下，也只有约7\%的聚类中包含3个或以上的用户（阈值为0.6和0.8时，该比例均为6\%）。
+但是，当挑出包含用户数目大于10的聚类（$T_1$为0.4/0.6/0.8时，这些聚类的占比分别为0.97\%/0.70\%/0.57\%）时，我们却发现这些聚类分别包含了29,168/23,742/22,218个用户，他们所发布的好评共计分别有98,226/80,492/73,422条。
+因此我们推定，有一部分用户的行为模式相当近似且可疑，我们将这部分用户组成的群体看作是疑似的排名欺诈用户群体（$G_r$）。
+
+接下来，我们分别计算了不同$T_1$下，三款仿冒应用在\autoref{equ:usr_cre4}和\autoref{equ:usr_cre5}中的两个权重，即三款应用中的好评用户占可疑用户的比例、以及其好评占所有可疑用户发布的好评的比例。
+对于本章研究的三个仿冒应用，其两个子权重的结果分别展示在\autoref{table:usr-cred-res-1}和\autoref{table:usr-cred-res-2}中。
+
+\begin{table}[htbp]
+	\renewcommand{\arraystretch}{1}
+	\small
+	\centering
+	\caption{各应用用户可信度权重及对应排名（一）}
+	\vspace{1mm}
+	\begin{tabular}{lcccccc}
+		\toprule
+		包名 & $w^0$($T_1$=0.4) & 排名 & $w^0$($T_1$=0.6) & 排名 & $w^0$($T_1$=0.8) & 排名 \\
+		\midrule
+		com.arsenal.FunWeather & 0.97 & 2 & 0.9 & 6 & 0.82 & 9 \\
+		\rowcolor{gray!15} com.jhwl.fjxa & 0.85 & 15 & 0.84 & 12 & 0.8 & 12 \\
+		com.sscwap & 0.02 & 303 & 5$\times10^{-3}$ & 346 & 5$\times10^{-3}$ & 318 \\
+		\bottomrule
+	\end{tabular}
+	\label{table:usr-cred-res-1}
+\end{table}
+
+\begin{table}[htbp]
+	\renewcommand{\arraystretch}{1}
+	\small
+	\centering
+	\caption{各应用用户可信度权重及对应排名（二）}
+	\vspace{1mm}
+	\begin{tabular}{lcccccc}
+		\toprule
+		包名 & $w^1$($T_1$=0.4) & 排名 & $w^1$($T_1$=0.6) & 排名 & $w^1$($T_1$=0.8) & 排名 \\
+		\midrule
+		com.jhwl.fjxa & 0.05 & 11 & 0.06 & 10 & 0.07 & 11 \\
+		\rowcolor{gray!15} com.arsenal.FunWeather & 0.02 & 45 & 0.02 & 39 & 0.02 & 39 \\
+		com.sscwap & 2$\times10^{-4}$ & 261 & 8$\times10^{-5}$ & 279 & 9$\times10^{-5}$ & 251 \\
+		\bottomrule
+	\end{tabular}
+	\label{table:usr-cred-res-2}
+\end{table}
+
+表中结果显示，无论是用哪种权重对应用可疑度进行排名，\emph{com.arsenal.FunWeather}和\emph{com.jhwl.fjxa}在总计的848个应用中都排在相当靠前的位置，所以这两个应用都相当可疑，十分可能具有排名欺诈行为。
+另一方面，\emph{com.sscwap}的排名相对靠后，具有排名欺诈行为的可能性较小。
 
 \subsection{基于评论内容相似度的排名欺诈排查}
 与前面的用户可信度计算相比，利用评论内容相似度排查排名欺诈的方法要相对简单一些，计算量也明显较小。
@@ -214,7 +260,7 @@ Jaccard(set_i, set_j) = \frac{|set_i \cap set_j|}{|set_i \cup set_j|}
 具体做法是，先对每条评论进行分词，形成词袋，再用一种合适的标准去衡量不同词袋之间的相似度，并将相似内容聚为一类。
 分词方面，我们使用了中文分词项目“结巴”中文分词~\footnote{\url{https://github.com/fxsjy/jieba}}，为了更好地从词袋中提取语义信息，我们还从网上整理了一份停用词（Stop words）表，在分词之后筛去停用词，以减少不含语义的停用词对相似度计算造成的干扰。
 词频太低的词语也可能会对聚类产生影响，为此，我们会在聚类前从各个词袋中删除总词频太低的词语。
-而在衡量词袋相似度方面，我们再次使用了\autoref{equ:usr_cre2}的Jaccard相关系数
+而在衡量词袋相似度方面，我们再次使用了\autoref{equ:usr_cre2}的Jaccard相关系数。
 
 另外，我们要筛查的是排名欺诈行为，其本质是通过提供大量虚假好评提高应用的平均评价，所以我们还要从数据集中除去一部分评论较少的应用，因为他们不太可能购买了排名欺诈服务。
 我们分别从数据集中剔去了总评论少于50条和总评论少于100条的应用，使得数据组中分别剩下511和455个应用参与排名。
@@ -257,8 +303,6 @@ Jaccard(set_i, set_j) = \frac{|set_i \cap set_j|}{|set_i \cup set_j|}
 至于\emph{com.sscwap}的排名则比较偏后，较低的重合率说明其好评比较多元化，使用排名欺诈服务的可能性比较低。
 我们会在后面一节对这些结果进行验证。
 
-值得一提的是，在我们收集到的评论数据中，评论重合率最高的是一个包名为\emph{com.android.apin}的应用，其应用重合率达到了91.41\%。
-
 \subsection{人工复核}
 
 最后，我们对\emph{com.arsenal.FunWeather}、\emph{com.jhwl.fjxa}和\emph{com.sscwap}的评论了进行人工复核。
@@ -266,26 +310,27 @@ Jaccard(set_i, set_j) = \frac{|set_i \cap set_j|}{|set_i \cup set_j|}
 
 \begin{figure}[htbp]
 	\centering
-	\subfloat[\emph{com.jhwl.fjxa}部分评论\label{fig:cmt-sample-1}]{\includegraphics[width=0.8\textwidth]{./Figures/edwin-cmt-sample-1.jpg}}\hfill
+	\subfloat[\emph{com.jhwl.fjxa}部分评论\label{fig:cmt-sample-1}]{\includegraphics[width=\textwidth]{./Figures/edwin-cmt-sample-1.jpg}}\hfill
 
-	\subfloat[\emph{com.arsenal.FunWeather}部分评论\label{fig:cmt-sample-2}]{\includegraphics[width=0.8\textwidth]{./Figures/edwin-cmt-sample-2.jpg}}\hfill
-    \caption{应用评论取样（一）}
+	\subfloat[\emph{com.arsenal.FunWeather}部分评论\label{fig:cmt-sample-2}]{\includegraphics[width=\textwidth]{./Figures/edwin-cmt-sample-2.jpg}}\hfill
+
+	\subfloat[\emph{com.sscwap}部分评论\label{fig:cmt-sample-3}]{\includegraphics[width=\textwidth]{./Figures/edwin-cmt-sample-3.jpg}}\hfill
+    \caption{应用评论取样}
     \label{fig:cmt-samples-1}
 \end{figure}
 
-\autoref{fig:cmt-sample-1}展示了我们对\emph{com.arsenal.FunWeather}和\emph{com.jhwl.fjxa}两款应用好评取样的结果。
-可以明显看出，两款App都有明显的评论重复现象。
-同时，我们也对\emph{com.sscwap}的应用进行了取样，样本可见\autoref{fig:cmt-samples-2}。
-虽然图中的评论看上去也比较接近，但这其实是由于我们按照评论内容对这些评论进行了一次排序。
-如果我们结合日期数据观察，就能发现这些数据其实是由用户在比较分散的时间发出的，所以说这些看上去稍微类似的评论，并不一定存在关联关系，因此我们不倾向于认为这款App购买了排名欺诈服务。
-反观\autoref{fig:cmt-sample-1}中的评论，首先，有多条长评论高度相似、甚至一模一样，这在真实案例中是不太可能会存在的情况；其次，\autoref{fig:cmt-sample-2}中多条近似、相同的评论是在十分接近的时间里被发表的，进一步加深了他们之间存在关联的可能性，所以我们十分有理由相信这两款应用的确存在排名欺诈的行为。
+\autoref{fig:cmt-samples-1}展示了我们对三款应用好评取样的结果。
+可以明显看出，\emph{com.jhwl.fjxa}和\emph{com.arsenal.FunWeather}两款App都有明显的评论重复现象。
+而图中对\emph{com.sscwap}的评论虽然看上去也比较近似，但这其实是由于我们按照评论内容对这些评论进行了一次排序。
+如果结合日期数据观察，我们就能发现这些数据是由用户在比较分散的时间发出的。
+所以说这些看上去稍微类似的评论，并不一定存在关联关系，我们不倾向于认为这款App购买了排名欺诈服务。
+反观\autoref{fig:cmt-sample-1}中的评论，有多条长评论高度相似、甚至一模一样，这在真实案例中是不太可能会存在的情况；而\autoref{fig:cmt-sample-2}中多条近似、相同的评论是在十分接近的时间里被发表的，进一步加深了他们之间存在关联的可能性，所以我们十分有理由相信这两款应用的确存在排名欺诈的行为。
 
-\begin{figure}[htbp]
-	\centering
-	\includegraphics[width=0.8\textwidth]{./Figures/edwin-cmt-sample-3.jpg}
-    \caption{应用评论取样（二）（\emph{com.sscwap}）}
-    \label{fig:cmt-samples-2}
-\end{figure}
-
-从结果看，基于评论内容相似度的排名欺诈排查方法还是有一定效果的；而基于用户可信度权重的排查方法效果欠佳。
-值得注意的是，我们还随机抽取了一些发布相同好评的不同用户进行追查，结果发现不少用户在我们收集到的数据集中的评论数只有一到两条，这很有可能是提供排名欺诈服务的商家规避检测的一种策略，同时也是导致基于用户可信度权重排查方法效果不太理想的原因。
+从结果看，无论是基于评论内容相似度的排名欺诈排查方法还是基于用户可信度权重的排查方法，都具有良好的结果。
+但是，我们还随机抽取了一些发布相同好评的不同用户进行追查，结果发现不少用户在我们收集到的数据集中的评论数只有一到两条，这很有可能是提供排名欺诈服务的商家规避检测的一种策略。
+如果大部分排名欺诈用户都采用这种只发布少量好评的策略，基于用户可信度权重的排查方法就很可能会因为可参考的数据量太小而失效。
+另外，基于用户可信度权重的排查方法会带来相当大的运算量。
+我们的实验服务器搭载了两颗Intel的至强E5-2367 V4版8核CPU，内存为252GB。
+但在$T_1$分别设置为0.4/0.6/0.8时，三组基于用户可信度实验用的python代码依然分别需要运行7,086/6,935/6,801分钟才得出结果。
+相比之下，基于评论内容相似度的代码只需几分钟就能运算完毕。
+综合上述性能因素，我们认为基于评论内容相似度的排查方法是更为可行的排查方式。
