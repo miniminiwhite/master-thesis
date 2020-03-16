@@ -27,29 +27,22 @@
 对仿冒应用基本信息的测量，比如说对应用包名和大小的测量，则可以帮助我们了解重打包应用在数据集中的分布如何。
 因为普通的重打包技术并不会对APK的基本信息（比如应用名、应用版本号等）作出修改，除非仿冒作者有意为之。
 
-\subsection{相关假设}
-% To this end, we have some hypotheses as below:
-为此，我们作了如下假设：
+\subsection{安全证书与仿冒应用的对应关系}
+那么，安全证书和仿冒应用的对应关系如何？
+对此，我们提出了假设：
 
 % \noindent{\bf Hypo 1.1:} Most of these fake samples have their corresponding unique certificates.
 {\bf 假设 1.1}： 绝大部分的仿冒样本有其对应的、独一无二的安全证书。
 % In other words, most fake certificates and fake samples have a one-to-one relation.
 换句话说，绝大部分仿冒应用和他们的安全证书呈一对一的映射关系。
 
-% \noindent{\bf Hypo 1.2:} A large portion of fake samples have the same app names/package names/apk sizes as those in official samples.
-{\bf 假设 1.2}： 一大部分的仿冒样本和他们的仿冒对象（也就是原版的官方App）有同样的应用名/包名/APK包大小。
-
-\subsection{研究问题}
-% To verify our hypotheses as well as to gain knowledge to fake sample individuals, we propose the following research questions in this subsection.
-为了验证这些假设，同时获得更多对这些仿冒样本个体的知识，我们在本节中提出了以下研究问题（Research Question，简称RQ），分别与上述假设一一对应：
+与之对应，我们提出了以下的研究问题：
 
 % \noindent{\bf RQ 1.1}: What's the relationship between the number of fake samples and their certificates? That is, how many fake samples does one certificate usually link to?
 {\bf RQ 1.1}：仿冒样本数量和他们的安全证书数量存在着什么样的关系？也就是说，一个安全证书通常会跟多少个仿冒应用样本相关联？
 
-% \noindent{\bf RQ 1.2}: How do fake apps imitate official apps? That is, how similar are the names/package names/apk sizes of fake samples compared to those of official samples?
-{\bf RQ 1.2}：在我们的数据集中，仿冒应用是怎么``山寨''正版App的？也就是说，仿冒应用的应用名/包名/APK大小和他们对应的正版App有多相似？
-
-\subsection{结果整理}
+为了解答这个问题，我们从所有搜集到的样本中提取出安全证书，然后对这些证书和样本做了配对。
+根据配对得出的数据，我们得出了以下结果：
 
 % \noindent{\bf Answer to RQ 1.1.}
 {\bf RQ 1.1. 结果}
@@ -86,6 +79,22 @@
 如果使用多个安全证书分别上传仿冒App，应用市场就不容易找到这些App的关联，即使其中一部分被举报下架，余下的也得以被保全。
 % Nevertheless, when reviewing certificates linked with multiple fake samples, we find some very surprising findings that we will expound in Section~\autoref{sec:casestudy}.
 另外，在整理对应多个仿冒样本的安全证书时，我们得到了一些意料之外的发现。相关内容会在\fullref{chp:casestudy}中加以拓展。
+
+\subsection{仿冒样本与原版应用的相似度}
+
+除了安全证书以外，应用的外观也是十分重要的基本特征。
+鉴于运算量等原因，我们暂时无法将应用图标和应用内布局等因素用于仿冒样本和原版应用的对比，但我们依然提取出了样本的包名/应用名/APK包大小等最基本的项目数据以比较仿冒样本和原版应用的相似度。
+在这个方面，我们的假设如下：
+
+% \noindent{\bf Hypo 1.2:} A large portion of fake samples have the same app names/package names/apk sizes as those in official samples.
+{\bf 假设 1.2}： 一大部分的仿冒样本和他们的仿冒对象（也就是原版的官方App）有同样的应用名/包名/APK包大小。
+
+与上一假设类似，我们也对应地提出了一个研究问题：
+
+% \noindent{\bf RQ 1.2}: How do fake apps imitate official apps? That is, how similar are the names/package names/apk sizes of fake samples compared to those of official samples?
+{\bf RQ 1.2}：在我们的数据集中，仿冒应用是怎么``山寨''正版App的？也就是说，仿冒应用的应用名/包名/APK大小和他们对应的正版App有多相似？
+
+以编辑距离作为度量，我们对目标应用和仿冒样本的应用名/包名相似度作了比对，同时对比了两种样本的大小区别，得出了以下结果：
 
 % \noindent{\bf Answer to RQ 1.2.}
 {\bf RQ 1.2. 结果}
@@ -231,40 +240,23 @@
 % In addition, the update frequency can be taken in as a factor, too.
 此外，App的更新频率也可以被视作一个潜在因素，频繁更新的App或许会阻碍仿冒应用开发者对其进行仿冒。
 
-\subsection{相关假设}
-% Accordingly, we hypothesize the following factors may influence the number of fake samples of an app:
-对应地，我们假设以下这些因素可能会影响某款App对应的仿冒样本数量：
+\subsection{仿冒应用的来源}
+
+我们搜集的应用样本来源于多个不同的应用市场，每个市场架上的应用数量不一，其审核、监管力度也并不一致。
+因此我们不禁好奇，应用商店架上的应用样本数量是否会跟仿冒应用的数量有关系？
+为此我们有了以下假设：
 
 % \noindent{\bf Hypo 2.1:} {The rate of fake samples is related to the number of apps a market contains.}
 {\bf 假设 2.1}：仿冒样本的比率与应用市场架上的App数量有关联。
 
-% \noindent{\bf Hypo 2.2:} The number of fake apps are closely related to how popular an app is.
-{\bf 假设 2.2}：仿冒应用的数量与其对应的正版App的受欢迎程度有密切联系。
-
-% \noindent{\bf Hypo 2.3:} Update frequency effects the number of fake samples.
-{\bf 假设 2.3}：应用的更新频率影响着其对应仿冒应用的数量。
-
-% \noindent{\bf Hypo 2.4:} Category is a factor influencing the fake sample number.
-{\bf 假设 2.4}：App类别是影响仿冒应用数量的因素之一。
-
-\subsection{研究问题}
 % Correspondingly, we define our research questions as follows:
-与之相对，我们定义了下面几个研究问题：
+与之相对，我们定义了研究问题：
 
 % \noindent{\bf RQ 2.1}: Where are these fake samples mainly from?
 {\bf RQ 2.1}：这些仿冒应用市场都集中来源于哪里？哪个应用市场有最多的仿冒应用？
 
-% \noindent{\bf RQ 2.2}: Does the popularity of an app affect the number of its fake samples?
-{\bf RQ 2.2}：一个App受欢迎的程度会影响对其仿冒的应用数量吗？
+根据各个样本的来源，我们从数据统计角度分析了结果。
 
-% \noindent{\bf RQ 2.3}: Does an app's update frequency influence its fake sample's number?
-{\bf RQ 2.3}：一个App的更新频率会影响对其仿冒的应用数量吗？
-
-% \noindent{\bf RQ 2.4}: Is the number of fake samples related to the app's category?
-{\bf RQ 2.4}：一个App所在类别会影响对其仿冒的应用数量吗？
-% \vspace{5mm}
-
-\subsection{结果整理}
 % \noindent{\bf Answer to RQ 2.1.} Fig.~\autoref{fig:Sample_source} shows the samples' origin.
 {\bf RQ 2.1. 结果} \autoref{fig:Sample_source} 展示了我们收集到的所有样本的来源。
 % From the left subplot, \texttt{Baidu App Store} not only provides the largest sample number among all 31 different app sources, but is also the source where most fake samples are from.
@@ -307,6 +299,32 @@
 % This is well supported by the low fake rate of \texttt{Myapp}~\cite{Myapp} -- the app market provided by \texttt{Tencent}, which is also the 12 out of 50 developers in our target apps.
 \texttt{腾讯}旗下的应用市场\texttt{应用宝}~\cite{Myapp}中较低的仿冒率可以很好地为这个发现提供数据支持，因为我们的50款目标App中，有12款都是腾讯公司开发的应用。
 
+\subsection{其他因素对仿冒样本数量的影响}
+% Accordingly, we hypothesize the following factors may influence the number of fake samples of an app:
+除了市场本身之外，我们还假设以下这些因素可能会影响某款App对应的仿冒样本数量：
+
+% \noindent{\bf Hypo 2.2:} The number of fake apps are closely related to how popular an app is.
+{\bf 假设 2.2}：仿冒应用的数量与其对应的正版App的受欢迎程度有密切联系。
+
+% \noindent{\bf Hypo 2.3:} Update frequency effects the number of fake samples.
+{\bf 假设 2.3}：应用的更新频率影响着其对应仿冒应用的数量。
+
+% \noindent{\bf Hypo 2.4:} Category is a factor influencing the fake sample number.
+{\bf 假设 2.4}：App类别是影响仿冒应用数量的因素之一。
+
+与三个假设对应的是三个研究问题：
+
+% \noindent{\bf RQ 2.2}: Does the popularity of an app affect the number of its fake samples?
+{\bf RQ 2.2}：一个App受欢迎的程度会影响对其仿冒的应用数量吗？
+
+% \noindent{\bf RQ 2.3}: Does an app's update frequency influence its fake sample's number?
+{\bf RQ 2.3}：一个App的更新频率会影响对其仿冒的应用数量吗？
+
+% \noindent{\bf RQ 2.4}: Is the number of fake samples related to the app's category?
+{\bf RQ 2.4}：一个App所在类别会影响对其仿冒的应用数量吗？
+
+对于这三个研究问题，我们使用了皮尔逊积矩相关系数（Pearson product-moment correlation coefficient，简称PPMCC）来衡量应用数量和问题对应的几个维度的关联性。
+
 % \noindent{\bf Answer to RQ 2.2.}
 {\bf RQ 2.2. 结果}
 % Intuitively, the more popular an app is, the more possible it would get shammed, for fake developers would mislead users to download their apps to gain profits.
@@ -317,7 +335,7 @@
 % To counteract this bias, each fake count should be regularize into a \textit{fake sample rate}, the rate of fake samples in all collected samples of an app.
 为了消除偏差，我们应该将样本数量归一化，使用\autoref{equ:fake_rate_app}定义的仿冒率对每个目标App进行比较。
 % Next, we employ a metric called \textit{Pearson product-moment correlation coefficient (PPMCC)} to reveal relativeness between an app's fake sample number and its popularity, which uses the regularized fake sample rates and monthly activeness indicators (MAI) obtained from Analysys~\cite{yiguanqianfan}.
-接下来，我们使用了皮尔逊积矩相关系数（Pearson product-moment correlation coefficient，简称PPMCC）来计算一款App被仿冒的严重程度与其热度是否具有相关性。
+接下来，我们使用了皮尔逊积矩相关系数来计算一款App被仿冒的严重程度与其热度是否具有相关性。
 相关计算会使用上述的仿冒率和从易观千帆~\cite{yiguanqianfan}获取的App月度热度指数计算。
 
 \begin{Def}
@@ -481,21 +499,18 @@ WiFi管家 & 系统工具 & 8.8K & 19.5 & 1636 & 658 & 40.2\% & 15.7 \\
 在这个视角下，我们希望结合时间维度，从我们的数据中挖掘信息。
 随着时间推移，仿冒应用的特征和行为模式是否有发生改变？
 这些年来，仿冒应用这个灰色产业是否有过变迁？
+利用我们提取数据中的\emph{搜集时间}数据项，我们复原了各种不同的时间线以解答上述问题。
 
-\subsection{研究问题}
-为了解答这些问题，我们提出了以下几个研究问题：
+\subsection{仿冒应用的研发延迟}
+在正版应用推出新版后，如果一个仿冒应用能在越短时间内推出对应的新版本，仿冒应用的开发者就越有可能蹭上软件更新的热度，从而获利。
+对此，我们提出了以下研究问题：
 
 % \noindent{\bf RQ 3.1} After a new version of an official app is published, how long do fake developers take to publish a new fake sample? In other words, how soon will these copycats appear?
 {\bf RQ 3.1}：在一个官方应用的新版本推出之后，仿冒应用开发者需要花多少时间去推出对应版本的仿冒版？
 换句话说，这些``山寨''版本会过多久出现？
 
-% \noindent{\bf RQ 3.2} How long can a fake app's certificate survive?
-{\bf RQ 3.2}：一个仿冒应用开发者的安全证书可以存活多久？
+在分别复原官方应用的更新时间线和对应仿冒版本的发布时间之后，我们得到了以下结果：
 
-% \noindent{\bf RQ 3.3} Is there a changing pattern of fake samples over time?
-{\bf RQ 3.3}：随着时间的推移，仿冒应用是否存在一个变化模式？
-
-\subsection{结果整理}
 % \noindent{\bf Answer to RQ 3.1.}
 {\bf RQ 3.1. 结果}
 % We compute this latency and show its distribution in Fig.~\autoref{fig:Fake_latency_overall_distribution}.
@@ -529,6 +544,15 @@ WiFi管家 & 系统工具 & 8.8K & 19.5 & 1636 & 658 & 40.2\% & 15.7 \\
 根据我们的统计，有60\%仿冒应用在正版App被推出的6天内就被发布出来了。
 % This reveals a truth that fake developers are swift in action.
 这表明仿冒开发者的行动十分迅速。
+
+\subsection{仿冒应用安全证书的存活时长}
+从某个角度看，仿冒应用安全证书的存活时长反映了应用市场的监管力度大小，也能反映市场之间在安全方面是否具有良好的合作机制。
+所以我们有研究问题如下：
+
+% \noindent{\bf RQ 3.2} How long can a fake app's certificate survive?
+{\bf RQ 3.2}：一个仿冒应用开发者的安全证书可以存活多久？
+
+我们整理了不同仿冒应用安全证书的出现时间，得出了下面的结果：
 
 % \noindent{\bf Answer to RQ 3.2.} Fig.~\autoref{fig:Fake_certificate_survival_distribution} shows the distribution of the time a fake certificate can survive in markets.
 {\bf RQ 3.2. 结果}\autoref{fig:Fake_certificate_survival_distribution}展示了不同仿冒应用安全证书在应用市场里存活时间的总体分布。
@@ -570,6 +594,15 @@ WiFi管家 & 系统工具 & 8.8K & 19.5 & 1636 & 658 & 40.2\% & 15.7 \\
 	\caption{每季度爬取到的仿冒样本数量（2015年第四季度到2018年第三季度）}
 	\label{fig:Number_per_quarter}
 \end{figure}
+
+\subsection{仿冒应用的行业变迁}
+随着时间推移，仿冒应用这个灰色产业是否有过变迁？
+我们对此提出了研究问题：
+
+% \noindent{\bf RQ 3.3} Is there a changing pattern of fake samples over time?
+{\bf RQ 3.3}：仿冒应用是否存在一个随着时间变化的模式？
+
+我们统计了不同时间段所搜集到的样本数量，得出了结果如下：
 
 % \noindent{\bf Answer to RQ 3.3.} Fig.~\autoref{fig:Number_per_quarter} shows the number of fake samples collected per quarter since the fourth quarter of 2015.
 {\bf RQ 3.3. 结果}\autoref{fig:Number_per_quarter}呈现了我们的爬取工具自2015年第四季度起在每个季度爬取到的仿冒样本的总量。
