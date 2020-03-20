@@ -5,41 +5,55 @@
 \chapter*{\zihao{2}\heiti{ABSTRACT}}
 \vspace{-5mm}
 
-% 作为市场占有率最高的智能手机操作系统，安卓系统吸引了无数开发者为其开发应用，也使各种各样与安卓应用及其研发相关的研究得以开展。
-% 然而，在浩如烟海的安卓应用研究中，针对仿冒应用的研究仍相当有限。
-% 有别于官方发布的正版应用，仿冒应用属于移动灰色产业的一环，其目的各异，难以一概而论，其行为特征更是不得而知。
-% 但由于我们对移动灰色产业知之甚少，仿冒应用，其产业链及其生态对我们仍是一个谜。
-As a smart phone OS with the highest market share, Android has attracted countless developers to develop apps on it, and enabled a variety of research related to Android apps and their development.
-While there have been various studies towards Android apps and their development, there is limited discussion of the broader class of apps that fall in the fake area.
-Fake apps and their development are distinct from official apps and belong to the mobile underground industry.
-Due to the lack of knowledge of the mobile underground industry, fake apps, their ecosystem and nature still remain in mystery.
+% 作为市场占有率最高的智能手机操作系统，安卓系统拥有基数庞大的用户群体，也吸引了无数开发者为其开发应用，构筑出一个生机勃勃的生态系统。
+As the smartphone OS with the highest market share, Android owns countless users and has attracted numerous developers to develop apps on it, building a thriving application ecosystem.
+% 然而，在浩如烟海的安卓应用中，潜藏着形形色色的移动黑灰色产业链条，其中既包括如恶意应用一类的研究热点，也有仿冒应用等鲜受关注的领域。
+However, underlying the uncountable number of apps are all sorts of mobile underground profit chains.
+Not only malware, one of the current study focuses, but also fake apps, an area we barely keep eyes on, are included in these chains.
+% 有别于官方发布的正版应用，仿冒应用属于移动灰色产业的一环，其目的各异，难以一概而论。
+Different from official apps published by legal developers, fake apps belong to the mobile underground industry.
+Their purposes are various, which is difficult to generalize.
+% 而与以恶意应用为代表的研究热点不一样，我们对仿冒应用的生态并不了解，对其行为、特征更是知之甚少。
+Unlike what we have known about malware, our domain knowledge on fake apps' ecosystem is almost none, let alone the understanding of their behavior or characteristics.
 
-% 为了填补这一部分的空白，我们从现实的安卓应用市场中爬取了大量真实数据，对一批从工业界中找到的仿冒应用进行了已知的首个系统、全面的大规模实证研究。
-% 由于仿冒应用的模仿对象往往是较为热门的应用，我们按照排行榜确定了全网最受欢迎的前50个应用，然后使用网络爬虫搜集了与这批热门应用相关的超过150,000个应用样本作为研究对象，以进行全面的研究。
-To fill the blank, we conduct the first systematic and comprehensive empirical study on a large-scale set of fake apps.
-Over 150,000 samples related to the top 50 popular apps are collected for extensive measurement.
+% 得益于对恶意应用较为充分的理解，业界对恶意应用的监控成为了可能。
+Thanks to our full understanding of malware, it is now possible to monitor malware on the industrial level.
+% 因而即使爆发了新型的恶意应用，各厂家也能及时推出具有针对性的方案。
+Therefore, even if there is an outbreak of malware in the new form, manufactures are able to propose remedies timely.
+% 相对地，我们对仿冒应用的认识匮乏，则很可能会成为隐患。
+Comparatively, our lack of fake apps' knowledge is very possible to become a snake in the grass.
+% 仿冒应用都有怎样的形态？仿冒应用在各个市场上的分布如何？它们是否会包含恶意行为？有什么样的发展趋势？
+What is the form of fake apps? How are they distributed in different app markets? Do they perform malicious behavior? What kind of developing tendency do they have?
+% 这些问题都尚未有人给出过解答。
+None of these questions were answered so far.
+% 在未有前人研究基础的情况下，直接从业界收集数据入手分析无疑是获得第一手资料的最佳途径。
+Without any previous study, there is no doubt that collecting and analyzing data directly from the industry is the best way to win the first-hand information.
+% 因此，我们进行了针对仿冒应用的大规模数据收集和实证研究，并且结合市场上的评论对仿冒应用获得的反馈作出了进一步分析。
+Thus, we employ a large-scale data gathering and empirical study towards fake apps, along with an analysis of feedbacks earned by some fake apps in an app market.
 
-% 本文呈现了我们对这批样本从三个不同视角进行探究的结果。
-% 三个视角由浅入深，从仿冒应用的基本信息特征开始，再将仿冒应用数据与其来源的应用市场结合，最后引入时间因素对数据进行挖掘分析。
-% 其分别为：仿冒应用的基本特征，针对仿冒样本的量化分析，及仿冒应用的发展轨迹。
+% 在实证研究方面，针对上述问题，我们从三个不同视角对数据进行了探究，其分别为：仿冒应用的基本特征，影响仿冒应用数量的因素，以及仿冒应用的发展轨迹。
+In terms of empirical study, on one hand, we leverage three different perspectives to explore our data in order to answer our questions.
+The three perspectives are, namely, fake apps' characteristics, factors affecting fake apps' number, the developing trends of fake apps.
+% 三个视角由浅入深，从仿冒应用的应用名、包名和APK包大小等基本信息特征开始测量，再对可能与仿冒应用数量关联的因素进行量化分析，最后引入时间因素对数据进行挖掘。
+They follow an easy-to-complex pattern.
+We start from the basic pattern of fake apps, then perform quantitative studies on factors which are possible to affect the number of fake apps, and lastly introduce time factor to mine the data.
 % 从三个不同视角的分析中，本文提供了包括仿冒应用命名倾向、仿冒应用作者对应用市场拦截的规避策略等珍贵的领域知识。
+As a result, the three perspectives provide us with valuable domain knowledge, like fake apps’ naming tendencies and fake developers’ evasive strategies.
 % 本文还对数据中较为特别的样本作出了详尽的案例分析，除了可以印证上述的领域知识与发现之外，也能引起我们对现今应用市场生态环境的思考。
-In this paper, we present discoveries from three different perspectives, namely, fake sample characteristics, quantitative study on fake samples and fake authors’ developing trend.
-The three perspectives follow a easy-to-complex pattern.
-We start from the basic pattern of fake apps, then combine the fake app data with their source app market, and lastly introduce time factor to mine the data.
-As a result, the three perspectives provide us with valuable domain knowledge, like fake apps’ naming tendency and fake developers’ evasive strategies.
-Moreover, we provide a number of thought-provoking case studies, confirming the findings mentioned above.
+Moreover, we provide a number of thought-provoking and detailed case studies, confirming the findings and domain knowledge mentioned above.
 
-% 最后，为了深化对仿冒应用的认识，我们又针对仿冒应用在应用市场上获得的评级、评论等用户反馈进行了一系列的分析与验证。
+% 在用户反馈分析方面，我们针对仿冒应用在应用市场上获得的评级和评论等进行了一系列的分析与验证。
+In terms of user feedback analysis, on the other hand, we conduct a series of analysis and verification on the ratings and comments the fake apps earned from an app market.
 % 鉴于前人研究中有对应用进行排名欺诈行为的探索，我们也使用了两个不同的方法，从不同方面验证我们寻找到的仿冒应用中是否存在排名欺诈行为。
-% 结合最后的人工复核，我们确认了仿冒应用中确实存在排名欺诈行为的事实，向仿冒应用生态认知补上了一块拼图。
-Last and not least, to deepen our understanding towards fake apps, we collect, analyze and verify a series of fake apps' feedback from the market.
 Due to the fact that previous studies revealed the existence of ranking fraud in App markets, we also utilize two different measurements to verify whether the fake apps leverage ranking fraud service.
+% 结合最后的人工复核，我们确认了仿冒应用中确实存在排名欺诈行为的事实，向仿冒应用生态认知的谜题补上了一块拼图。
 As discerned and confirmed by our manual review, we make sure that some fake apps do deploy ranking fraud services to raise their exposure.
 By revealing this, we gather another piece of evidence to implement the puzzle of fake apps' nature, making our study more complete.
 
-% 我们希望本文可以为读者提供一个面向仿冒应用及其生态的清晰视角，并借此抛砖引玉，吸引更多科研人员投入到对安卓灰色产业的观察研究中。
-We hope this paper can provide the readers with a clear vision of fake apps and their ecosystem, and thus raising more researchers' interest in observing and studying the Android underground industry.
+% 借助本文提供的数据和分析结果，我们希望读者能获得一个面向仿冒应用及其生态的清晰视角。
+Through the data and results provided by this paper, we hold an expectation that our readers obtain a clear vision of fake apps and their ecosystem.
+% 同时，我们更希望本文能抛砖引玉，吸引更多科研人员投入到对移动灰色产业的观察研究中。
+Meanwhile, we also long for raising more researchers' interests and participation, shedding more light on the mobile underground industry.
 
-% \sihao{\heiti{ 关键词:}} \xiaosi{Android应用程序, 仿冒应用, 实证研究, 数据分析}
+% \sihao{\heiti{ 关键词:}} \xiaosi{Android应用程序, 仿冒应用, 实证研究, 数据分析, 排名欺诈}
 {\sihao{\textbf{\newline Keywords:}}} \textit{Android application, Fake App, Empirical Study, Data Analysis, Ranking Fraud}

@@ -164,7 +164,7 @@
 \newcommand{\Line}[1]{ \textit{ Line .#1}}
 
 % 匿名开关
-% \newcommand{\anonymous}[1]{\phantom{ #1 }}
+\newcommand{\anonymous}[1]{\phantom{ #1 }}
 
 % 基本信息
 \newcommand{\TheisName}[0]{面向工业界仿冒应用的大规模实证研究}
@@ -273,8 +273,11 @@
 \input{A2-COVER-E.tex}
 \clearPaperPage
 
-\input{A3-COPYRIGHT.tex}
-\clearPaperPage
+% 原创性声明。匿名时不编译
+\ifx\anonymous\undefined
+    \input{A3-COPYRIGHT.tex}
+    \clearPaperPage
+\fi
 
 \input{A4-MEMBERLIST.tex}
 \clearPaperPage
