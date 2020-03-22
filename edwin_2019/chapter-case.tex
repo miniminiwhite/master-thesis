@@ -193,17 +193,17 @@ PUP通常在用户不知情或者不愿意的情况下，通过静默安装或�
 通过这个后门，黑客可以在不修改APK包安全证书信息的情况下，向APK包里注入任意内容。
 % An alternative solution, V2 signature scheme, has been launched at least one year before that.
 而早在这个漏洞被公布的至少一年之前，Google就已经发布了作为V1版签名机制的替代解决方案，也就是V2版应用签名机制。
-% In order to confirm if these apps are using the risky V1 scheme, we used a tool, \textsc{apksigner}, provided by Google to verify which signature schemes these samples are using.
+% In order to confirm if these apps are using the risky V1 scheme, we used a tool, apksigner, provided by Google to verify which signature schemes these samples are using.
 这看起来十分有可能是导致这些可以样本产生的原因，某些恶意开发者利用了V1版本签名机制的漏洞，修改了APK包的基本信息。
-为了确认这些样本是否采用了具有风险的V1版应用签名机制，我们使用了\textsc{apksigner}来检测这些样本使用的签名机制版本。
-\textsc{apksigner}是Google官方提供的一个命令行工具，它被集成在Android SDK中，既是APK包编译打包过程中为APK包进行数字签名的工具，也可以用来验证APK包使用的签名机制版本，又或者是验证APK的签名是否有效。
+为了确认这些样本是否采用了具有风险的V1版应用签名机制，我们使用了apksigner来检测这些样本使用的签名机制版本。
+apksigner是Google官方提供的一个命令行工具，它被集成在Android SDK中，既是APK包编译打包过程中为APK包进行数字签名的工具，也可以用来验证APK包使用的签名机制版本，又或者是验证APK的签名是否有效。
 
 % It ends up that all 17 samples are using V1 signature scheme.
-\textsc{apksigner}的结果显示，所有17个样本都只使用了V1版本的应用签名机制。
+apksigner的结果显示，所有17个样本都只使用了V1版本的应用签名机制。
 % With actually knowing that V1 is no longer safe, developers still refuse to embrace the safer scheme, which is really disappointing.
 在了解到V1版本签名机制已经不再安全的情况下，仍有部分开发者由于各种原因没有接受更新也更安全的签名方案，这个结果有点令人失望。
 
 \section{本章小结}
 本章从数据集中选出了一些较有代表性又或者反直觉的数据样本，为读者提供了3个不同的案例分析，在为我们在上一章的发现提供有力支持之外，也揭示了更多仿冒应用开发者的行为特征。
 回看三个案例，我们不难发现，仿冒应用开发者的确会抓住一切可能的机会，利用包括签名机制漏洞、市场审查机制缺陷在内的各种办法制作出仿冒甚至是恶意应用。
-同时，本章的三个案例也说明了无论是开发人员还是应用市场，都应该为保护Android的软件安全上投入更大精力，从而更好地防范来自移动黑产的各种攻击。
+同时，本章的三个案例也说明了无论是开发人员还是应用市场，都应该在保护Android的软件安全方面上投入更大精力，从而更好地防范来自移动黑灰产的各种攻击。

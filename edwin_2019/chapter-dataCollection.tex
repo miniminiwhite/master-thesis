@@ -1,8 +1,13 @@
-\chapter{研究概览}
+\chapter{研究概览与数据收集}
 \label{chp:dataCollection}
 
+如前文所述，仿冒应用的生态是移动黑灰色产业研究中缺失的一环。
+为了补上这一研究空白，在没有前人研究提供数据或分析的基础上，从工业界直接获取真实世界的样本来完成实证研究是最为直观合适的方法。
+因此，本研究分四个部分，对仿冒应用进行实证研究。
+本章将先为读者提供四个部分的研究概览，然后再详述其中的数据收集部分。
+
 % \subsection{Workflow of Our Study}
-\section{本文研究流程}
+\section{研究概览}
 
 \begin{figure}[htbp]
 	\centering
@@ -13,49 +18,44 @@
 \end{figure}
 
 % Fig.~\ref{fig:Workflow} shows the workflow of our study, which can be divided into two main phases:
-\autoref{fig:Workflow} 展示了\fullref{chp:discoveries}的工作流程，其可以分为两个主要阶段：
+\autoref{fig:Workflow} 展示了本次实证研究的流程，其可以分为四个主要阶段：
 
-% (1)\ \emph{Data Collection}, which collects fake apps from all sorts of app markets based on the maintained official certificates, as well as the metadata of apps (e.g., package names and app names).
 1)\ \emph{数据收集} \quad
-在这一步，我们基于搜集到的官方应用安全证书的信息，从各大应用市场收集仿冒应用和他们的相关元数据（比如App的包名和应用名）。
-% Our collaboration with \texttt{\small Pwnzen} allows us to have access to raw data from most of the mainstream Android markets.
-得益于与上海犇众信息技术有限公司的合作，我们从Google Play官方应用商店和国内的大部分主流第三方应用市场中顺利收集到了大量的原始数据。
+数据收集主要分为两个部分：正版应用信息的收集和仿冒应用的收集。
+在正版应用信息收集的部分，我们选择了50个最热门的App作为目标App，然后手动收集了跟这些App有关的信息；
+仿冒应用信息收集方面，我们得到了上海犇众信息技术有限公司的帮助，顺利收集到了大量的应用样本。
+借助自动化分析框架\mytool，我们获得了大量仿冒应用的数据。
 
-我们的研究对象是仿冒应用，但市面上的App林林总总，不可一概全收，一些小型的App相似度极高，更是难辨其原创性。
-% We focus on collecting the fakes of the top 50 popular apps in the real world;
-因此，我们在收集仿冒应用时，只收集了当时国内市面上最热门50款App的对应仿冒样本。
-在选择市面上最热门的50款App时，我们参考了当时数据平台易观千帆的月度App排行榜\footnote{\url{https://qianfan.analysys.cn/refine/view/rankApp/rankApp.html}}，然后从中选出了其中的前50款热门App，搜集它们的仿冒样本。
+2)\ \emph{大规模数据挖掘} \quad
+在这一步，我们对搜集到的仿冒样本数据进行分析，从三个视角完成了一次大规模数据挖掘。
+三个视角分别是仿冒的基本应用特征、影响仿冒应用数量的因素和仿冒应用的发展轨迹，由浅入深，帮助读者理解仿冒应用的生态。
 
-% 2)\ \emph{Large-scale Empirical Study}, which measures the collected fake apps from several perspectives: the characteristics of fake apps, as well as the quantitative analysis of fake apps.
-2)\ \emph{大规模实证研究} \quad
-在这一步，我们对搜集到的仿冒样本，从以下角度进行大规模的实证研究：仿冒的基本应用特征、针对仿冒应用的定量分析。
-% We also aim to unveil the developing trend of fake authors to help fake app detection and shine light on the nature of the fake apps' ecosystem for both academia and industry.
-我们也试图从收集到的信息中挖掘出仿冒应用作者的开发轨迹，以求为学术界和工业界揭示仿冒应用生态系统的更多信息。
+3)\ \emph{仿冒案例分析} \quad
+之后，我们从收集的数据中选择了3个案例进行更深入的分析。
+这三个案例在支持数据挖掘中的发现之外，揭示了更多仿冒应用开发者的行为特征。
 
-在此之外，在\fullref{chp:feedback}中，我们还从几个第三方应用市场中随机选取一部分应用，提取了用户对它们的所有历史评价，然后筛选出其中对仿冒应用的评价并分析，以期了解用户对这些应用持有的态度，然后在此基础上检测仿冒应用是否有排名欺诈行为，为了方便作者理解，评论数据的收集、概览在\fullref{chp:feedback}另表。
+4)\ \emph{市场反馈分析} \quad
+在这个部分，我们从第三方应用市场中随机选取一部分应用，提取了用户对它们的所有历史评价，然后筛选出其中对仿冒应用的评价并分析，以期了解用户对这些应用持有的态度。
+此基础上，我们还检测了仿冒应用与排名欺诈行为的关系，揭示移动黑灰产不同环节之间的关联。
 
-% \section{Data Collection}
-\section{数据收集}
-% Although the research community is in great need of both a comprehensive dataset on Android fake apps from industry and an effective approach to retrieving and collecting fake apps at scale from industry, little has been done to fulfill the need.
-尽管对于学术界来说，一个从市面上App收集的、完整而全面的仿冒应用数据集，又或是一套能大规模又有效地收集仿冒应用的方法会对相关研究十分有裨益，但是迄今为止，都未有相关工作能填补这一空白。
-% In this paper, we make the first attempt to systematically collect data from industry.
-因此，在本文中，我们率先尝试着从工业界中系统地收集我们需要的仿冒应用数据。
+\section{应用数据收集}
+鉴于目前学术界中未有相关工作能提供仿冒应用的相关数据集，我们率先尝试着从工业界中系统地收集我们需要的仿冒应用数据。
+然而仿冒应用是一个跟正版应用相对的概念，所以我们需要先定义正版应用，再根据正版应用的信息搜寻仿冒应用。
 
-% \noindent {\bf Collection Method.}
-\subsection{收集方法}
-% Obtaining an ample set of data is a challenging task, new app samples and updates need to be continuously crawled from various Android markets.
-% The challenge here is two-fold:
-针对我们的研究主体，要获取足量的数据以组成数据集是一个十分具有挑战性的任务，难点主要有三：
+\subsection{收集流程简介}
+1)\ \emph{正版应用收集} \quad
+在定义正版应用方面，我们参考了数据平台易观千帆的月度App排行榜\footnote{\url{https://qianfan.analysys.cn/refine/view/rankApp/rankApp.html}}，然后从中选出了其中的前50款热门App作为我们的目标App。
+之后，我们手动地从这50款App的官方网站上下载了这些应用的最新版本，作为正版应用的参考版本。
+
+2)\ \emph{仿冒应用收集} \quad
+要获取足量的仿冒应用数据以组成数据集是一个十分具有挑战性的任务，难点如下：
 \begin{itemize}
-	% (1) Obtaining a large number of samples from different markets separately is no easy task;
 	\item 我们要从多个不同的应用市场中爬取App样本，每个应用市场都有不同的网页编码，不存在一个爬虫脚本对所有应用市场数据都通用的场景；
-	% (2) A certificate identifier is needed to tell fake apps from official ones.
-	\item 各个应用市场架上的App数量浩如繁星，我们需要有效地找到和前述50个热门App有关的所有样本，不重不漏；
-	\item 我们需要一个轻量级的解决方案快速判断获得的App样本究竟为正版应用又或者是仿冒应用。
+	\item 各个应用市场架上的App数量浩如繁星，我们需要有效地找到和目标App有关的所有样本，不重不漏；
+	\item 对于大量数据，我们需要一个轻量级的解决方案快速判断获得的App样本究竟为正版应用又或者是仿冒应用。
 \end{itemize}
 
-% To address challenge (1), we collaborate with our industry partner and leverage the Pwnzen platform to conduct \emph{sample crawling} from markets and build a \texttt{\small sample database};
-为了应对第一个挑战，我们与工业界合作，利用了犇众信息公司的Janus平台对各大应用商店进行\emph{样本爬取}，然后用得到的样本构建了一个\texttt{\small 样本数据库}。
+为了应对第一个挑战，我们与工业界合作，利用犇众信息公司的Janus平台对各大应用商店进行样本爬取，从而获得大量应用样本。
 事实上，如\autoref{fig:Janus-data}显示，Janus平台自2017年起就开始对各大应用商店的App进行样本收集，至今已收集到上千万个App样本。
 除样本搜集外，Janus也提供按规则搜索功能，用户可以创建自己的规则过滤平台中的应用数据，以获取自己需要的App样本。
 
@@ -67,41 +67,15 @@
 	\vspace{-5mm}
 \end{figure}
 
-为了应对第二个挑战，我们使用了一个基于广度优先搜索（Breadth-First Search，简称BFS）的算法，分步搜索与50个热门应用相关的所有App样本，稍后会有详细介绍。
+为了应对第二个和第三个挑战，我们搭建了仿冒应用筛选框架\mytool。
+利用一个基于广度优先搜索（Breadth-First Search，简称BFS）的算法，我们在\mytool 中实现了一个迭代搜索器，以应用的\emph{包名}和\emph{应用名}作为拓展数据项，从Janus平台中分步迭代搜索与目标应用相关的所有App样本，然后将相关样本下载到本地保存;
+对下载到本地的应用，我们使用\mytool 的组件应用收集器提取我们需要的数据；
+然后，基于前述收集到的正版应用信息，我们在\mytool 中构建出了一个仿冒应用过滤器，将上一步中提取到的数据和正版应用作比对。
 
-% to meet challenge (2), we pre-download the latest samples of our target apps to extract their official certificate information and construct a certificate identifier.
-而为了应对第三个挑战，我们预先从官方渠道下载了50个热门应用的最新版本，提取出它们APK文件中包含的安全证书信息，构建出了一个安全证书筛选器。
-
-% More specifically, during the database construction phase, we clusters samples by certificate hash, package names or app names.
-更具体地说，在构建数据库的阶段，我们分别使用安全证书哈希码、App包名和App应用名来聚类应用样本。
-% When the database receives queries, it returns sample clusters with the corresponding package names, app names, certificate hash, etc, in form of sample metadata entries.
-当接收到查询请求时，数据库分别会返回与查询条目对应的包名、应用名和安全证书哈希码的聚类结果，结果以包含样本元数据的条目形式呈现。
-% Since fake samples usually have similar names to the official ones, we collect fake apps by using app names from official apps.
-为了迷惑用户，仿冒样本往往有与正版App十分相似的外观，比如与正版App近似的名称。
-因此，我们以正版应用的应用名出发，搜寻仿冒应用。
-
-% To achieve this, we first extract the package names of our pre-downloaded samples.
-要做这件事，我们首先从预先下载好的正版样本APK文件中提取App的包名和应用名，放入查询队列中。
-% These package names are later sent to the sample database for query (i.e., step 1 marked in Fig.~\ref{fig:Workflow}).
-这些包名和应用名接下来会被输入到样本数据库中进行查询（即\autoref{fig:Workflow}中标识的步骤1）。
-% And then, for each metadata entry returned from step 2, we check if it is official using the certificate identifier.
-之后，数据库会返回一系列对应的样本结果（步骤2）。
-对每个结果，我们会提取其中的安全证书哈希码字段，输入到安全证书识别器中，判定对应的样本是否持有正版应用的证书。
-% If true and that sample is confirmed as one of our target app (step 3 in the figure), namely, it has the same package name to one of the inputs, its name will be recorded (step 4) and used for further query (back to step 1).
-如果一个样本持有正版证书，它就会被认定为正版应用（图中的步骤3），我们会记录下它的包名和应用名（步骤4）。
-如果它的包名（或应用名）还没有被用于查询过，我们会把这个包名（或应用名）加入查询队列，然后开始下一轮的迭代（回到步骤1）。
-% If false, that sample would be marked as a fake one (step 5), its metadata will be utilized for large-scale measurement.
-否则，这个样本会被标记成仿冒样本（图中步骤5）。
-它的元数据将会被用于大规模分析。
-
-之所以要这样操作，是因为开发者推出的App的应用名和包名并不是一成不变的。
-一些热门应用会出于商业原因频繁地更改自己的应用名（比如爱奇艺视频，会根据其近期热播的电视剧/电影变更其应用名以吸引更多用户使用）；
-也有个别的热门应用可能会更换自己的包名，比如App有重大改版、又或者是开发者安全证书有变更，开发者不得不更换包名（具体原因可参考\secref{sec:signature}的Android App签名机制部分）。
-% For each app, once all of the official names have been used for query, the data collection on it is finished.
-对于每个热门应用来说，当其对应的查询队列中的所有包名、应用名都已经被查询过，我们对这个热门应用的数据收集就结束了。
+关于应用数据收集流程的详细信息，可以参考\fullref{chp:fakerevealer}的介绍。
 
 % \noindent {\bf Collected Dataset.}
-\subsection{数据概览}
+\subsection{应用数据概览}
 % Here is a bird eye's view to the data we collected:
 在这里，我们先给收集到的数据提供一个数据概览：
 
@@ -130,6 +104,6 @@
 
 \section{本章小结}
 
-本章主要对本研究进行了概览，并详细介绍了数据收集的流程和方法，然后对采集到的数据进行了简要描绘。
+本章主要对本研究进行了概览，介绍了数据收集的流程和方法，然后对采集到的数据进行了简要描绘。
 % Empirical study is then applied to these metadata, especially to those of fake apps, to gain us a more comprehensive understanding on fake apps' nature and characteristics, and the behaviors of fake app authors.
-接下来我们将针对前述的元数据，尤其是对仿冒样本中采集到的元数据，进行实证研究，以求获得对于仿冒应用生态和特征、以及对于仿冒应用开发者的行为的更全面的认知。
+下一章，我们将详述数据收集工具\mytool 的设计和实现。

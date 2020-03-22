@@ -109,6 +109,8 @@
 
 
 %============================ 可以自定义文字块 ================================%
+\newcommand\mytool{FakeRevealer}
+
 %交叉引用格式
 \renewcommand\figureautorefname{图}
 \renewcommand\tableautorefname{表}
@@ -120,14 +122,15 @@
 
 \renewcommand{\listtablename}{\hfill\bfseries\Large 表~~~~格\hfill}
 \renewcommand{\listfigurename}{\hfill\bfseries\Large 插~~~~图\hfill}
-
 \renewcommand{\listalgorithmcfname}{\centering\bfseries\Large 算~~~~法}
+
 % 章引用
 \newcommand*{\fullref}[1]{\textbf{\hyperref[{#1}]{第\ref*{#1}章}}}
 % 节引用
 \newcommand*{\secref}[1]{\textbf{\hyperref[{#1}]{第\ref*{#1}节}}}
 % 概念定义
 \newtheorem{Def}{定义}
+
 
 %=============================段前段后定义=============================%
 \def  \cftbeforetitleskip {25pt}
@@ -242,14 +245,6 @@
 \usepackage{etoolbox}
 \input{settings-lst}
 
-\makeatletter
-\DeclareRobustCommand\citenum
-{\begingroup
-	%      \NAT@swatrue\let\NAT@ctype\z@\NAT@parfalse\let\textsuperscript\NAT@spacechar% DELETED
-	\NAT@swatrue\let\NAT@ctype\z@\NAT@parfalse\let\textsuperscript\relax% NEW
-	\NAT@citexnum[][]}
-\makeatother
-
 \usepackage{bibspacing}
 \setlength{\bibitemsep}{\baselineskip}
 \renewcommand{\bibfont}{\normalfont}
@@ -267,38 +262,38 @@
 
 \begin{document}
 
-\input{A1-COVER-1.tex}
+\input{A1-COVER-1}
 \clearPaperPage
 
-\input{A2-COVER-E.tex}
+\input{A2-COVER-E}
 \clearPaperPage
 
 % 原创性声明。匿名时不编译
 \ifx\anonymous\undefined
-    \input{A3-COPYRIGHT.tex}
+    \input{A3-COPYRIGHT}
     \clearPaperPage
 \fi
 
-\input{A4-MEMBERLIST.tex}
+\input{A4-MEMBERLIST}
 \clearPaperPage
 
 \pagenumbering{roman}
 \pagestyle{plain}
 
-\input{B1-ABSTRACT.tex}
+\input{B1-ABSTRACT}
 \clearPaperPage
 
-\input{B2-ABSTRACT-E.tex}
+\input{B2-ABSTRACT-E}
 \clearPaperPage
 
-\input{B2-TOC.tex}
+\input{B2-TOC}
 \clearPaperPage
 
-\input{B3-Figure.tex}
+\input{B3-Figure}
 \clearPaperPage
 
-\input{B4-Table.tex}
-% \input{B5-Algorithms.tex}
+\input{B4-Table}
+\input{B5-Algorithms}
 \clearPaperPage
 
 \pagenumbering{arabic}
@@ -323,25 +318,28 @@
 \xiaosi
 \clearPaperPage
 
-\input{chapter-intro.tex}
+\input{chapter-intro}
 \clearPaperPage
 
-\input{chapter-background.tex}
+\input{chapter-background}
 \clearPaperPage
 
-\input{chapter-dataCollection.tex}
+\input{chapter-dataCollection}
 \clearPaperPage
 
-\input{chapter-discoveries.tex}
+\input{chapter-fakerevealer}
 \clearPaperPage
 
-\input{chapter-case.tex}
+\input{chapter-discoveries}
 \clearPaperPage
 
-\input{chapter-feedback.tex}
+\input{chapter-case}
 \clearPaperPage
 
-\input{chapter-future.tex}
+\input{chapter-feedback}
+\clearPaperPage
+
+\input{chapter-future}
 \clearPaperPage
 
 % 参考文献
@@ -356,10 +354,10 @@
 		\fancyhead[LE,RO]{\small{\articleCategory}}
 		\fancyhead[RE,LO]{\small{致  谢}}
 	}
-	\input{D2-ACKNOWLEDGEMENT.tex}
+	\input{D2-ACKNOWLEDGEMENT}
 	\clearPaperPage
 \fi
 
-\input{D3-MYACHIEVEMENTS.tex}
+\input{D3-MYACHIEVEMENTS}
 
 \end{document}

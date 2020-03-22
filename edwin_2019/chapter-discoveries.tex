@@ -1,13 +1,10 @@
 % \section{Large-scale Empirical Study and Discoveries}
-\chapter{大规模实证研究与发现}
+\chapter{大规模数据挖掘与发现}
 \label{chp:discoveries}
 
-% With the large-scale dataset ready, we can further conduct a comprehensive empirical study to acquire the nature of fake apps as well as understanding their ecosystem.
-在数据库准备好之后，我们就可以对这些仿冒应用进行大规模分析，挖掘仿冒应用的信息并了解其生态系统了。
-% To effectively measure different facades of fake apps, We define three perspectives, namely \emph{Fake Sample Characteristics}, \emph{Quantitative Study on Fake Samples}, and \emph{Developing Trend}.
+在数据收集完毕之后，我们将对搜集到的仿冒应用数据进行分析，解读仿冒应用的生态。
 为了能更全面有效地测量这些仿冒应用的各方面，我们定义了三个不同视角，即：\emph{仿冒应用的基本特征}、\emph{影响仿冒应用数量的因素}和\emph{仿冒应用的发展轨迹}。
-% Next, we'll describe each perspective in detail.
-接下来，我们会详细描述各个不同视角的观察方法以及观测结果。
+本章将详细描述各个不同视角的观察方法以及观测结果。
 
 % \subsection{Fake Sample Characteristics}
 \section{仿冒应用的基本特征}
@@ -22,9 +19,8 @@
 % The nature of the certificate, namely, whether each fake app has a unique certificate, is likely to be essential to fake apps' evasive technique.
 而仿冒应用在安全证书上的性质（也就是说，是否每个仿冒应用都有一个独一无二的安全证书），十分可能是仿冒应用规避监管技术的关键。
 % On the other hand, we believe repackaged apps, as a kind of \texttt{imposters}, are widespread in our dataset.
-另一方面，我们也猜想打包应用（一种\texttt{高仿应用}）在我们的数据集中普遍存在。
 % Measurement on basic information of fake apps, such as package names and package sizes, helps us determine how repackaged apps are distributed, since repackaging an app does not change any of its basic information (i.e. the app name, package name, version code, etc.) unless it's done intentionally.
-对仿冒应用基本信息的测量，比如说对应用包名和大小的测量，则可以帮助我们了解重打包应用在数据集中的分布如何。
+另一方面，我们还猜想重打包应用在我们的数据集中普遍存在，对仿冒应用基本信息的测量（比如说对应用包名和大小的测量）可以帮助我们了解重打包应用在数据集中的分布如何。
 因为普通的重打包技术并不会对APK的基本信息（比如应用名、应用版本号等）作出修改，除非仿冒作者有意为之。
 
 \subsection{安全证书与仿冒应用的对应关系}
