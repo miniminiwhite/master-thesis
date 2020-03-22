@@ -11,7 +11,7 @@
 
 \begin{figure}[htbp]
 	\centering
-	\includegraphics[width=0.95\textwidth]{./Figures/overview_modified.pdf}
+	\includegraphics[width=\textwidth]{./Figures/edwin-overview}
 	\caption{本文研究流程}
 	\label{fig:Workflow}
 	\vspace{-3mm}
@@ -67,10 +67,10 @@
 	\vspace{-5mm}
 \end{figure}
 
-为了应对第二个和第三个挑战，我们搭建了仿冒应用筛选框架\mytool。
-利用一个基于广度优先搜索（Breadth-First Search，简称BFS）的算法，我们在\mytool 中实现了一个迭代搜索器，以应用的\emph{包名}和\emph{应用名}作为拓展数据项，从Janus平台中分步迭代搜索与目标应用相关的所有App样本，然后将相关样本下载到本地保存;
-对下载到本地的应用，我们使用\mytool 的组件应用收集器提取我们需要的数据；
-然后，基于前述收集到的正版应用信息，我们在\mytool 中构建出了一个仿冒应用过滤器，将上一步中提取到的数据和正版应用作比对。
+为了应对第二个和第三个挑战，我们搭建了应用筛选框架\mytool。
+利用一个基于广度优先搜索（Breadth-First Search，简称BFS）的算法，我们在\mytool 中实现了一个\componentB ，以应用的\emph{包名}和\emph{应用名}作为拓展数据项，从Janus平台中分步迭代搜索与目标应用相关的所有App样本，然后将相关样本下载到本地保存;
+对下载到本地的应用，我们使用\mytool 的组件\componentA 提取我们需要的数据；
+然后，基于前述收集到的正版应用信息，我们在\mytool 中构建出了一个\componentC ，将上一步中提取到的数据和正版应用作比对。
 
 关于应用数据收集流程的详细信息，可以参考\fullref{chp:fakerevealer}的介绍。
 
