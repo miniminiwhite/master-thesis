@@ -40,8 +40,9 @@ APK文件中虽然包含着应用的所有信息，但我们的应用筛选并�
 
 
 \subsection{\componentB }
-这个模块的设计利用了基于一个BFS的算法，详情可见\autoref{alg:bfs}。
-根据已有的正版应用信息，本组件向\componentA 提交查询、下载样本的请求，然后利用\componentC 过滤获得的应用信息，再根据其中正版应用的数据扩增正版应用信息，进行下一轮迭代搜索。
+这个组件的设计利用了基于一个BFS的算法，详情可见\autoref{alg:bfs}。
+根据缓存中的正版应用信息，本组件向\componentA 提交查询、下载样本的请求。
+在利用\componentC 过滤获得的应用信息后，再根据其中正版应用的信息扩增缓存中的数据，进行下一轮迭代搜索。
 
 \begin{algorithm}[!ht]
 	\tablewuhao
@@ -49,14 +50,14 @@ APK文件中虽然包含着应用的所有信息，但我们的应用筛选并�
 	\label{alg:bfs}
     \KwIn{ $targetItems$，列表，用于拓展的数据项}
     \KwIn{ $legalApkInfo$，列表，包含正版应用及其信息键值对}
-	\KwOut{ $searched$，列表，包含拓展后的正版应用信息键值对}
+	\KwOut{ $cache$，列表，缓存拓展后的正版应用信息键值对}
 	\SetKwProg{Fn}{Function}{:}{}
 
 	\Fn {iterSearcher($legalApkInfo, targetItems$)} {
 
         $wtQueue$ = $\emptyset$;
 
-        $searched$ = $\emptyset$;
+        $cache$ = $\emptyset$;
 
         \For {$apkInfo \in legalApkInfo$} {
 
@@ -72,9 +73,9 @@ APK文件中虽然包含着应用的所有信息，但我们的应用筛选并�
 
     		$key, val$ = $wtQueue$.pop();
 
-    		\If{${key: val} \in searched$} {continue;}
+    		\If{${key: val} \in cache$} {continue;}
 
-    		$searched$.add(${key: val}$);
+    		$cache$.add(${key: val}$);
 
     		$newSamples \gets$ appRetriever($key, val$);
 
@@ -98,7 +99,7 @@ APK文件中虽然包含着应用的所有信息，但我们的应用筛选并�
 
     	}
 
-    \KwRet{$searched$};
+    \KwRet{$cache$};
 
     }
 
@@ -111,12 +112,12 @@ APK文件中虽然包含着应用的所有信息，但我们的应用筛选并�
 每次迭代中，我们都从$wtQueue$中取出一组键值对，其中键$key$为本次迭代中用于搜索新应用的数据项，$val$为数据项对应的值（第8行）。
 取出键值对之后，我们先检查该键值对是否已经被用于之前的搜索中。
 如果该键值对之前已经出现过，那么我们跳过本轮迭代，重新取一组键值对进行搜索；
-否则，我们将本组键值对放入集合$searched$，表示该组键值对已被使用过。
+否则，我们将本组键值对放入数据缓存$cache$，表示该组键值对已被使用过。
 之后，我们将键值对传递给\componentA ，\componentA 会生成对应查询，从应用来源中获取数据项相关的应用（第12行）。
 对于\componentA 返回的应用集$newSamples$中的每个样本$sample$，我们会用\componentC 检查$sample$是否为正版样本。
 如果是正版样本，那么我们将从该样本中获取对应的数据$sampleInfo$，然后将其中与待拓展对应项$item$对应的内容插入到待查询队列$wtQueue$中（第15 - 18行）。
 当应用集$newSamples$中的所有样本都被筛选检查过之后，本轮迭代结束。
-如果$wtQueue$中的所有键值对都已经被检索完毕（即$wtQueue$为空），本算法流程结束，本组件会将$searched$中被用于拓展搜索的各个数据项键值对整理成JSON文件输出，方便之后的再利用。
+如果$wtQueue$中的所有键值对都已经被检索完毕（即$wtQueue$为空），本算法流程结束，本组件会将$cache$中被用于拓展搜索的各个数据项键值对整理成JSON文件输出，方便之后的再利用。
 
 在本次实证研究场景中，$targetItems$包含两项内容，一个是应用的包名（\emph{PackageName}），另一个是应用自身的名字（\emph{AppName}）。
 之所以要这样操作，是因为开发者推出的App的应用名和包名并不是一成不变的。
