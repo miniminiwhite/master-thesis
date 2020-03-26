@@ -215,8 +215,6 @@
 	\label{fig:app_detail_page}
 	\vspace{-5mm}
 \end{figure*}
-% \vspace{5mm}
-
 
 % \noindent {\bf Case study 3.} \emph{Suspicious samples with official certificate}
 \subsection{案例 1. 持有官方安全证书的可疑样本}
@@ -236,16 +234,17 @@
 对比之后，笔者发现该证书来自360手机助手，但360和爱奇艺并没有合作关系，因此这是个可疑的样本；
 而第二个样本（\texttt{360手机助手}）的可疑之处在于样本包名。多数\texttt{360手机助手}的包名为\emph{com.qihoo.appstore}，也有少部分官方包名为\emph{com.qihoo.secstore}，前者为\texttt{360手机助手}在国内第三方应用市场发行的应用包名，后者为Google Play官方应用市场上上架的包名。然而，其中一个使用了其官方安全证书签署的样本的包名却是\emph{com.kuyou.sdbgj.baidu}，十分奇怪；
 第三个样本则是在应用名中包含了``破解''字样。然而，正常的正版应用根本不会有这样的命名方式，所以笔者也认为这是一个可疑样本。
-进行后续分析时，相关样本已被剔除出正版样本集合。
+
 
 % \textsc{Virustotal} reports that only 2 of the 17 samples are benign, 2 are PUP and the other 13 samples are all malicious.
 \textsc{Virustotal} 的检查结果显示，17个可疑样本中，只有2个是良性应用，2个是PUP，余下13个样本都被判定具有恶意行为。
+进行后续分析时，相关样本已被剔除出正版样本集合。
 
 \begin{table*}[htbp]
     \renewcommand{\arraystretch}{1}
     \small
     \centering
-  \setlength{\belowcaptionskip}{-10pt}
+  % \setlength{\belowcaptionskip}{-10pt}
     \caption{持有官方安全证书的可疑样本}
     \begin{tabular}{l l c c c c c c}
         \toprule
@@ -282,8 +281,9 @@ apksigner是Google官方提供的一个命令行工具，它被集成在Android 
 % It ends up that all 17 samples are using V1 signature scheme.
 apksigner的结果显示，所有17个样本都只使用了V1版本的应用签名机制。
 % With actually knowing that V1 is no longer safe, developers still refuse to embrace the safer scheme, which is really disappointing.
-在了解到V1版本签名机制已经不再安全的情况下，仍有部分开发者由于各种原因没有接受更新也更安全的签名方案，这个结果有点令人失望。
+在了解到V1版本签名机制已经不再安全的情况下，仍有部分开发者由于各种原因没有接受更新也更安全的签名方案，这个结果令人失望。
 
+\vspace{5mm}
 \noindent\fbox{
 	\parbox{0.95\linewidth}{
 		% \textbf{Remark 1}: Most certificates link with only a number of fake apps, which is highly possible to be a fake developers' evasive strategy.
@@ -840,7 +840,7 @@ Wannacry作为一种新型恶意软件，自2017年第二季度被首次发现�
 
 \section{本章小结}
 本章先分别从\emph{仿冒应用的基本特征}、\emph{影响仿冒应用数量的因素}和\emph{仿冒应用的发展轨迹}三个不同视角对采集到的数据进行了分析，并在每个视角后的本节小结中概括了每个视角的结论，解读仿冒应用的特征。
-然后，本章从数据集中选出了一些较有代表性又或者反直觉的数据样本，提供了3个不同的案例分析，在为本文的发现提供有力支持之外，也揭示了更多仿冒应用开发者的行为，深化了对仿冒应用生态的了解。
+在每个视角的解读之后，本章还从数据集中选出了一些较有代表性又或者反直觉的数据样本，提供了3个不同的案例分析，在为本文的发现提供有力支持之外，也揭示了更多仿冒应用开发者的行为，深化了对仿冒应用生态的了解。
 
 回看三个案例，不难发现，仿冒应用开发者的确会抓住一切可能的机会，利用包括签名机制漏洞、市场审查机制缺陷在内的各种办法制作出仿冒甚至是恶意应用。
 同时，本章的三个案例也说明了无论是开发人员还是应用市场，都应该在保护Android的软件安全方面上投入更大精力，从而更好地防范来自移动黑灰产的各种攻击。

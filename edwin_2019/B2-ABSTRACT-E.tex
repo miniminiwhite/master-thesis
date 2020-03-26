@@ -16,24 +16,25 @@ Without any previous study, to conduct research on fake apps is necessary.
 
 % 为了获得关于仿冒应用的第一手资料，本文直接从业界收集数据入手分析，完成本次大规模实证研究。
 In order to obtain the first-hand data about fake apps, we directly dive into the industry to collect data and finish this large-scale empirical study.
-% 首先，笔者设计实现了仿冒应用过滤框架\mytool ，进行了针对仿冒应用的大规模数据收集，将仿冒应用数据整理成集。
-Above all, the author design and implement a fake app filter framework called \mytool whereby the large-scale data collection is done and the fake app data is filed as a dataset.
-% 其次，基于收集到的数据，本文分别从仿冒应用的基本特征、影响仿冒应用数量的因素以及仿冒应用的发展轨迹三个不同视角对仿冒应用的特征进行解读。
+% 针对现有爬虫框架不能定向爬取的问题，笔者设计实现了仿冒应用收集框架\mytool ，进行了仿冒应用的大规模数据收集，将仿冒应用数据整理成集。
+Considering the problem that existing crawler frameworks are not able to achieve targeted collection, the author design and implement a fake app filter framework called \mytool whereby the large-scale data collection is done and the fake app data is filed as a dataset.
+% 其次，基于收集到的数据，本文分别从仿冒应用的基本特征、影响仿冒应用数量的因素以及仿冒应用的发展轨迹三个不同视角，结合实例分析，对仿冒应用的特征进行解读，完成了领域创新。
 After that, based on the collected data, this paper interprets the characteristics of fake apps from three different perspectives: fake apps' characteristics, factors affecting fake apps' quantity and the developing trends of fake apps.
-% 本研究还深入分析了数据中的几个案例，提供了更多关于仿冒应用生态的细节。
-A few case-studies afterward provide even more details on fake apps' nature.
-% 进一步地，为了了解仿冒应用在应用市场上获得的反馈，以及验证仿冒应用和移动黑灰产的另一个环节---排名欺诈---之间是否存在联系，本文针对仿冒应用在应用市场上的评级和评论等进行了一系列的分析。
-One step further, in order to get to know the feedback the fake apps' win from app markets, as well as to verify whether fake apps interact with another chain in the mobile underground industry --- ranking fraud, this paper conducts a serious the analyses using the fake apps' ranking and comment data retrieved from an app market.
+Additionally, case studies are attached after each interpretation to provide more details.
+% 进一步地，为验证仿冒应用和移动黑灰产的另一个环节---排名欺诈之间是否存在联系，本文收集了仿冒应用在应用市场上的评级和评论进行了排名欺诈排查。
+One step further, in order to verify whether fake apps interact with another chain in the mobile underground industry --- ranking fraud, this paper conducts a series the ranking fraud detection using the fake apps' ranking and comment data retrieved from an app market.
+% 针对现有排名欺诈检测方法的不足，本文先后提出两种方法创新性地对所得数据进行检测。
+Aim to the drawbacks of existing detecting methods, this paper proposes two innovative approaches to complete the detection.
 
-% 在数据收集方面，本文使用\mytool 共收集到了超过15万个数据条目，其中每个数据条目代表一个应用样本。
-In terms of data collection, this study obtains more than 150,000 data entries leveraging \mytool, where one entry represents an app sample.
+% 研究结果方面，在数据收集上，本文使用\mytool 共收集到了超过15万个数据条目，其中每个数据条目代表一个应用样本。
+In terms of the result of data collection, this study obtains more than 150,000 data entries leveraging \mytool, where one entry represents an app sample.
 % 利用这些样本对仿冒应用进行特征解读，本文得到了如仿冒应用的命名倾向和仿冒应用开发者对市场监管防御机制的规避策略等信息，之后的案例分析更暴露出了仿冒作者针对不同应用进行仿冒的形式和应用市场之间的监管缺陷。
 Interpreting the characteristics of fake apps with these samples, this paper learns knowledge like fake apps' naming tendency and the strategies the fake app developers deploy to evade app markets' regulatory mechanisms.
 What's more, the case-studies expose the fact that fake app developers counterfeit different apps in different forms and app markets lack cooperative supervision.
 % 这些信息都有助于对仿冒应用进行理解。
 All the information above does help in understanding fake apps.
-% 评论分析方面，结合两种排查方法和最后的人工复核，本文确认了仿冒应用中确实存在排名欺诈行为的事实。
-On the user feedback analysis side, after two automatic investigations and the later on manual inspection, this paper confirms that fake app developers utilize ranking fraud to boost their rank.
+% 评论分析方面，结合人工复核，本文确认了提出的两种检测方法都具有良好的效果，而仿冒应用中确实存在排名欺诈行为。
+On the user feedback analysis side, manual inspection infers that our two innovative detecting approaches are both effective, meanwhile, fake app developers do utilize ranking fraud to boost their rank.
 
 % 综上，本文分别从仿冒应用特征解读和仿冒应用评论分析两个方面完成了具有创新性的研究。
 This paper completes an innovative study from two aspects, namely fake apps characteristics Interpretation and fake apps user feedback analysis.
