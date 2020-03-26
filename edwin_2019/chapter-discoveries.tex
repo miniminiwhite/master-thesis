@@ -1,11 +1,11 @@
 % \section{Large-scale Empirical Study and Discoveries}
-\chapter{仿冒应用的特征解读}
+\chapter{结合实例分析的仿冒应用特征解读}
 \label{chp:discoveries}
 
-在数据收集完毕之后，本研究将对搜集到的仿冒应用数据进行分析，探究仿冒应用的生态。
-为了能更全面有效地测量这些仿冒应用的各方面，本研究定义了三个不同视角，即：\emph{仿冒应用的基本特征}、\emph{影响仿冒应用数量的因素}和\emph{仿冒应用的发展轨迹}。
-本章将详细描述各个不同视角的观察方法以及观测结果。
-之后，笔者将呈现数据集中的一些样本，不仅仅是为了确认本章中提及的各种发现，同时也是为了提供一些更有价值的见解，以期对本研究的数据集和仿冒应用有更加深刻的认知。
+\section{研究概况}
+业界对恶意应用的理解使针对恶意应用的监控得以被实现，但与恶意应用同属移动黑灰产的仿冒应用却仍未被研究过。
+针对业界对仿冒应用了解匮乏的问题，本文利用了数据分析挖掘的方式对收集到的仿冒应用数据进行解读，结合案例分析，进行了领域创新。
+本研究定义的三个不同视角分别为：\emph{仿冒应用的基本特征}、\emph{影响仿冒应用数量的因素}和\emph{仿冒应用的发展轨迹}。
 
 % \subsection{Fake Sample Characteristics}
 \section{仿冒应用的基本特征}
@@ -21,8 +21,7 @@
 而仿冒应用在安全证书上的性质（也就是说，是否每个仿冒应用都有一个独一无二的安全证书），十分可能是仿冒应用规避监管技术的关键。
 % On the other hand, we believe repackaged apps, as a kind of \texttt{imposters}, are widespread in our dataset.
 % Measurement on basic information of fake apps, such as package names and package sizes, helps us determine how repackaged apps are distributed, since repackaging an app does not change any of its basic information (i.e. the app name, package name, version code, etc.) unless it's done intentionally.
-另一方面，本文还猜想重打包应用在本研究的数据集中普遍存在，对仿冒应用基本信息的测量（比如说对应用包名和大小的测量）可以帮助研究者了解重打包应用在数据集中的分布如何。
-因为普通的重打包技术并不会对APK的基本信息（比如应用名、应用版本号等）作出修改，除非仿冒作者有意为之。
+另一方面，本文还猜想重打包应用在本研究的数据集中普遍存在，而对仿冒应用基本信息的测量（比如说对应用包名和大小的测量）有助于了解重打包应用在数据集中的分布如何---因为普通的重打包技术并不会对APK的基本信息（比如应用名、应用版本号等）作出修改，除非仿冒作者有意为之。
 
 \subsection{安全证书与仿冒应用的对应关系}
 那么，安全证书和仿冒应用的对应关系如何？
@@ -75,7 +74,7 @@
 然而，一个仿冒开发者其实也可以持有多个安全证书。
 如果使用多个安全证书分别上传仿冒App，应用市场就不容易找到这些App的关联，即使其中一部分被举报下架，余下的也得以被保全。
 % Nevertheless, when reviewing certificates linked with multiple fake samples, we find some very surprising findings that we will expound in Section~\autoref{sec:casestudy}.
-另外，在整理对应多个仿冒样本的安全证书时，本文得到了一些意料之外的发现。相关内容会在\fullref{chp:casestudy}中加以拓展。
+另外，在整理对应多个仿冒样本的安全证书时，本文得到了一些意料之外的发现。相关内容会在\fullref{sec:casestudy}中加以拓展。
 
 \subsection{仿冒样本与原版应用的相似度}
 
@@ -179,20 +178,20 @@
 因此，仿冒应用更有可能：
 
 % (1) developed by their owners but not originated from repackaging official apps,
-1）由仿冒开发者自行开发，而不是使用重打包技术制作，因为重打包之后的应用通常不会在大小上与原版有太大差距；
+1) 由仿冒开发者自行开发，而不是使用重打包技术制作，因为重打包之后的应用通常不会在大小上与原版有太大差距；
 
 % (2) malicious apps, for malicious apps are usually in small sizes.
-2）是恶意应用，因为恶意应用除了恶意代码之外，通常没有太多其他内容。
+2) 是恶意应用，因为恶意应用除了恶意代码之外，通常没有太多其他内容。
 \vspace{1mm}
 
 % In short, Fig.~\autoref{fig:Statistic_fake_and_official} tells that fake apps
 简而言之，\autoref{fig:Statistic_fake_and_official}说明了仿冒应用：
 
 % (1) prefer to use a similar (or even same) name to an official app's name, but they have their own package names and
-1）更倾向于用一个与正版App相似（甚至是相同）的应用名，但会使用自定义的包名；
+1) 更倾向于用一个与正版App相似（甚至是相同）的应用名，但会使用自定义的包名；
 
 % (2) are usually of a small size.
-2）通常大小更小。
+2) 通常大小更小。
 \vspace{1mm}
 
 % To a large extent, we owe the first point to the incompleteness of the information the app store displays on apps.
@@ -217,6 +216,74 @@
 	\vspace{-5mm}
 \end{figure*}
 % \vspace{5mm}
+
+
+% \noindent {\bf Case study 3.} \emph{Suspicious samples with official certificate}
+\subsection{案例 1. 持有官方安全证书的可疑样本}
+
+在人工浏览数据时，笔者发现了一个具有可疑应用名的样本---该样本声称自己是一个``破解版''的应用。
+% Furthermore, we checked (1) if strange word (e.g., ``cracked") appears in our official samples' names, (2) whether or not an official app is signed by an official certificate from another developer, and (3) if one official sample has a suspicious package name.
+于是，笔者针对所有69,614个持有官方证书的样本进行了以下几项筛选：
+\begin{enumerate}
+    \item 使用``破解''、``免费''等关键字搜索所有带正版证书的样本，筛选出带有可疑应用名的样本；
+    \item 筛选所持安全证书与原开发者不一致的样本；
+    \item 筛选出包名和同款App的多数样本不一致的样本。
+\end{enumerate}
+
+% Eventually we acquired 17 suspicious official samples, listed in table~\ref{table:suspicious_samples} are samples in each of these three kinds.
+最终，本文获得了17个由正版开发者安全证书签署的可疑样本，其中三个样本的信息如\autoref{table:suspicious_samples}中所示，分别代表上述三项筛选得到的结果。
+第一个名为\texttt{爱奇艺}的样本虽然由一个官方安全证书签名，但该安全证书和其他爱奇艺样本的却不一致。
+对比之后，笔者发现该证书来自360手机助手，但360和爱奇艺并没有合作关系，因此这是个可疑的样本；
+而第二个样本（\texttt{360手机助手}）的可疑之处在于样本包名。多数\texttt{360手机助手}的包名为\emph{com.qihoo.appstore}，也有少部分官方包名为\emph{com.qihoo.secstore}，前者为\texttt{360手机助手}在国内第三方应用市场发行的应用包名，后者为Google Play官方应用市场上上架的包名。然而，其中一个使用了其官方安全证书签署的样本的包名却是\emph{com.kuyou.sdbgj.baidu}，十分奇怪；
+第三个样本则是在应用名中包含了``破解''字样。然而，正常的正版应用根本不会有这样的命名方式，所以笔者也认为这是一个可疑样本。
+进行后续分析时，相关样本已被剔除出正版样本集合。
+
+% \textsc{Virustotal} reports that only 2 of the 17 samples are benign, 2 are PUP and the other 13 samples are all malicious.
+\textsc{Virustotal} 的检查结果显示，17个可疑样本中，只有2个是良性应用，2个是PUP，余下13个样本都被判定具有恶意行为。
+
+\begin{table*}[htbp]
+    \renewcommand{\arraystretch}{1}
+    \small
+    \centering
+  \setlength{\belowcaptionskip}{-10pt}
+    \caption{持有官方安全证书的可疑样本}
+    \begin{tabular}{l l c c c c c c}
+        \toprule
+        {\bf 样本应用名} & {\bf 样本SHA1码} & {\bf 可疑之处} \\
+        \midrule
+        % 爱奇艺 & b86c55a509e8293b24138b166e9ff410f39e84b5 & 可疑证书（360手机助手） \\
+        爱奇艺 & b86c55a509e8293b24138b166e9ff410f39e84b5 & 可疑证书\\
+        % 360手机助手 & 2bb43c53b86d204d0040a8af6cb2a09cf9e93bb7 & 可疑包名（com.kuyou.sdbgj.baidu） \\
+        \rowcolor{gray!15} 360手机助手 & 2bb43c53b86d204d0040a8af6cb2a09cf9e93bb7 & 可疑包名\\
+        % Youku XL 破解版 & b55b7ef189d649aeb03443c5d1ab57c9031d624e & 可疑应用名（``破解版"） \\
+        Youku XL 破解版 & b55b7ef189d649aeb03443c5d1ab57c9031d624e & 可疑应用名 \\
+        \bottomrule
+    \end{tabular}
+    \label{table:suspicious_samples}
+\end{table*}
+
+% Despite the possibility that these certificates were somehow leaked to the underground industry, it is more likely that some attackers penetrated the protection scheme.
+鉴于这17个样本都是持有官方安全证书签名的，笔者起初不禁怀疑是否有应用厂家不慎泄露了自己的安全密钥库，从而导致了这些样本的出现。
+然而，如果真的是因为厂家泄露密钥库，一来很有可能会导致恶意开发者使用官方安全证书大量生产恶意应用，二来对应厂家也会出于安全考虑马上更换新的包名和安全证书。
+本研究的数据并不支持以上猜想带来的两点结果，所以本文不认为这是由于安全证书泄露导致了这些可疑样本的产生。
+
+除去这个可能性，本文认为更有可能的原因是某些仿冒应用开发者掌握了穿透/绕过Android系统签名机制的技术，从而产生了这些样本。
+
+% As far back as December 2017, Google had confirmed and revealed a backdoor on V1 signature scheme (CVE-2017-13156)~\cite{android_security_bulletin}, by which hackers can inject any content into an apk at will without modifying its certificate information.
+时间回溯到2017年12月，Google确认并公布了V1版本应用签名机制的一个后门（CVE-2017-13156）~\cite{android_security_bulletin}。
+通过这个后门，黑客可以在不修改APK包安全证书信息的情况下，向APK包里注入任意内容。
+% An alternative solution, V2 signature scheme, has been launched at least one year before that.
+而早在这个漏洞被公布的至少一年之前，Google就已经发布了作为V1版签名机制的替代解决方案，也就是V2版应用签名机制。
+% In order to confirm if these apps are using the risky V1 scheme, we used a tool, apksigner, provided by Google to verify which signature schemes these samples are using.
+这看起来十分有可能是导致这些可以样本产生的原因，某些恶意开发者利用了V1版本签名机制的漏洞，修改了APK包的基本信息。
+为了确认这些样本是否采用了具有风险的V1版应用签名机制，本文使用了apksigner来检测这些样本使用的签名机制版本。
+apksigner是Google官方提供的一个命令行工具，它被集成在Android SDK中，既是APK包编译打包过程中为APK包进行数字签名的工具，也可以用来验证APK包使用的签名机制版本，又或者是验证APK的签名是否有效。
+
+% It ends up that all 17 samples are using V1 signature scheme.
+apksigner的结果显示，所有17个样本都只使用了V1版本的应用签名机制。
+% With actually knowing that V1 is no longer safe, developers still refuse to embrace the safer scheme, which is really disappointing.
+在了解到V1版本签名机制已经不再安全的情况下，仍有部分开发者由于各种原因没有接受更新也更安全的签名方案，这个结果有点令人失望。
+
 \noindent\fbox{
 	\parbox{0.95\linewidth}{
 		% \textbf{Remark 1}: Most certificates link with only a number of fake apps, which is highly possible to be a fake developers' evasive strategy.
@@ -225,9 +292,11 @@
 		同时，本文也观测到仿冒应用倾向于于官方App相同或者是十分相似的应用名。
 		% Nonetheless, fake apps and official apps are not resemble in terms of package names or apk sizes, disclosing that repackaged apps are not mainstream in fake apps.
 		但是，仿冒样本和官方App在包名和APK包大小方面都不相似，这表明重打包应用在仿冒应用中并不普遍存在。
-
+        最后，如果良性应用的开发者不遵从最新的安全标准发布应用，可能会导致十分严重的安全问题。
 	}
 }
+
+
 
 % \subsection{Quantitative Study on Fake Samples}
 \section{影响仿冒应用数量的因素}
@@ -476,6 +545,76 @@ WiFi管家 & 系统工具 & 8.8K & 19.5 & 1636 & 658 & 40.2\% & 15.7 \\
 % It's pretty interesting to discover that the number of fake samples in a way reflects how people use their phone in their daily lives.
 仿冒应用的数量从某种角度上反映了人们在日常生活中如何使用移动设备，这是个十分有趣的发现。
 
+% \noindent{\bf Case study 2.} \emph{Fake samples in different gaming apps}
+\subsection{案例 2. 游戏类别下的仿冒应用}
+
+% Gaming apps in our target app list (i.e. \texttt{\small ArenaofValor} and \texttt{\small HappyElements}) attract a number of fake samples.
+正如\autoref{table:data-statistics}中数据所示，\texttt{游戏}类应用（\texttt{王者荣耀}和\texttt{开心消消乐}）吸引了大批的仿冒应用样本。
+% To figure out what do these samples look like, we randomly downloaded some of the fake samples of the 2 gaming apps (7 samples for each) and installed them on our testing device.
+出于性能考虑，此处的数据中只提取了APK包的基本信息，并没有对收集到的每个APK文件进行详细的分析。
+因此，为了弄清楚这些仿冒应用究竟是怎么样的，笔者随机从这两款游戏App的仿冒样本中选择了一些样本（每款应用选择7个仿冒样本），然后将这些样本安装到了实验设备上。
+
+% Fig.~\ref{fig:screenshot_all} shows how these samples look like on a real Android phone, official apps are marked with green frames.
+\autoref{fig:screenshot_all}展示了这些样本在真实的Android设备上安装之后的实际外观。
+官方渠道下载的正版App在图片中由绿色边框标记出。
+% Apparently, fake samples have either a similar name or a similar icon to official ones.
+明显地，与官方应用相比，仿冒应用或者有一个和官方应用名十分相似的应用名，或者在图标上和官方相近甚至相同。
+
+\begin{figure}[htbp]
+    \centering
+    \subfloat[两种游戏App与其仿冒\label{fig:screenshot_all}]{\includegraphics[width=0.3\textwidth]{./Figures/edwin-screenshot1.jpg}}\hfill
+    \subfloat[正版\textit{\small 开心消消乐}\label{fig:screenshot_official}]{\includegraphics[width=0.3\textwidth]{./Figures/edwin-screenshot2.jpg}}\hfill
+    \subfloat[仿冒版\textit{\small 开心消消乐}\label{fig:screenshot_fake}]{\includegraphics[width=0.3\textwidth]{./Figures/edwin-screenshot3.jpg}}\hfill
+    \caption{游戏类App及其仿冒样本}
+\end{figure}
+
+% We even ran these apps on our device.
+笔者在测试设备上实际运行了上述安装的14个仿冒样本，然后拿它们和原版的应用对比。
+笔者使用的测试设备为高配版小米5手机，搭载的CPU为最高主频2.15GHz的骁龙820处理器，3GB内存，64GB机身存储，安装的Android系统版本为Android 6.0（Android Marshmallow，API 23）。
+
+% Screenshots were captured when we ran one of the fake samples (see Fig.~\ref{fig:screenshot_fake}) and the official sample (Fig.~\ref{fig:screenshot_official}).
+\autoref{fig:screenshot_official}和\autoref{fig:screenshot_fake}分别是在测试设备上运行官方版本的\texttt{开心消消乐}和其中一个仿冒版的\texttt{开心消消乐}时的系统截屏。
+不难看出，两款应用的外观是十分相像的。
+笔者在测试时发现，两款游戏内部的玩法、实际操作逻辑也一模一样。
+如果不是事先知道了哪一款应用是来自官方渠道下载的正版，连笔者都没有办法判别两个应用的真伪，更不必说是从应用市场搜索结果中找到这些结果的普通用户了。
+
+% As a result, we found that 4 fake samples of \texttt{\small HappyElements} are actually games that are similar to the official one (one is a repackaged app with high confidence), 2 are raiders on the game and the last one crashed when it was launched.
+而这并不是唯一的案例。作为结果，笔者发现7款\texttt{开心消消乐}的仿冒样本中，有4款是与官方样本十分相似的游戏（其中一个十分可能是经过重打包技术处理的应用），2款声称自己是``系统攻略''，还有1款在运行时闪退，无法在测试设备上实际运行。
+% 3 out of the 4 fake games pop up alert windows in the game to require users for In-App purchase, which is very possible to cause unwilling cost.
+在4款仿冒游戏中，3款都在游戏中不时自动弹出游戏内购窗口，要求玩家购买道具，十分可能导致玩家不想要的花费。
+% All 7 samples are reported to be malicious on \textsc{Virustotal}~\cite{virustotal}.
+而所有7个仿冒样本都在\textsc{Virustotal}~\cite{virustotal}中被报告为恶意应用。
+
+% Fake samples on \texttt{\small ArenaofValor}, in contrast, barely have functionalities like the official one.
+相比之下，\texttt{王者荣耀}的仿冒样本内容就与官方应用大相径庭了。
+% 3 of those samples are wallpaper setters and the rest 4 are simply puzzle games.
+在7款被安装到测试设备的仿冒样本中，有3款是壁纸浏览器，里面包含了几张游戏内人物的插画，可以在应用内将这些插画设置成系统的桌面壁纸；
+而余下四个是简单的拼图游戏，里面同样包含了王者荣耀游戏人物的插画，应用内容就是简单地把被打乱的插画拼图恢复原状。
+% Virustotal reports 6 out of the 7 samples as malware, the last one is claimed as potentially unwanted program (PUP).
+Virustotal的结果显示，7款仿冒样本中，有6款是恶意软件，涵盖了木马病毒、广告软件等类型，而余下的一款则被报告为潜在有害程序（Potentially Unwanted Program，简称PUP）。
+PUP通常在用户不知情或者不愿意的情况下，通过静默安装或者捆绑安装的形式被安装在系统中。
+尽管这种软件不一定包含恶意代码，但其动机十分可疑。
+
+% We determine it is the difficulty to imitate the official app's functionality that brings about this phenomenon.
+笔者认为，这种现象是由模仿正版应用功能的难易程度带来的。
+% The core implementation of multiplayer online battle arena (MOBA) games like \texttt{\small ArenaofValor} is much more complicated than that in \texttt{\small HappyElements}.
+只从技术角度看，像\texttt{王者荣耀}这样的多人在线战斗竞技场（Multiplayer Online Battle Arena，简称MOBA）游戏核心难度明显要比\texttt{开心消消乐}这样的益智类游戏要高得多。
+一款MOBA游戏除了要解决支持运行运行的物理引擎之外，还要实现聊天系统、在线匹配、负载均衡等业务，更加不必说背后的人物设计技能平衡等更深入的话题了；而一款益智类三三消游戏的核心逻辑就只在于元素三连的判定和随机新出现的元素，再加上道具系统就差不多可以包装成一个完整的游戏推出。
+
+% What it costs to develop a complex game like \texttt{\small ArenaofValor} is exorbitant for a fake developer.
+因此，就算不考虑后续的维护问题，要开发一款像\texttt{王者荣耀}这样的复杂游戏，对仿冒应用开发者来说明显是成本过高的。
+但由于这款游戏本身具有超高的热度，可能带来巨大的收益，所以仿冒应用开发者会为了蹭上热度而开发外观相似、内容完全不符的仿冒样本。
+相比之下，\texttt{开心消消乐}由于开发难度相对较小，所以仿冒应用开发者会愿意开发一个内容相似的应用，再通过内购陷阱等手段收取效益。
+这两款App透露出了仿冒应用开发者在仿冒方面两个截然不同的思路。
+
+% Therefore, we can infer another reason why apps in \texttt{\small productivity} category gain a low fake sample rate:
+本文在\secref{sec:quantitativeStudy}中观察到的\texttt{商务办公}类别有较低仿冒率也可能是类似原因导致的结果。
+% Unlike games, on one hand, productivity tools are less likely to have peripheral products (like wallpaper setter mentioned above);
+一方面，\texttt{商务办公}类的工具核心逻辑比较复杂，对仿冒开发者来说并不是一个有利可图的最佳选项；
+% On the other hand, the inevitably laborious developing procedure also prevents the tools themselves from being shammed.
+另外，这类应用也不像\texttt{游戏}一样会衍生出周边产品（比如\texttt{王者荣耀}的游戏人物就会有不少插画），仿冒应用开发者也没办法从这方面入手蹭热度。
+结合两个原因，\texttt{商务办公}类的应用自然不会引起仿冒应用开发者的太多兴趣。
+
 \vspace{5mm}
 \noindent\fbox{
 	\parbox{0.95\linewidth}{
@@ -489,6 +628,7 @@ WiFi管家 & 系统工具 & 8.8K & 19.5 & 1636 & 658 & 40.2\% & 15.7 \\
         笔者认为这是由于应用更新频率太高、而且重打包应用在本研究的数据集中占少数而导致的结果。
 		% We further observe that ``category'' as a factor has greater influence on the number of fake samples of an app than ``popularity'' and ``update frequency''.
         本文进一步观测到，与\texttt{更新频率}和\texttt{应用热度}相比，\texttt{应用分类}这一因素对App的仿冒率有更大的影响。
+        案例分析从游戏类别的仿冒应用入手，说明了仿冒应用开发者对不同应用会采用不同仿冒策略。
 	}
 }
 
@@ -627,25 +767,7 @@ Wannacry作为一种新型恶意软件，自2017年第二季度被首次发现�
 所以笔者有理由猜测2017年第二季度和2018年第一季度的仿冒应用上架数量下跌是受到了新形态黑灰产的冲击。
 当然，证实这个猜想还需要采集更多数据、进行更深入的研究。
 
-\vspace{5mm}
-\noindent\fbox{
-	\parbox{0.95\linewidth}{
-		% \textbf{Remark 3}: Fake apps can be produced in a relatively short time, and the dropping number of fake samples by years suggests that they are mired in recession.
-        \textbf{本节小结}：仿冒应用可以在极短时间内被研发并上架，而仿冒样本逐年下降的新增量，也许表明了仿冒应用产业正在陷入衰退期。
-		% Besides, only a few fake certificates survive for a long time, confirming that markets' protection schemes do work to some extent.
-        此外，只有很小一部分的仿冒应用安全证书可以存活很长的一段时间，这表明应用市场的保护监管机制在一定程度上的确能发挥作用。
-	}
-}
-
-% \section{Case Study and Discussion}
-\section{仿冒数据案例分析与讨论}
-\label{chp:casestudy}
-% In this section, we present some samples in our dataset, not only to firm our findings but also to provide more valuable insights.
-在本节中，笔者呈现了数据集中的一些样本。
-这不仅仅是为了确认在本章前述内容中提及的各种发现，同时也是为了提供一些更有价值的见解，以期对本研究的数据集、对仿冒应用有更加深刻的认知。
-
-% \noindent{\bf Case study 1.} \emph{Fake certificate with multiple malicious imitators and imposters}
-\subsection{案例 1. 与大量仿冒应用相关联的仿冒应用安全证书}
+\subsection{案例 3. 与大量仿冒应用相关联的仿冒应用安全证书}
 \label{sec:case1}
 
 % We manually review the samples signed by the certificate with SHA1 ``\emph{61ed377e85d386a8dfee6b864bd85b0bfaa5af81}", the certificate with the most number of fake samples among our fake certificate set (i.e., 1,374 fake samples).
@@ -705,145 +827,16 @@ Wannacry作为一种新型恶意软件，自2017年第二季度被首次发现�
     如果各个应用市场能建立一个互通信息的平台，分享可疑开发者/恶意开发者信息，那么将可以杜绝一部分恶意开发者在各个应用市场上到处流窜的现象。
 \end{itemize}
 
-% \noindent{\bf Case study 2.} \emph{Fake samples in different gaming apps}
-\subsection{案例 2. 游戏类别下的仿冒应用}
-
-% Gaming apps in our target app list (i.e. \texttt{\small ArenaofValor} and \texttt{\small HappyElements}) attract a number of fake samples.
-正如\autoref{table:data-statistics}中数据所示，\texttt{游戏}类应用（\texttt{王者荣耀}和\texttt{开心消消乐}）吸引了大批的仿冒应用样本。
-% To figure out what do these samples look like, we randomly downloaded some of the fake samples of the 2 gaming apps (7 samples for each) and installed them on our testing device.
-出于性能考虑，此处的数据中只提取了APK包的基本信息，并没有对收集到的每个APK文件进行详细的分析。
-因此，为了弄清楚这些仿冒应用究竟是怎么样的，笔者随机从这两款游戏App的仿冒样本中选择了一些样本（每款应用选择7个仿冒样本），然后将这些样本安装到了实验设备上。
-
-% Fig.~\ref{fig:screenshot_all} shows how these samples look like on a real Android phone, official apps are marked with green frames.
-\autoref{fig:screenshot_all}展示了这些样本在真实的Android设备上安装之后的实际外观。
-官方渠道下载的正版App在图片中由绿色边框标记出。
-% Apparently, fake samples have either a similar name or a similar icon to official ones.
-明显地，与官方应用相比，仿冒应用或者有一个和官方应用名十分相似的应用名，或者在图标上和官方相近甚至相同。
-
-\begin{figure}[htbp]
-    \centering
-    \subfloat[两种游戏App与其仿冒\label{fig:screenshot_all}]{\includegraphics[width=0.3\textwidth]{./Figures/edwin-screenshot1.jpg}}\hfill
-    \subfloat[正版\textit{\small 开心消消乐}\label{fig:screenshot_official}]{\includegraphics[width=0.3\textwidth]{./Figures/edwin-screenshot2.jpg}}\hfill
-    \subfloat[仿冒版\textit{\small 开心消消乐}\label{fig:screenshot_fake}]{\includegraphics[width=0.3\textwidth]{./Figures/edwin-screenshot3.jpg}}\hfill
-    \caption{游戏类App及其仿冒样本}
-\end{figure}
-
-% We even ran these apps on our device.
-笔者在测试设备上实际运行了上述安装的14个仿冒样本，然后拿它们和原版的应用对比。
-笔者使用的测试设备为高配版小米5手机，搭载的CPU为最高主频2.15GHz的骁龙820处理器，3GB内存，64GB机身存储，安装的Android系统版本为Android 6.0（Android Marshmallow，API 23）。
-
-% Screenshots were captured when we ran one of the fake samples (see Fig.~\ref{fig:screenshot_fake}) and the official sample (Fig.~\ref{fig:screenshot_official}).
-\autoref{fig:screenshot_official}和\autoref{fig:screenshot_fake}分别是在测试设备上运行官方版本的\texttt{开心消消乐}和其中一个仿冒版的\texttt{开心消消乐}时的系统截屏。
-不难看出，两款应用的外观是十分相像的。
-笔者在测试时发现，两款游戏内部的玩法、实际操作逻辑也一模一样。
-如果不是事先知道了哪一款应用是来自官方渠道下载的正版，连笔者都没有办法判别两个应用的真伪，更不必说是从应用市场搜索结果中找到这些结果的普通用户了。
-
-% As a result, we found that 4 fake samples of \texttt{\small HappyElements} are actually games that are similar to the official one (one is a repackaged app with high confidence), 2 are raiders on the game and the last one crashed when it was launched.
-而这并不是唯一的案例。作为结果，笔者发现7款\texttt{开心消消乐}的仿冒样本中，有4款是与官方样本十分相似的游戏（其中一个十分可能是经过重打包技术处理的应用），2款声称自己是``系统攻略''，还有1款在运行时闪退，无法在测试设备上实际运行。
-% 3 out of the 4 fake games pop up alert windows in the game to require users for In-App purchase, which is very possible to cause unwilling cost.
-在4款仿冒游戏中，3款都在游戏中不时自动弹出游戏内购窗口，要求玩家购买道具，十分可能导致玩家不想要的花费。
-% All 7 samples are reported to be malicious on \textsc{Virustotal}~\cite{virustotal}.
-而所有7个仿冒样本都在\textsc{Virustotal}~\cite{virustotal}中被报告为恶意应用。
-
-% Fake samples on \texttt{\small ArenaofValor}, in contrast, barely have functionalities like the official one.
-相比之下，\texttt{王者荣耀}的仿冒样本内容就与官方应用大相径庭了。
-% 3 of those samples are wallpaper setters and the rest 4 are simply puzzle games.
-在7款被安装到测试设备的仿冒样本中，有3款是壁纸浏览器，里面包含了几张游戏内人物的插画，可以在应用内将这些插画设置成系统的桌面壁纸；
-而余下四个是简单的拼图游戏，里面同样包含了王者荣耀游戏人物的插画，应用内容就是简单地把被打乱的插画拼图恢复原状。
-% Virustotal reports 6 out of the 7 samples as malware, the last one is claimed as potentially unwanted program (PUP).
-Virustotal的结果显示，7款仿冒样本中，有6款是恶意软件，涵盖了木马病毒、广告软件等类型，而余下的一款则被报告为潜在有害程序（Potentially Unwanted Program，简称PUP）。
-PUP通常在用户不知情或者不愿意的情况下，通过静默安装或者捆绑安装的形式被安装在系统中。
-尽管这种软件不一定包含恶意代码，但其动机十分可疑。
-
-% We determine it is the difficulty to imitate the official app's functionality that brings about this phenomenon.
-笔者认为，这种现象是由模仿正版应用功能的难易程度带来的。
-% The core implementation of multiplayer online battle arena (MOBA) games like \texttt{\small ArenaofValor} is much more complicated than that in \texttt{\small HappyElements}.
-只从技术角度看，像\texttt{王者荣耀}这样的多人在线战斗竞技场（Multiplayer Online Battle Arena，简称MOBA）游戏核心难度明显要比\texttt{开心消消乐}这样的益智类游戏要高得多。
-一款MOBA游戏除了要解决支持运行运行的物理引擎之外，还要实现聊天系统、在线匹配、负载均衡等业务，更加不必说背后的人物设计技能平衡等更深入的话题了；而一款益智类三三消游戏的核心逻辑就只在于元素三连的判定和随机新出现的元素，再加上道具系统就差不多可以包装成一个完整的游戏推出。
-
-% What it costs to develop a complex game like \texttt{\small ArenaofValor} is exorbitant for a fake developer.
-因此，就算不考虑后续的维护问题，要开发一款像\texttt{王者荣耀}这样的复杂游戏，对仿冒应用开发者来说明显是成本过高的。
-但由于这款游戏本身具有超高的热度，可能带来巨大的收益，所以仿冒应用开发者会为了蹭上热度而开发外观相似、内容完全不符的仿冒样本。
-相比之下，\texttt{开心消消乐}由于开发难度相对较小，所以仿冒应用开发者会愿意开发一个内容相似的应用，再通过内购陷阱等手段收取效益。
-这两款App透露出了仿冒应用开发者在仿冒方面两个截然不同的思路。
-
-% Therefore, we can infer another reason why apps in \texttt{\small productivity} category gain a low fake sample rate:
-本文在\secref{sec:quantitativeStudy}中观察到的\texttt{商务办公}类别有较低仿冒率也可能是类似原因导致的结果。
-% Unlike games, on one hand, productivity tools are less likely to have peripheral products (like wallpaper setter mentioned above);
-一方面，\texttt{商务办公}类的工具核心逻辑比较复杂，对仿冒开发者来说并不是一个有利可图的最佳选项；
-% On the other hand, the inevitably laborious developing procedure also prevents the tools themselves from being shammed.
-另外，这类应用也不像\texttt{游戏}一样会衍生出周边产品（比如\texttt{王者荣耀}的游戏人物就会有不少插画），仿冒应用开发者也没办法从这方面入手蹭热度。
-结合两个原因，\texttt{商务办公}类的应用自然就不会引起仿冒应用开发者的太多兴趣了。
-
-% \noindent {\bf Case study 3.} \emph{Suspicious samples with official certificate}
-\subsection{案例 3. 持有官方安全证书的可疑样本}
-
-% Case study 1 gives us a perfect example on counterintuitive data in our data set.
-\secref{sec:case1}的案例1提供了本研究数据集中一个明显反直觉的示例。
-% In order to find out whether or not resemble cases exist in our official samples, we manually reviewed them and noticed a weird entry when sorting out the sample log, a sample claims itself to be ``cracked" in its app name.
-因此，笔者不禁会好奇数据集中是否会有其他违反直觉的数据存在。
-为了解开这个疑问，笔者先从搜集到的正版样本入手。
-笔者使用关键字搜索筛选了所有69,614个持有官方证书的样本，其中有一个样本的应用名十分可疑——该样本声称自己是一个``破解版''的应用。
-% Furthermore, we checked (1) if strange word (e.g., ``cracked") appears in our official samples' names, (2) whether or not an official app is signed by an official certificate from another developer, and (3) if one official sample has a suspicious package name.
-于是，笔者再次针对所有正版样本进行了以下几项筛选：
-\begin{enumerate}
-    \item 使用``破解''、``免费''等关键字搜索所有带正版证书的样本，筛选出带有可疑应用名的样本；
-    \item 筛选所持安全证书与原开发者不一致的样本；
-    \item 筛选出包名和同款App的多数样本不一致的样本。
-\end{enumerate}
-
-% Eventually we acquired 17 suspicious official samples, listed in table~\ref{table:suspicious_samples} are samples in each of these three kinds.
-最终，本文获得了17个由正版开发者安全证书签署的可疑样本，其中三个样本的信息如\autoref{table:suspicious_samples}中所示，分别代表上述三项筛选得到的结果。
-第一个名为\texttt{爱奇艺}的样本虽然由一个官方安全证书签名，但该安全证书和其他爱奇艺样本的却不一致。
-对比之后，笔者发现该证书来自360手机助手，但360和爱奇艺并没有合作关系，因此这是个可疑的样本；
-而第二个样本（\texttt{360手机助手}）的可疑之处在于样本包名。多数\texttt{360手机助手}的包名为\emph{com.qihoo.appstore}，也有少部分官方包名为\emph{com.qihoo.secstore}，前者为\texttt{360手机助手}在国内第三方应用市场发行的应用包名，后者为Google Play官方应用市场上上架的包名。然而，其中一个使用了其官方安全证书签署的样本的包名却是\emph{com.kuyou.sdbgj.baidu}，十分奇怪；
-第三个样本则是在应用名中包含了``破解''字样。然而，正常的正版应用根本不会有这样的命名方式，所以笔者也认为这是一个可疑样本。
-
-% \textsc{Virustotal} reports that only 2 of the 17 samples are benign, 2 are PUP and the other 13 samples are all malicious.
-\textsc{Virustotal} 的检查结果显示，17个可疑样本中，只有2个是良性应用，2个是PUP，余下13个样本都被判定具有恶意行为。
-
-\begin{table*}[htbp]
-    \renewcommand{\arraystretch}{1}
-    \small
-    \centering
-  \setlength{\belowcaptionskip}{-10pt}
-    \caption{持有官方安全证书的可疑样本}
-    \begin{tabular}{l l c c c c c c}
-        \toprule
-        {\bf 样本应用名} & {\bf 样本SHA1码} & {\bf 可疑之处} \\
-        \midrule
-        % 爱奇艺 & b86c55a509e8293b24138b166e9ff410f39e84b5 & 可疑证书（360手机助手） \\
-        爱奇艺 & b86c55a509e8293b24138b166e9ff410f39e84b5 & 可疑证书\\
-        % 360手机助手 & 2bb43c53b86d204d0040a8af6cb2a09cf9e93bb7 & 可疑包名（com.kuyou.sdbgj.baidu） \\
-        \rowcolor{gray!15} 360手机助手 & 2bb43c53b86d204d0040a8af6cb2a09cf9e93bb7 & 可疑包名\\
-        % Youku XL 破解版 & b55b7ef189d649aeb03443c5d1ab57c9031d624e & 可疑应用名（``破解版"） \\
-        Youku XL 破解版 & b55b7ef189d649aeb03443c5d1ab57c9031d624e & 可疑应用名 \\
-        \bottomrule
-    \end{tabular}
-    \label{table:suspicious_samples}
-\end{table*}
-
-% Despite the possibility that these certificates were somehow leaked to the underground industry, it is more likely that some attackers penetrated the protection scheme.
-鉴于这17个样本都是持有官方安全证书签名的，笔者起初不禁怀疑是否有应用厂家不慎泄露了自己的安全密钥库，从而导致了这些样本的出现。
-然而，如果真的是因为厂家泄露密钥库，一来很有可能会导致恶意开发者使用官方安全证书大量生产恶意应用，二来对应厂家也会出于安全考虑马上更换新的包名和安全证书。
-本研究的数据并不支持以上猜想带来的两点结果，所以本文不认为这是由于安全证书泄露导致了这些可疑样本的产生。
-
-除去这个可能性，本文认为更有可能的原因是某些仿冒应用开发者掌握了穿透/绕过Android系统签名机制的技术，从而产生了这些样本。
-
-% As far back as December 2017, Google had confirmed and revealed a backdoor on V1 signature scheme (CVE-2017-13156)~\cite{android_security_bulletin}, by which hackers can inject any content into an apk at will without modifying its certificate information.
-时间回溯到2017年12月，Google确认并公布了V1版本应用签名机制的一个后门（CVE-2017-13156）~\cite{android_security_bulletin}。
-通过这个后门，黑客可以在不修改APK包安全证书信息的情况下，向APK包里注入任意内容。
-% An alternative solution, V2 signature scheme, has been launched at least one year before that.
-而早在这个漏洞被公布的至少一年之前，Google就已经发布了作为V1版签名机制的替代解决方案，也就是V2版应用签名机制。
-% In order to confirm if these apps are using the risky V1 scheme, we used a tool, apksigner, provided by Google to verify which signature schemes these samples are using.
-这看起来十分有可能是导致这些可以样本产生的原因，某些恶意开发者利用了V1版本签名机制的漏洞，修改了APK包的基本信息。
-为了确认这些样本是否采用了具有风险的V1版应用签名机制，本文使用了apksigner来检测这些样本使用的签名机制版本。
-apksigner是Google官方提供的一个命令行工具，它被集成在Android SDK中，既是APK包编译打包过程中为APK包进行数字签名的工具，也可以用来验证APK包使用的签名机制版本，又或者是验证APK的签名是否有效。
-
-% It ends up that all 17 samples are using V1 signature scheme.
-apksigner的结果显示，所有17个样本都只使用了V1版本的应用签名机制。
-% With actually knowing that V1 is no longer safe, developers still refuse to embrace the safer scheme, which is really disappointing.
-在了解到V1版本签名机制已经不再安全的情况下，仍有部分开发者由于各种原因没有接受更新也更安全的签名方案，这个结果有点令人失望。
+\vspace{5mm}
+\noindent\fbox{
+	\parbox{0.95\linewidth}{
+		% \textbf{Remark 3}: Fake apps can be produced in a relatively short time, and the dropping number of fake samples by years suggests that they are mired in recession.
+        \textbf{本节小结}：仿冒应用可以在极短时间内被研发并上架，而仿冒样本逐年下降的新增量，也许表明了仿冒应用产业正在陷入衰退期，但这需要更多证据和研究证实。
+		% Besides, only a few fake certificates survive for a long time, confirming that markets' protection schemes do work to some extent.
+        此外，只有很小一部分的仿冒应用安全证书可以存活很长的一段时间，这表明应用市场的保护监管机制在一定程度上的确能发挥作用，但案例数据同时表明，现有检测方法仍有不足。
+        另外，案例提供的数据也表示了应用市场之间缺乏交流恶意开发者/可疑开发者信息的平台。
+	}
+}
 
 \section{本章小结}
 本章先分别从\emph{仿冒应用的基本特征}、\emph{影响仿冒应用数量的因素}和\emph{仿冒应用的发展轨迹}三个不同视角对采集到的数据进行了分析，并在每个视角后的本节小结中概括了每个视角的结论，解读仿冒应用的特征。
