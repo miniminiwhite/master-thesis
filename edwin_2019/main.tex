@@ -48,22 +48,18 @@
 \usepackage{amssymb}                % AMSLaTeX宏包 用来排出更加漂亮的公式
 \usepackage{mathrsfs}
 \usepackage[subnum]{cases}
-%\usepackage[numbers,sort&compress]{natbib}
 \usepackage[super,square,comma,sort&compress]{natbib}
 \usepackage{hypernat}
 \usepackage{geometry}
 \usepackage{times}
 \usepackage{fontspec}
-%\usepackage{libertine}
 \usepackage{libertineotf}
 \usepackage{caption}
 \usepackage{titletoc}
 \usepackage{mathtools}
 
-%\usepackage{chngcntr}
 \counterwithout{footnote}{chapter}
 
-%\usepackage{cite}
 \usepackage{longtable,booktabs}
 \usepackage{multirow}
 \usepackage{tocloft}
@@ -71,15 +67,13 @@
 
 \usepackage{float}
 \usepackage{balance}
-\usepackage {paralist}
+\usepackage{paralist}
 \usepackage{bbding}
 \usepackage{pgffor}
 
 \usepackage{threeparttable}
 \usepackage{threeparttablex}
 
-
-%\usepackage{biblatex}
 \makeindex
 \pagestyle{fancy}
 
@@ -152,8 +146,8 @@
 \setlength{\cftafterlottitleskip}{\cftaftertitleskip}
 
 %% 算法目录
-%\setlength{\cftbeforeloatitleskip}{30pt}
-%\setlength{\cftafterloatitleskip}{20pt}
+% \setlength{\cftbeforeloatitleskip}{\cftbeforetitleskip}
+% \setlength{\cftafterloatitleskip}{\cftaftertitleskip}
 
 \CTEXsetup[beforeskip=\cftbeforetitleskip]{chapter}
 \CTEXsetup[afterskip=\cftaftertitleskip]{chapter}
@@ -327,17 +321,11 @@
 \input{chapter-background}
 \clearPaperPage
 
-% \input{chapter-dataCollection}
-% \clearPaperPage
-
 \input{chapter-fakerevealer}
 \clearPaperPage
 
 \input{chapter-discoveries}
 \clearPaperPage
-
-% \input{chapter-case}
-% \clearPaperPage
 
 \input{chapter-feedback}
 \clearPaperPage

@@ -8,20 +8,21 @@
 据笔者所知，本课题是第一个针对仿冒应用进行大规模全面实证研究的课题。
 
 % To better understand the ecosystem nature of this type of apps, we obtained more than 150,000 data entries from real-world markets, observed and measured the fake samples among this dataset from several dimensions including certificate information, app size, app name and package name, time factor and so on.
-为了更好地了解这个类型的应用的生态环境，本文基于Python 3设计实现了仿冒应用筛选框架\mytool，利用基于BFS的算法从现实世界中的各个应用市场中获取了超过15万个应用样本，并且从多个不同维度，对这个数据库里面的仿冒样本进行了观测和考察。
+为了更好地了解这个类型的应用的生态环境，本文基于Python 3设计实现了仿冒应用收集框架\mytool，利用基于BFS的算法从现实世界中的各个应用市场中获取了超过15万个应用样本，并且从多个不同维度，对这个数据库里面的仿冒样本进行了观测和考察。
 这些维度包括了APK包中的安全证书信息、应用大小、应用名、包名和时间因素等等。
 
 % Through our measurements we gain valuable experience on fake apps from several perspectives, findings like fake samples' naming tendency and fake developers' evasive strategies are inferred.
-然后，本研究将收集到的数据分为了\emph{仿冒应用的基本特征}、\emph{影响仿冒应用数量的因素}和\emph{仿冒应用的发展轨迹}三个不同视角进行了测量，获得了不少宝贵的经验，并推断出了一些发现，比如仿冒应用的命名倾向和仿冒应用开发者对市场监管防御机制的规避策略。
+然后，本工作将收集到的数据分为了\emph{仿冒应用的基本特征}、\emph{影响仿冒应用数量的因素}和\emph{仿冒应用的发展轨迹}三个不同视角进行了测量，获得如仿冒应用的命名倾向和仿冒应用开发者对市场监管防御机制的规避策略等信息。
 % To support our findings, we further present a few study cases which provide us a more detailed look into fake apps to back our discoveries on fake app ecosystem.
-为了佐证本文的发现，笔者进一步给出了从数据集中挑选的几个研究案例，呈现了如仿冒作者对不同热门应用的仿冒方式等内容。这几个案例进一步深化了本文对仿冒应用生态系统的发现。
+为了佐证本文的发现，笔者在每个视角解读之后给出了从数据集中挑选的几个研究案例，呈现了如仿冒作者对不同热门应用的仿冒方式的内容。
+这几个案例进一步深化了本文对仿冒应用生态系统的发现。
 
-之后，本文还收集了部分仿冒样本在商场上对应的评论和评级，进一步了解普通用户对这些仿冒应用持有的态度。
-但在研究过程中，笔者发现仿冒应用受到的评价异常地高，于是在本研究中使用了两种研究方法---基于用户可信度和基于评论内容相似度的验证方法---对仿冒应用的评论进行了检测。
-结果显示，刷好评的排名欺诈行为的确存在于应用市场中，在本研究搜集到的仿冒应用评论中就有刷好评的痕迹。
+之后，本文还收集了部分仿冒样本在商场上对应的评论和评级，排查仿冒应用是否利用了排名欺诈。
+由于现有的排名欺诈检测手段尚有不足，本工作创新性地分别利用两种创新的研究方法---基于用户行为的用户可信度验证和基于NLP的评论内容相似度验证，对数据中的排名欺诈行为进行了排查。
+结果显示，刷好评的排名欺诈行为的确存在于应用市场中，在本工作搜集到的仿冒应用评论中就有刷好评的痕迹。
 
 % We hope the lessons learned in this article are informative and helpful for mobile security practitioners in both academia and industry to improve the status quo.
-笔者希望本文研究的结果能够为移动安全产业的从业人员（不论是在工业界还是学术界）提供足够的信息，以改善移动安全界的现状。
+笔者希望本文研究的结果能够为移动安全产业的从业人员（不论是工业界或学术界）提供足够的信息，以改善移动安全界的现状。
 
 \section{展望}
 
