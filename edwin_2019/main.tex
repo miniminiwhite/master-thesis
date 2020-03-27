@@ -59,6 +59,7 @@
 \usepackage{mathtools}
 
 \counterwithout{footnote}{chapter}
+\usepackage[perpage]{footmisc}       % 脚注每页重新编号
 
 \usepackage{longtable,booktabs}
 \usepackage{multirow}
@@ -166,13 +167,19 @@
 % 匿名开关
 \newcommand{\anonymous}[1]{\phantom{ #1 }}
 
+% 查重开关。形式审查自带匿名
+% \newcommand{\duplicationCheck}[1]{\phantom{ #1 }}
+\ifdefined \duplicationCheck
+    \newcommand{\anonymous}[1]{\phantom{ #1 }}
+\fi
+
 % 基本信息
 \newcommand{\TheisName}[0]{面向工业界仿冒应用的大规模实证研究}
 \newcommand{\TheisNameEn}[0]{A Large-Scale Empirical Study on Industrial Fake Apps}
 
 \def\yearOfGrduation{2020} % 毕业年份
-\def\monthOfGraduationNum{5} % 毕业月份
-\def\monthOfGraduationEng{May} % 毕业月份 (英文)
+\def\monthOfGraduationNum{3} % 毕业月份
+\def\monthOfGraduationEng{March} % 毕业月份 (英文)
 \def\articleCategory{华东师范大学硕士学位论文} % 论文类型
 
 \def\schoolNameChn{计算机科学与技术学院}
@@ -265,8 +272,8 @@
 \input{A2-COVER-E}
 \clearPaperPage
 
-% 原创性声明。匿名时不编译
-\ifx\anonymous\undefined
+% 原创性声明。查重时不编译
+\ifx\duplicationCheck \undefined
     \input{A3-COPYRIGHT}
     \clearPaperPage
 \fi
@@ -334,21 +341,25 @@
 \clearPaperPage
 
 % 参考文献
-\addcontentsline{toc}{chapter}{\small{参考文献}}
+% 前置\cleardoublepage\phantomsection 以确保目录超链接到正确页码
+\cleardoublepage\phantomsection\addcontentsline{toc}{chapter}{\small{参考文献}}
 \bibliographystyle{GBT7714-2005}
 \bibliography{bib/REFERENCE}
 \clearPaperPage
 
-% 致谢。匿名时不编译
-\ifx\anonymous\undefined
-	\fancypagestyle{plain}{%
-		\fancyhead[LE,RO]{\small{\articleCategory}}
-		\fancyhead[RE,LO]{\small{致  谢}}
-	}
-	\input{D2-ACKNOWLEDGEMENT}
-	\clearPaperPage
-\fi
+\input{D2-MYACHIEVEMENTS}
 
-\input{D3-MYACHIEVEMENTS}
+\fancypagestyle{plain}{%
+	\fancyhead[LE,RO]{\small{\articleCategory}}
+	\fancyhead[RE,LO]{\small{致  谢}}
+}
+% 致谢。匿名与非匿名用不同版本
+\ifx\anonymous \undefined
+	\input{D3-ACKNOWLEDGEMENT}
+\else
+    \input{D3-ACKNOWLEDGEMENT-ANONYMOUS}
+\fi
+\clearPaperPage
+
 
 \end{document}
