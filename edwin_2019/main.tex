@@ -304,8 +304,8 @@
 
 \pagenumbering{arabic}
 \pagestyle{fancy}
-\fancyhead[LE,RO]{\articleCategory}
-\fancyhead[RE,LO]{ \leftmark}
+\fancyhead[LE,RO]{\small{\articleCategory}}
+\fancyhead[RE,LO]{\small{\leftmark}}
 
 \CTEXsetup[format+={\zihao{3}\heiti}]{chapter}
 \CTEXsetup[format+={\raggedright\zihao{4}\heiti}]{section}
@@ -316,8 +316,8 @@
 % 在章首页添加页眉
 
 \fancypagestyle{plain}{%
-\fancyhead[LE,RO]{\articleCategory}
-\fancyhead[RE,LO]{ \leftmark}
+	\fancyhead[LE,RO]{\small{\articleCategory}}
+	\fancyhead[RE,LO]{\small{\leftmark}}
 }
 
 \raggedbottom
@@ -349,11 +349,17 @@
 \bibliography{bib/REFERENCE}
 \clearPaperPage
 
+% 攻读学位期间发表的学术论文
+\fancypagestyle{plain}{%
+	\fancyhead[LE,RO]{\small{\articleCategory}}
+	\fancyhead[RE,LO]{\small{攻读学位期间发表的学术论文}}
+}
 \input{D2-MYACHIEVEMENTS}
+\clearPaperPage
 
 \fancypagestyle{plain}{%
 	\fancyhead[LE,RO]{\small{\articleCategory}}
-	\fancyhead[RE,LO]{\small{致  谢}}
+	\fancyhead[RE,LO]{\small{致\quad 谢}}
 }
 % 致谢。匿名与非匿名用不同版本
 \ifx\anonymous \undefined
