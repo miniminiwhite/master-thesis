@@ -165,10 +165,12 @@
 \newcommand{\Line}[1]{ \textit{ Line .#1}}
 
 % 匿名开关
-\newcommand{\anonymous}[1]{\phantom{ #1 }}
+% \newcommand{\anonymous}[1]{\phantom{ #1 }}
 
-% 查重开关。形式审查自带匿名
+% 查重开关
 % \newcommand{\duplicationCheck}[1]{\phantom{ #1 }}
+
+% 形式审查自带匿名
 \ifdefined \duplicationCheck
     \newcommand{\anonymous}[1]{\phantom{ #1 }}
 \fi
