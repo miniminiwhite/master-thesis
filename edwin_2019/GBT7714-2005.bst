@@ -1473,7 +1473,7 @@ FUNCTION {thesis.impl} {                          % void Entry::thesis_impl() {
   true output.title                               %   output_title(true);
   true output.mark                                %   output_mark(true);
   false output.translator                         %   output_translator(false);
-  true output.address                             %   output_address(true);
+  false output.address                             %   output_address(false);
   true output.school                              %   output_school(true);
   cap.comma write$                                %   write(cap_comma);
   true output.year                                %   output_year(true);

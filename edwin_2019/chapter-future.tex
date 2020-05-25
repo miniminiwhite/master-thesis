@@ -3,26 +3,25 @@
 
 \section{总结}
 % In this paper we first introduce the concept of fake apps, and study specifically towards these apps.
-在本文中，笔者率先引入了``仿冒应用''这个概念，然后对这一方面进行了专门的研究，还搜集了大量的相关样本以辅助调查。
+在本文中，``仿冒应用''这个概念被率先引入。
+然后，本文对这一方面进行了专门的研究，还搜集了大量的相关样本以辅助调查。
 % To the best of our knowledge, we are the first to conduct a comprehensive empirical study on a large-scale fake apps.
-据笔者所知，本课题是第一个针对仿冒应用进行大规模全面实证研究的课题。
+本文的前期调研结果显示，本课题是第一个针对仿冒应用进行大规模全面实证研究的课题。
 
 % To better understand the ecosystem nature of this type of apps, we obtained more than 150,000 data entries from real-world markets, observed and measured the fake samples among this dataset from several dimensions including certificate information, app size, app name and package name, time factor and so on.
-为了更好地了解这个类型的应用的生态环境，本文基于Python 3设计实现了仿冒应用收集框架\mytool，利用基于BFS的算法收集了来自现实世界中各个应用市场的超过15万个应用样本，并且从多个不同维度，对这个数据库里面的仿冒样本进行了观测和考察。
+为了更好地了解这个类型的应用的生态环境，本文基于Python 3设计实现了仿冒应用收集框架\mytool，利用基于BFS的算法收集了来自现实世界中各个应用市场的近14万个应用样本，并且从多个不同维度，对这个数据库里面的仿冒样本进行了观测和考察。
 这些维度包括了APK包中的安全证书信息、应用大小、应用名、包名和时间因素等等。
 
 % Through our measurements we gain valuable experience on fake apps from several perspectives, findings like fake samples' naming tendency and fake developers' evasive strategies are inferred.
 然后，本工作将收集到的数据分为了\emph{仿冒应用的基本特征}、\emph{影响仿冒应用数量的因素}和\emph{仿冒应用的发展轨迹}三个不同视角进行了测量，获得如仿冒应用的命名倾向和仿冒应用开发者对市场监管防御机制的规避策略等信息。
 % To support our findings, we further present a few study cases which provide us a more detailed look into fake apps to back our discoveries on fake app ecosystem.
-为了佐证本文的发现，笔者在每个视角解读之后给出了从数据集中挑选的几个研究案例，呈现了如仿冒作者对不同热门应用的仿冒方式的内容。
+为了佐证本文的发现，本研究在每个视角解读之后给出了从数据集中挑选的几个研究案例，呈现了如仿冒应用开发者对不同热门应用的仿冒方式的内容。
 这几个案例进一步深化了本文对仿冒应用生态系统的发现。
 
 之后，本文还收集了部分仿冒样本在商场上对应的评论和评级，排查仿冒应用是否利用了排名欺诈。
 由于现有的排名欺诈检测手段尚有不足，本工作创新性地分别利用两种创新的研究方法---基于用户行为的用户可信度验证和基于NLP的评论内容相似度验证，对数据中的排名欺诈行为进行了排查。
 结果显示，刷好评的排名欺诈行为的确存在于应用市场中，在本工作搜集到的仿冒应用评论中就有刷好评的痕迹。
 
-% We hope the lessons learned in this article are informative and helpful for mobile security practitioners in both academia and industry to improve the status quo.
-笔者希望本文研究的结果能够为移动安全产业的从业人员（不论是工业界或学术界）提供足够的信息，以改善移动安全界的现状。
 
 \section{展望}
 
@@ -49,7 +48,7 @@
 
 而在评论分析的部分中，也有可以继续发掘的部分。
 在现阶段，学界关于排名欺诈的研究一直在针对积极评价方面，但是对应用差评进行排名欺诈的相关研究却有待补充。
-刷好评可以提高应用评价提升应用排名，如果反其道而行之，用差评对目标App进行攻击，其实也可以降低目标App的评价，对其排名进行打击。
+刷好评可以提高应用评价提升应用排名，如果反其道而行之，用差评对目标应用进行攻击，其实也可以降低目标应用的评价，对其排名进行打击。
 另外，在实际上，用户给的差评中含有相当多的有用信息。
 用户对应用的不满、功能上的建议、bug的反馈，都可以反映在差评上。
 关于用户差评，还有很多的研究空间。
@@ -58,4 +57,4 @@
 比如是否能结合自动化爬虫框架提高爬虫模块的鲁棒性（对抗应用商店的反爬虫技术、下载稳定性），工具本身的代码优化，还有工具整体的易用性、稳定性等。
 
 总之，从整体上看，本文的工作还有很多可以深化的部分。
-笔者希望本文能抛砖引玉，在让读者对移动应用黑色产业有更多认识的同时，激发读者对仿冒应用等方面的研究兴趣，并从上述几点出发，为后人带来更多深入而完善的相关研究。
+然而，诚希望本文研究的结果能够为移动安全产业的从业人员（不论是工业界或学术界）提供足够的信息，以改善移动安全界的现状；或是抛砖引玉，在让读者对移动应用黑色产业有更多认识的同时，激发读者对仿冒应用等方面的研究兴趣，并从上述几点出发，为后人带来更多深入而完善的相关研究。
