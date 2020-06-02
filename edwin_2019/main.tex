@@ -169,7 +169,7 @@
 % \newcommand{\anonymous}[1]{\phantom{ #1 }}
 
 % 查重开关
-% \newcommand{\duplicationCheck}[1]{\phantom{ #1 }}
+\newcommand{\duplicationCheck}[1]{\phantom{ #1 }}
 
 % 查重自带匿名
 \ifdefined \duplicationCheck
@@ -205,12 +205,12 @@
   \def\stuID{51174506026}
   \def\cmajor{计算机科学与技术}
   \def\cfield{软件方法与程序语言}
-  \def\cadvisor{贺樑~教授}
+  \def\cadvisor{\qquad 贺樑~教授 \quad 徐立华~副教授}
   \def\cname{唐~崇~斌}
 
   \def\emajor{\small{Computer Science and Technology}}
   \def\efield{\small{Software Method and Programming Language}}
-  \def\eadvisor{\small{Prof.~Liang~He}}
+  \def\eadvisor{\small{Prof.~Liang~He, A.P.~Lihua~Xu}}
   \def\ename{\small{Chongbin~Tang}}
 \fi
 
@@ -334,8 +334,8 @@
 \input{chapter-background}
 \clearPaperPage
 
-\input{chapter-fakerevealer}
-\clearPaperPage
+% \input{chapter-fakerevealer}
+% \clearPaperPage
 
 \input{chapter-discoveries}
 \clearPaperPage
