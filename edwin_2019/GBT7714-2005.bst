@@ -1101,12 +1101,10 @@ FUNCTION {output.publisher.no.address} {          % void Entry::output_publisher
 FUNCTION {output.school} {                        % void Entry::output_school(int required) {
   'required :=                                    %   this.required = required;
   school empty$ not {                             %   if (! empty(this.school)) {
-    cap.colon write$                              %     write(cap_colon);
     school format.school write$                   %     write(format_school(this.school));
   } {                                             %   } else {
     required {                                    %     if (required == 1) {
       "Require school: " cite$ * warning$         %       warning("Require publisher: " + this.cite);
-      cap.colon write$                            %       write(cap_colon);
       cap.no.publisher format.school write$       %       write(format_school(cap_no_publisher()));
     } 'skip$ if$                                  %     }
   } if$                                           %   }
@@ -1472,10 +1470,8 @@ FUNCTION {thesis.impl} {                          % void Entry::thesis_impl() {
   true output.author                              %   output_author(true);
   true output.title                               %   output_title(true);
   true output.mark                                %   output_mark(true);
-  false output.translator                         %   output_translator(false);
-  false output.address                             %   output_address(false);
+  cap.period write$                               %   write(cap_period);
   true output.school                              %   output_school(true);
-  cap.comma write$                                %   write(cap_comma);
   true output.year                                %   output_year(true);
   false output.pages                              %   output_pages(false);
   false output.citedate                           %   output_citedate(false);
@@ -1629,7 +1625,18 @@ FUNCTION {periodical} {                           % void Entry::periodical() {
                                                   %
 FUNCTION {newspaper} {                            % void Entry::newspaper() {
   "N" set.mark                                    %   set_mark("N");
-  periodical.impl                                 %   periodical_impl();
+  start.bibitem                                   %   start_bibitem();
+  true output.editor                              %   output_editor(true);
+  true output.title                               %   output_title(true);
+  true output.mark                                %   output_mark(true);
+  publisher empty$ not {                          %   if (! empty(this.publisher)) {
+    true output.publisher                         %     output_publisher(true);
+    cap.comma write$                              %     write(cap_comma);
+    true output.date                              %     output_date(true);
+  } {                                             %   } else {
+    cap.period write$                             %     write(cap_period);
+  } if$                                           %   }
+  end.bibitem                                     %   end_bibitem();
 }                                                 % }
                                                   %
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
