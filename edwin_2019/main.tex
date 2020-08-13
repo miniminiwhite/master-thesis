@@ -279,8 +279,8 @@
 
 % 原创性声明。查重时不编译
 \ifx\duplicationCheck \undefined
-    \input{A3-COPYRIGHT}
-    \clearPaperPage
+  \input{A3-COPYRIGHT}
+  \clearPaperPage
 \fi
 
 \input{A4-MEMBERLIST}
@@ -320,8 +320,8 @@
 % 在章首页添加页眉
 
 \fancypagestyle{plain}{%
-	\fancyhead[LE,RO]{\small{\articleCategory}}
-	\fancyhead[RE,LO]{\small{\leftmark}}
+  \fancyhead[LE,RO]{\small{\articleCategory}}
+  \fancyhead[RE,LO]{\small{\leftmark}}
 }
 
 \raggedbottom
@@ -339,7 +339,7 @@
 \input{chapter-dataCollection}
 \clearPaperPage
 
-\input{chapter-discoveries}
+\input{chapter-discoveries-basic}
 \clearPaperPage
 
 \input{chapter-feedback}
@@ -357,21 +357,21 @@
 
 % 攻读学位期间发表的学术论文
 \fancypagestyle{plain}{%
-	\fancyhead[LE,RO]{\small{\articleCategory}}
-	\fancyhead[RE,LO]{\small{攻读学位期间发表的学术论文}}
+  \fancyhead[LE,RO]{\small{\articleCategory}}
+  \fancyhead[RE,LO]{\small{攻读学位期间发表的学术论文}}
 }
 \input{D2-MYACHIEVEMENTS}
 \clearPaperPage
 
 \fancypagestyle{plain}{%
-	\fancyhead[LE,RO]{\small{\articleCategory}}
-	\fancyhead[RE,LO]{\small{致\quad 谢}}
+  \fancyhead[LE,RO]{\small{\articleCategory}}
+  \fancyhead[RE,LO]{\small{致\quad 谢}}
 }
 % 致谢。匿名与非匿名用不同版本
 \ifx\anonymous \undefined
-	\input{D3-ACKNOWLEDGEMENT}
+  \input{D3-ACKNOWLEDGEMENT}
 \else
-    \input{D3-ACKNOWLEDGEMENT-ANONYMOUS}
+  \input{D3-ACKNOWLEDGEMENT-ANONYMOUS}
 \fi
 \clearPaperPage
 
