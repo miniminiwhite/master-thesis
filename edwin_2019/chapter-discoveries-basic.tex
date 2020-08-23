@@ -1,22 +1,24 @@
 % \section{Large-scale Empirical Study and Discoveries}
-\chapter{仿冒应用基本特征解读}
+\chapter{仿冒应用基本特征实证研究}
 \label{chp:discoveries_basic}
 
 上一章节介绍了本研究的相关设置，提出了7个与仿冒应用相关的研究问题。
-本章从仿冒应用与原版应用相似度、影响仿冒应用数量的因素及仿冒应用行为三点入手，回答与仿冒应用基本特征相关的三个研究问题，即：
+本章从仿冒应用与原版应用相似度、影响应用被仿冒的严重程度的因素及仿冒应用行为三点入手，回答与仿冒应用基本特征相关的三个研究问题，即：
 
-\noindent{\bf RQ1：仿冒应用和与之相对的正版应用的相似程度如何？}
-\noindent{\bf RQ2：正版应用的热度、类别等因素是否会导致其吸引仿冒应用开发者对其进行仿冒？}
-\noindent{\bf RQ3：仿冒应用作者制作出了怎样的仿冒应用？是否依然能提供原版应用的功能？}
+{\bf RQ1：仿冒应用和与之相对的正版应用的相似程度如何？}
+
+{\bf RQ2：是否存在显著影响应用被仿冒的严重程度的单一因素？}
+
+{\bf RQ3：仿冒应用作者制作出了怎样的仿冒应用？是否依然能提供原版应用的功能？}
 
 \section{度量指标选择}
+\label{sec:measure_selection}
 
+为保证研究结构有效性，本节解析介绍本章研究用到的各度量指标以供参考。
 为回答RQ1，本研究需要选择一种相似度指标衡量仿冒应用与原版应用的相似程度；
-为回答RQ2，需要先选择一种指标衡量某款应用在仿冒应用开发者眼中的受欢迎程度，再将其与可代表应用热度、应用类别的指标相关联，以计算两者间的关联性。
+为回答RQ2，需要先选择一种指标衡量某款应用在受仿冒的严重程度程度，再将其与可代表应用热度、更新频率的指标相关联，以计算两者间的关联性。
 
-\vspace{0.5mm}
-\noindent {\bf 相似程度度量指标}
-\vspace{0.5mm}
+\subsection{相似程度度量指标}
 
 应用之间相似度可从多个层面定义，包括应用行为相似度，应用代码相似度以及应用外观相似度。
 应用行为相似度量度需要案例与一定方式驱动样例（常用的为手动方式驱动，或利用UI Automator或Monkeys等工具预先录制好操作脚本再回放）。
@@ -41,19 +43,16 @@
 例如，``jingdong''和``jindeng''之间的编辑距离是2，由前者转换为后者的其中一种编辑次数最小方法为将第一个``g''删除，再将``e''转成``o''。
 同理，字符串``fake''和``official''之间的距离是7，其中一种方案为在``f''前添加``o''，在``f''和``a''之间添加``fici''（此处包含4步操作），将``k''替换作``l''，最后删去``e''。
 
-\vspace{0.5mm}
-\noindent {\bf 关联程度度量指标}
-\vspace{0.5mm}
+\subsection{应用受仿冒严重程度相关度量指标}
 
-本研究在衡量某款应用在仿冒应用开发者眼中受欢迎程度时，采用了较为直观的指标：从直觉上看，市面上存在越多仿冒个体的应用，越受仿冒应用开发者欢迎。
-
-但是，每款目标App都有不同的样本数（官方样本数与仿冒样本数均有区别），所以不能直接以仿冒样本的数量作比较。
-为了消除偏差，本文将样本数量归一化，使用仿冒率对比每个目标App在仿冒应用开发者中的受欢迎程度。
+本研究在衡量某款应用在仿冒应用开发者眼中受欢迎程度时，采用较为直观的指标：从直觉上看，市面上存在越多仿冒个体的应用，越受仿冒应用开发者欢迎（受仿冒程度越严重）。
+但是，每款目标应用都有不同的样本数（官方样本数与仿冒样本数均有区别），不能直接以仿冒样本的数量作比较。
+为消除偏差，本文将样本数量归一化，使用仿冒率对比每个目标应用在仿冒应用开发者中的受欢迎程度。
 
 \begin{Def}
     仿冒率
 
-    某款App~$a$的仿冒率$fake~sample~rate_a$指与其关联的仿冒样本的数量$fake_a$与该App正版样本的数量$total_a$的商；某应用市场$AS$的仿冒率$fake~sample~rate_{AS}$则是其中包含的所有目标App的均值。
+    某款App~$a$的仿冒率$fake~sample~rate_a$指与其关联的仿冒样本的数量$fake_a$与该App正版样本的数量$total_a$的商；某应用市场$AS$的仿冒率$fake~sample~rate_{AS}$则是其中包含的所有目标应用的均值。
     两者可分别计算如下：
 \end{Def}
 
@@ -62,11 +61,18 @@
     \label{equ:fake_rate_app}
 \end{equation}
 \begin{equation}
-    fake~sample~rate_{AS} = Avg(fake~sample~rate_a, \forall a \in \text{\{目标App\}}) \,.
+    fake~sample~rate_{AS} = Avg(fake~sample~rate_a, \forall a \in \text{\{目标应用\}}) \,.
     \label{equ:fake_rate_mkt}
 \end{equation}
 
-为探究应用受仿冒应用开发者的欢迎程度与其他因素的相关性，本研究利用皮尔逊积矩相关系数来计算一款App被仿冒的严重程度与其热度是否具有相关性。
+应用热度方面，研究直接取用从易观千帆平台取得的数据作为热度指标。
+易观千帆平台为国内领先的应用数据收集平台，可认为其数据来源较为可靠。
+更新频率指标方面，成熟的应用通常有较为固定的更新频率。
+为评估目标应用的更新频率，本研究标记了每个官方应用样本被发行时的时间，精确到日，找到该应用的最新发布样本和最早发布样本，两者发行时间差值与中间版本数的商即为平均更新频率（单位：天/版本）。
+
+\subsection{关联程度度量指标}
+
+为探究应用受仿冒应用开发者的欢迎程度与其他因素的相关性，本研究利用皮尔逊积矩相关系数（Pearson product-moment correlation coefficient，简称PPMCC）计算一款App被仿冒的严重程度与其热度、更新频率是否具有相关性。
 
 \begin{Def}
     皮尔逊积矩相关系数
@@ -77,8 +83,13 @@
     p_{x,y} = corr(X,Y)=\frac{cov(X,Y)}{\sigma_x\sigma_y}=\frac{E[(X-u_x)(Y-u_y)]}{\sigma_x\sigma_y} \,.
     \label{equ:PPMCC}
 \end{equation}
+\autoref{equ:PPMCC}的值域为$[-1, 1]$。
+该值越接近$1$，表示两个变量间存在正相关关系越强；越接近$-1$，表示两变量间存在的负相关关系越强；接近$0$，表示两个变量之间的相关关系弱。
 
-\section{解读过程与结果}
+
+\section{实证研究流程与结果解析}
+
+本节分为四个部分，前三个部分分别针对章节起始的三个研究问题进行实证研究，最后一部分对实证研究结果进行有效性分析。
 
 \subsection{仿冒样本与原版应用的相似度研究}
 
@@ -174,28 +185,27 @@
 相反，一方面，应用名在市场详情页上处于显眼位置，仿冒应用名称与正版越接近，越容易误导用户下载；另一方面，应用名重名不会在技术上造成阻碍。
 因此，仿冒应用的应用名与正版应用十分类似，但包名、应用大小与正版应用相距较大。
 
-\subsection{影响仿冒应用数量的因素研究}
+\subsection{影响应用被仿冒的严重程度的因素研究}
 \label{sec:quantitativeStudy}
 
-\noindent{\bf RQ2：正版应用的热度、类别等因素是否会导致其吸引仿冒应用开发者对其进行仿冒？}
+\noindent{\bf RQ2：是否存在显著影响应用被仿冒的严重程度的单一因素？}
 
+影响应用被仿冒的严重程度的因素众多，如能找到影响应用被仿冒的严重程度的主要因素，可针对性地制订策略防范仿冒应用。
 根据经验，监管严格的应用市场上，仿冒应用更难通过审核；
 一个应用的热度越高，越可能被仿冒应用开发者抄袭；
 不同类别的应用具有不同目标人群，也可能影响仿冒应用开发者对其的态度。
-因此，作者假设仿冒应用的数目与其来源市场相关，也受原版应用的热度、应用分类因素影响。
+因此，作者假设仿冒应用的数目与其来源市场相关，也受原版应用的热度、应用分类等因素影响。
 App的更新频率也被视作影响仿冒数量的潜在因素，因为频繁更新的App或许可阻碍仿冒应用开发者对其进行仿冒。
-可将RQ2再细分为以下子问题：
+根据上述因素，分别从应用所在市场与应用自身出发，作者将RQ2再细分为以下子问题：
 
 {\bf RQ 2.1}：仿冒应用主要源于什么市场？仿冒率与市场规模是否有关系？
 
 {\bf RQ 2.2}：某应用的热度/更新频率/所在类别是否影响其对应仿冒率？
 
-
 \noindent{\bf RQ 2.1}：仿冒应用主要源于什么市场？仿冒率与市场规模是否有关系？
 
 本研究中搜集的应用样本来源于多个不同的应用市场，不同市场规模不一，其审核、监管力度也并不一致。
 根据各个样本的来源，有统计结果如\autoref{fig:Sample_source}。
-
 
 \begin{figure*}[htbp]
     \centering
@@ -206,126 +216,65 @@ App的更新频率也被视作影响仿冒数量的潜在因素，因为频繁�
 \end{figure*}
 
 左图显示，在本研究收集数据的所有29个应用来源中，从样本总数与仿冒样本数两个角度看，\texttt{百度手机助手}均提供了最多样本。
-可将各渠道提供的样本量与市场规模相联系。
+由于本研究选取的目标应用为市面上最受欢迎的应用，较有代表性，可将各渠道提供的样本量与国内市场规模相联系。
 各个应用市场的仿冒率在右图呈现。
 
 
 \texttt{百度手机助手}~\cite{Baiduappstore}和\texttt{安卓市场}~\cite{Hiapk}的仿冒率均约为40\%，在所有的29个渠道中处于中等水平，但由于源于该两个渠道样本基数最大，两者也提供了最多仿冒样本数。
 由图中数据可得，应用市场的样本数量与仿冒率不直接相关。
 然而，应用和市场的关系有可能对应用仿冒率产生影响：
-本研究的50款目标应用中，有12款由腾讯公司开发，针对该12款应用进行仿冒率计算，可得结果如下:
+本研究的50款目标应用中，有12款由腾讯公司开发，3款由360开发。
+针对该15款应用进行仿冒率计算，得到各应用于规模较大的9个应用市场中仿冒率如下:
 
 \begin{table}[htbp]
     \renewcommand{\arraystretch}{1}
     \footnotesize
     \centering
-    \caption{腾讯旗下12款应用于各大市场的仿冒率}
+    \caption{15款应用于各大市场的仿冒率（数值单位：\%）}
     \vspace{1mm}
     \begin{tabular}{l c c c c c c c c c}
         \toprule
-        {\bf 应用市场}   & {\bf 百度} & {\bf 安卓市场} & {\bf 豌豆荚} & {\bf 应用汇} & {\bf 360} & {\bf 应用宝} & {\bf 安智} & {\bf 优亿} & {\bf 华为} \\
+                                        & {\bf 百度} & {\bf 安卓市场} & {\bf 豌豆荚} & {\bf 应用汇} & {\bf 360} & {\bf 应用宝} & {\bf 安智} & {\bf 优亿} & {\bf 华为} \\
         \midrule
-        {\bf 仿冒率(\%)} & 60.92      & 60.17          & 63.92        & 57.48        & 63.24     & 33.04        & 52.45      & 78.86      & 96.91      \\
+        QQ                              & 54.86      & 52.73          & 49.74        & 46.12        & 49.45     & 29.72        & 26.36      & 66.55      & 95.73      \\
+        \rowcolor{gray!15} 微信         & 89.94      & 90.47          & 93.6         & 89.05        & 92.34     & 53.19        & 94.58      & 95.0       & 99.81      \\
+        腾讯视频                        & 6.25       & 4.55           & 13.27        & 10.84        & 4.55      & 0.0          & 2.0        & 0.0        & 66.67      \\
+        \rowcolor{gray!15} 腾讯手机管家 & 62.9       & 78.94          & 72.14        & 67.29        & 82.67     & 56.32        & 74.74      & 87.1       & 98.04      \\
+        QQ音乐                          & 5.09       & 2.04           & 12.87        & 5.71         & 2.63      & 1.96         & 0.0        & 19.35      & 84.21      \\
+        \rowcolor{gray!15} 开心消消乐   & 89.66      & 80.19          & 87.5         & 47.89        & 70.23     & 63.54        & 66.67      & 93.7       & 96.36      \\
+        王者荣耀                        & 83.91      & 78.84          & 66.19        & 55.88        & 77.42     & 28.92        & 67.21      & 93.15      & 88.89      \\
+        \rowcolor{gray!15} QQ邮箱       & 2.37       & 1.72           & 0.0          & 6.06         & 0.0       & 0.0          & 0.0        & 15.38      & 66.67      \\
+        QQ浏览器                        & 2.18       & 2.47           & 10.78        & 1.98         & 6.52      & 0.0          & 2.7        & 15.79      & 90.0       \\
+        \rowcolor{gray!15} 腾讯新闻     & 0.82       & 1.31           & 0.0          & 5.56         & 0.0       & 0.0          & 0.0        & 0.0        & 0.0        \\
+        应用宝                          & 39.63      & 56.12          & 22.01        & 28.39        & 44.68     & 52.38        & 92.86      & 80.0       & 91.43      \\
+        \rowcolor{gray!15} 全民K歌      & 42.86      & 43.01          & 35.78        & 55.77        & 60.38     & 23.81        & 49.06      & 35.29      & 66.67      \\
+        360手机卫士                     & 65.92      & 46.2           & 79.56        & 74.78        & 67.27     & 91.46        & 82.05      & 83.08      & 96.1       \\
+        \rowcolor{gray!15} 360清理大师  & 4.26       & 6.67           & 0.0          & 13.04        & 0.0       & 0.0          & 0.0        & 9.09       & 0.0        \\
+        360手机助手                     & 33.89      & 68.0           & 17.89        & 45.21        & 19.48     & 30.0         & 37.5       & 15.79      & 87.5       \\
         \bottomrule
     \end{tabular}
-    \label{table:tencent_apps}
+    \label{table:firm_apps}
 \end{table}
 
-12款应用分别为QQ，微信，腾讯视频，腾讯手机管家，QQ音乐，开心消消乐，王者荣耀，QQ邮箱，QQ浏览器，腾讯新闻，应用宝和全民K歌。
-应用宝为腾讯旗下应用市场，~\autoref{table:tencent_apps}中结果表明，应用宝中腾讯应用仿冒率明显比其他市场低。
-有理由相信，应用宝对该12款应用相关的应用有较为严格的审核流程，有效遏制了该市场中与上述12款应用相关的仿冒应用。
+腾讯系的12款应用分别为QQ，微信，腾讯视频，腾讯手机管家，QQ音乐，开心消消乐，王者荣耀，QQ邮箱，QQ浏览器，腾讯新闻，应用宝和全民K歌；
+360系的3款应用为360手机卫士，360清理大师和360手机助手。
+应用宝为腾讯旗下应用市场，~\autoref{table:firm_apps}中结果表明，应用宝中腾讯系应用仿冒率明显比其他市场低；
+同样地，360系应用在360市场中的仿冒率也比其他市场中明显降低。
+作者猜测，应用宝对12款腾讯系应用相关的应用有较为严格的审核流程，有效遏制了该市场中与上述12款腾讯系应用相关的仿冒应用。
+同理，360系应用在360市场中仿冒率较低。
 
 结果表明，应用市场的规模与仿冒率无明显关联，但应用本身与市场的关系对仿冒率有影响。
 
 \noindent{\bf RQ 2.2}：某应用的热度/更新频率/所在类别是否影响其对应仿冒率？
 
-\subsection{其他因素对仿冒样本数量的影响}
-% Accordingly, we hypothesize the following factors may influence the number of fake samples of an app:
-除了市场本身之外，本节还假设以下这些因素可能会影响某款App对应的仿冒样本数量：
+通常，某款App越受欢迎，其对应的仿冒应用越有可能被用户误下载，令仿冒应用开发者获取利润，吸引更多仿冒应用开发者对其仿冒；
+应用更新可被分为功能性更新与安全性更新两类，频繁更新的应用功能迭代速度快，复杂度高，也可能有更好的安全性，使仿冒开发者难以复刻；
+不同类别的应用具有不同目标人群与功能，也可能影响对应的应用被仿冒的严重程度。
+针对上述前两个因素，本节使用皮尔逊积矩相关系数衡量仿冒率与因素对应维度指标的关联性；由于类别无法用连续变量表示，相关系数不适用于该因素，本研究将以图表形式表示两者之间的关联程度。
 
-% \noindent{\bf Hypo 2.2:} The number of fake apps are closely related to how popular an app is.
-{\bf 假设 2.2}：仿冒应用的数量与其对应的正版App的受欢迎程度有密切联系。
-
-% \noindent{\bf Hypo 2.3:} Update frequency effects the number of fake samples.
-{\bf 假设 2.3}：应用的更新频率影响着其对应仿冒应用的数量。
-
-% \noindent{\bf Hypo 2.4:} Category is a factor influencing the fake sample number.
-{\bf 假设 2.4}：App类别是影响仿冒应用数量的因素之一。
-
-与三个假设对应的是三个研究问题：
-
-% \noindent{\bf RQ 2.2}: Does the popularity of an app affect the number of its fake samples?
-{\bf RQ 2.2}：一个App受欢迎的程度会影响对其仿冒的应用数量吗？
-
-% \noindent{\bf RQ 2.3}: Does an app's update frequency influence its fake sample's number?
-{\bf RQ 2.3}：一个App的更新频率会影响对其仿冒的应用数量吗？
-
-% \noindent{\bf RQ 2.4}: Is the number of fake samples related to the app's category?
-{\bf RQ 2.4}：一个App所在类别会影响对其仿冒的应用数量吗？
-
-对于这三个研究问题，本节使用了皮尔逊积矩相关系数（Pearson product-moment correlation coefficient，简称PPMCC）来衡量应用数量和问题对应的几个维度的关联性。
-
-% \noindent{\bf Answer to RQ 2.2.}
-{\bf RQ 2.2. 结果}
-% Intuitively, the more popular an app is, the more possible it would get shammed, for fake developers would mislead users to download their apps to gain profits.
-从直觉上看，某款App越受欢迎，仿冒应用开发者就越有动机对其仿冒，然后诱导用户下载仿冒版本以获取利润。
-
-% Note that each app has different amount of samples (including official samples and fake samples), processing our measurement directly based on the number of fake samples is incorrect.
-要注意的是，每款目标App都有不同的样本数（无论是官方的或是仿冒的），所以在这里不能拿仿冒样本的数量直接作比较。
-% To counteract this bias, each fake count should be regularize into a \textit{fake sample rate}, the rate of fake samples in all collected samples of an app.
-为了消除偏差，本文将样本数量归一化，使用\autoref{equ:fake_rate_app}定义的仿冒率对每个目标App进行比较。
-% Next, we employ a metric called \textit{Pearson product-moment correlation coefficient (PPMCC)} to reveal relativeness between an app's fake sample number and its popularity, which uses the regularized fake sample rates and monthly activeness indicators (MAI) obtained from Analysys~\cite{yiguanqianfan}.
-接下来，本文使用了皮尔逊积矩相关系数来计算一款App被仿冒的严重程度与其热度是否具有相关性。
-相关计算会使用上述的仿冒率和从易观千帆~\cite{yiguanqianfan}获取的App月度热度指数计算。
-
-\begin{Def}
-    皮尔逊积矩相关系数
-
-    两个变量之间的皮尔逊相关系数定义为两个变量之间的协方差和标准差的商（\autoref{equ:PPMCC}）。
-\end{Def}
-\begin{equation}
-    p_x,_y = corr(X,Y)=\frac{cov(X,Y)}{\sigma_x\sigma_y}=\frac{E[(X-u_x)(Y-u_y)]}{\sigma_x\sigma_y}
-    \label{equ:PPMCC}
-\end{equation}
-\vspace{0.5mm}
-
-% This value ranges from -1 to 1, the closer the PPMCC value is to 0, the weaker correlation between the two factors is indicated.
-\autoref{equ:PPMCC}的值域为$[-1, 1]$，该值越接近0，表示两个变量之间的相关关系越弱。
-% Surprisingly, according to our data, the value of PPMCC between this two factors is 0.246, revealing that the fake sample number and an app's popularity only hold their relativeness on a weak level, which does not match our expectation.
-出人意料的是，数据显示，两个因子之间的相关系数只有0.246。
-这表明仿冒应用的数量和App的热度在相关性上只处于较弱水平，和本研究的预期并不符合。
-
-% \noindent{\bf Answer to RQ 2.3.}
-{\bf RQ 2.3. 结果}
-% We assume the update frequency is related to the number of fake samples of an app, for updates can usually help keep a software from being attack.
-本研究猜想更新频率有可能会与App被仿冒的次数相关联，因为升级通常会有漏洞修复等举措，可以帮助App免受攻击。
-% The higher the update frequency is, the safer an app is supposed to be.
-所以一款App的更新频率越高，其安全性能应该就会越好。
-
-% To estimate the average update frequency of our target apps, the time when an app's official sample was crawled and when its latest official samples were crawled is marked.
-为了评估一款目标App的平均更新频率，本研究标记了每个官方应用样本被发行时的时间，精确到日。
-% The difference between them is then divided by the number of that app's existing version to obtain an update frequency, with unit day/version.
-然后，再找到最新发布的那个样本和最早发布的那个样本，求出他们发行时间的差值的绝对值与版本数的商，即为平均更新频率（单位：天/版本）
-
-% The result PPMCC value of 0.084 shows that the connection between an app's update frequency and its fake sample rate barely exists.
-相关系数的计算结果表示，更新频率和仿冒数量之间的关联度只有0.084，意味着两者之间几乎没有关联。
-% We attribute this result to two reasons:
-本研究认为这个结果由两个原因导致：
-
-% (1) The high update frequency (10 days/version on average for apps in our dataset) indicates app developers may not fix security issues in per update, weakening the function of update frequency as a security indicator.
-1）在本研究的数据集中，每款App的平均更新间隔为10天/版本。
-这个较高的更新频率表面开发者可能不会每次都在更新中修正安全性问题，从而削弱了更新频率作为安全性指标的功能。
-
-% (2) A large portion of fake samples in our dataset are not derived from repackaging. To this end, fake developers can produce fakes regardless of how well the official apps are protected.
-2）结合前文的结果，数据集中的大部分仿冒样本都不是重打包应用，而是仿冒应用开发者自行开发的。
-因此，无论官方版本受到的保护程度如何，仿冒应用开发者都可以制造出对应的仿冒应用。
-
-% \noindent{\bf Answer to RQ 2.4.}
-{\bf RQ 2.4. 结果}
-% Some categories are potentially more profitable than others.
-某些App类别比其他类别更有可能带来收益。
-% A report from the app marketing company LIFTOFF~\cite{LIFTOFF_report} forecasts gaming to be the next most billable area.
-根据一份来自App营销机构LIFTOFF~\cite{LIFTOFF_report}的报告预测，在未来，\texttt{游戏}类有望成为带来最高收入的应用分类。
+热度数据源于易观千帆平台；
+应用更新频率取自某应用最早版本与最新版之间的平均更新时长，即两者发行时间差值与中间版本数的商；
+根据应用功能划分，本研究的50款目标应用被分为11个类别，分别为应用市场，摄影录像，游戏，资讯，生活，音乐，移动购物，商务办公，社交网络，系统工具，视频。
 
 \begin{ThreePartTable}
     \centering
@@ -333,104 +282,103 @@ App的更新频率也被视作影响仿冒数量的潜在因素，因为频繁�
     \footnotesize
     \setlength{\belowcaptionskip}{-5pt}
     \vspace{1mm}
-    % \rowcolors{2}{gray!15}{white}
     \begin{longtable}{l l c c c c c c}
-        \caption{目标App与其相关统计}\label{table:data-statistics}                                                                                                                                                        \\
+        \caption{目标应用与其相关统计}\label{table:data-statistics}                                                                                                                                      \\
         \toprule
-        {\bf 应用名}                                 & {\bf 类别}     & \begin{tabular}[c]{@{}c@{}}{\bf 月度热} \\ {\bf 度指数} \end{tabular} & \begin{tabular}[c]{@{}c@{}}{\bf 更新频率} \\ {\bf (天/版本)} \end{tabular} & {\bf 样本总数} & \begin{tabular}[c]{@{}c@{}}{\bf 仿冒} \\ {\bf 样本数} \end{tabular} & {\bf 仿冒率} & \begin{tabular}[c]{@{}c@{}}{\bf 平均仿} \\ {\bf 冒延迟} \end{tabular} \\
+        {\bf 应用名}                    & {\bf 类别} & \begin{tabular}[c]{@{}c@{}}{\bf 月度热} \\ {\bf 度指数} \end{tabular} & \begin{tabular}[c]{@{}c@{}}{\bf 更新频率} \\ {\bf (天/版本)} \end{tabular} & {\bf 样本总数} & \begin{tabular}[c]{@{}c@{}}{\bf 仿冒} \\ {\bf 样本数} \end{tabular} & {\bf 仿冒率} & \begin{tabular}[c]{@{}c@{}}{\bf 平均仿冒} \\ {\bf 延迟（天）} \end{tabular} \\
         \midrule
-        {\bf 微信}\tnote{*}                          & {\bf 社交网络} & {\bf 91.2K}                & {\bf 6.4}                  & {\bf 9248}     & {\bf 6447}                 & {\bf 69.7\%} & {\bf 12.1}                 \\
-        \rowcolor{gray!15} {\bf QQ}\tnote{*}         & {\bf 社交网络} & {\bf 54.6K}                & {\bf 10.7}                 & {\bf 11167}    & {\bf 3780}                 & {\bf 33.8\%} & {\bf 9.2}                  \\
-        爱奇艺                                       & 视频           & 53.5K                      & 6.4                        & 7586           & 3481                       & 45.9\%       & 9.3                        \\
-        \rowcolor{gray!15} 支付宝                    & 生活           & 48.1K                      & 10.2                       & 983            & 231                        & 23.5\%       & 10.1                       \\
-        {\bf 淘宝}\tnote{*}                          & {\bf 移动购物} & {\bf 47.5K}                & {\bf 7.0}                  & {\bf 6003}     & {\bf 3010}                 & {\bf 50.1\%} & {\bf 8.1}                  \\
-        \rowcolor{gray!15} 腾讯视频                  & 视频           & 47.3K                      & 6.3                        & 1429           & 68                         & 4.8\%        & 10.7                       \\
-        优酷                                         & 视频           & 40.9K                      & 7.3                        & 2058           & 262                        & 12.7\%       & 6.7                        \\
-        {\bf 新浪微博}\tnote{*}                      & {\bf 社交网络} & {\bf 39.2K}                & {\bf 5.3}                  & {\bf 5947}     & {\bf 2715}                 & {\bf 45.7\%} & {\bf 5.7}                  \\
-        \rowcolor{gray!15} WiFi万能钥匙              & 系统工具       & 36.4K                      & 3.1                        & 4808           & 2999                       & 62.4\%       & 3.0                        \\
-        搜狗输入法                                   & 系统工具       & 33.3K                      & 11.0                       & 898            & 40                         & 4.5\%        & 21.8                       \\
-        \rowcolor{gray!15} 百度                      & 资讯           & 32.4K                      & 11.1                       & 15651          & 3514                       & 22.5\%       & 12.8                       \\
-        腾讯新闻                                     & 资讯           & 28.7K                      & 8.5                        & 1051           & 11                         & 1.0\%        & 8.9                        \\
-        \rowcolor{gray!15} QQ浏览器                  & 资讯           & 27.8K                      & 5.6                        & 1369           & 43                         & 3.1\%        & 11.6                       \\
-        今日头条                                     & 资讯           & 27.4K                      & 4.4                        & 3538           & 179                        & 5.1\%        & 5.6                        \\
-        \rowcolor{gray!15} 应用宝                    & 应用市场       & 27K                        & 11.4                       & 2419           & 266                        & 11.0\%       & 11.6                       \\
-        快手                                         & 视频           & 24.4K                      & 3.2                        & 8273           & 4270                       & 51.6\%       & 3.5                        \\
-        \rowcolor{gray!15} 腾讯手机管家              & 系统工具       & 24.2K                      & 8.7                        & 2463           & 1340                       & 54.4\%       & 8.7                        \\
-        高德地图                                     & 生活           & 24K                        & 6.5                        & 1225           & 51                         & 4.2\%        & 13.1                       \\
-        \rowcolor{gray!15} 酷狗音乐                  & 音乐           & 23K                        & 8.6                        & 1313           & 122                        & 9.3\%        & 12.2                       \\
-        QQ音乐                                       & 音乐           & 21.7K                      & 9.4                        & 1132           & 65                         & 5.7\%        & 14.6                       \\
-        \rowcolor{gray!15} 百度地图                  & 生活           & 21.3K                      & 8.8                        & 2609           & 1438                       & 55.1\%       & 15.3                       \\
-        抖音                                         & 视频           & 19.4K                      & 11.1                       & 317            & 12                         & 3.8\%        & 8.3                        \\
-        \rowcolor{gray!15} {\bf 京东}\tnote{*}       & {\bf 移动购物} & {\bf 18.5K}                & {\bf 10.9}                 & {\bf 5000}     & {\bf 2377}                 & {\bf 47.5\%} & {\bf 12.3}                 \\
-        UC浏览器                                     & 资讯           & 16.7K                      & 7.4                        & 4232           & 1624                       & 38.4\%       & 7.0                        \\
-        \rowcolor{gray!15} 360手机卫士               & 系统工具       & 15.4K                      & 12.4                       & 3670           & 1423                       & 38.8\%       & 19.1                       \\
-        全民K歌                                      & 音乐           & 14.7K                      & 21.1                       & 618            & 215                        & 34.8\%       & 17.3                       \\
-        \rowcolor{gray!15} 美团                      & 生活           & 13K                        & 8.0                        & 4752           & 1415                       & 29.8\%       & 6.9                        \\
-        {\bf 拼多多}\tnote{*}                        & {\bf 移动购物} & {\bf 12.9K}                & {\bf 6.6}                  & {\bf 2327}     & {\bf 551}                  & {\bf 23.7\%} & {\bf 7.8}                  \\
-        \rowcolor{gray!15} {\bf 王者荣耀}\tnote{*}   & {\bf 游戏}     & {\bf 12.5K}                & {\bf 15.5}                 & {\bf 2350}     & {\bf 1319}                 & {\bf 56.1\%} & {\bf 12.3}                 \\
-        美图秀秀                                     & 摄影录像       & 12.4K                      & 5.4                        & 1705           & 784                        & 46.0\%       & 5.8                        \\
-        \rowcolor{gray!15} 火山小视频                & 视频           & 12.2K                      & 11.9                       & 410            & 16                         & 3.9\%        & 9.6                        \\
-        墨迹天气                                     & 生活           & 12K                        & 4.2                        & 10081          & 7093                       & 70.4\%       & 4.7                        \\
-        \rowcolor{gray!15} 滴滴出行                  & 生活           & 11.8K                      & 8.6                        & 943            & 117                        & 12.4\%       & 7.0                        \\
-        华为应用市场                                 & 应用市场       & 11.8K                      & N/A                        & 0              & 0                          & 0.0\%        & N/A                        \\
-        \rowcolor{gray!15} {\bf 开心消消乐}\tnote{*} & {\bf 游戏}     & {\bf 11.2K}                & {\bf 19.7}                 & {\bf 2406}     & {\bf 1738}                 & {\bf 72.2\%} & {\bf 20.6}                 \\
-        酷我音乐盒                                   & 音乐           & 11K                        & 2.9                        & 3778           & 69                         & 1.8\%        & 4.2                        \\
-        \rowcolor{gray!15} 西瓜视频                  & 视频           & 11K                        & 11.5                       & 866            & 100                        & 11.5\%       & 8.8                        \\
-        OPPO应用商店                                 & 应用市场       & 10.8K                      & N/A                        & 0              & 0                          & 0.0\%        & N/A                        \\
-        \rowcolor{gray!15} 猎豹清理大师              & 系统工具       & 9.9K                       & 10.3                       & 1803           & 388                        & 21.5\%       & 13.5                       \\
-        360清理大师                                  & 系统工具       & 9.6K                       & 17.3                       & 327            & 8                          & 2.4\%        & 8.5                        \\
-        \rowcolor{gray!15} 360手机助手               & 应用市场       & 9.2K                       & 7.6                        & 1616           & 137                        & 8.5\%        & 8.4                        \\
-        WiFi管家                                     & 系统工具       & 8.8K                       & 19.5                       & 1636           & 658                        & 40.2\%       & 15.7                       \\
-        \rowcolor{gray!15} 讯飞输入法                & 系统工具       & 8.6K                       & 6.0                        & 1451           & 8                          & 0.6\%        & 10.1                       \\
-        百度手机助手                                 & 应用市场       & 8.2K                       & 11.4                       & 3849           & 437                        & 11.4\%       & 14.5                       \\
-        \rowcolor{gray!15} 小米应用市场              & 应用市场       & 7.8K                       & N/A                        & 0              & 0                          & 0.0\%        & N/A                        \\
-        {\bf WPS Office}\tnote{*}                    & {\bf 商务办公} & {\bf 7.4K}                 & {\bf 6.0}                  & {\bf 1152}     & {\bf 69}                   & {\bf 6.0\%}  & {\bf 7.8}                  \\
-        \rowcolor{gray!15} 美颜相机                  & 摄影录像       & 7.1K                       & 5.3                        & 1600           & 691                        & 43.2\%       & 6.3                        \\
-        网易云音乐                                   & 音乐           & 7K                         & 10.5                       & 616            & 6                          & 1.0\%        & 12.2                       \\
-        \rowcolor{gray!15} 网易新闻                  & 资讯           & 6.7K                       & 7.0                        & 1441           & 93                         & 6.5\%        & 5.0                        \\
-        {\bf QQ邮箱}\tnote{*}                        & {\bf 商务办公} & {\bf 6.6K}                 & {\bf 16.4}                 & {\bf 520}      & {\bf 11}                   & {\bf 2.1\%}  & {\bf 10.4}                 \\
+        微信                            & 社交网络   & 91.2K                      & 6.4                        & 9248           & 6447                       & 69.7\%       & 12.1                       \\
+        \rowcolor{gray!15} QQ           & 社交网络   & 54.6K                      & 10.7                       & 11167          & 3780                       & 33.8\%       & 9.2                        \\
+        爱奇艺                          & 视频       & 53.5K                      & 6.4                        & 7586           & 3481                       & 45.9\%       & 9.3                        \\
+        \rowcolor{gray!15} 支付宝       & 生活       & 48.1K                      & 10.2                       & 983            & 231                        & 23.5\%       & 10.1                       \\
+        淘宝                            & 移动购物   & 47.5K                      & 7.0                        & 6003           & 3010                       & 50.1\%       & 8.1                        \\
+        \rowcolor{gray!15} 腾讯视频     & 视频       & 47.3K                      & 6.3                        & 1429           & 68                         & 4.8\%        & 10.7                       \\
+        优酷                            & 视频       & 40.9K                      & 7.3                        & 2058           & 262                        & 12.7\%       & 6.7                        \\
+        新浪微博                        & 社交网络   & 39.2K                      & 5.3                        & 5947           & 2715                       & 45.7\%       & 5.7                        \\
+        \rowcolor{gray!15} WiFi万能钥匙 & 系统工具   & 36.4K                      & 3.1                        & 4808           & 2999                       & 62.4\%       & 3.0                        \\
+        搜狗输入法                      & 系统工具   & 33.3K                      & 11.0                       & 898            & 40                         & 4.5\%        & 21.8                       \\
+        \rowcolor{gray!15} 百度         & 资讯       & 32.4K                      & 11.1                       & 15651          & 3514                       & 22.5\%       & 12.8                       \\
+        腾讯新闻                        & 资讯       & 28.7K                      & 8.5                        & 1051           & 11                         & 1.0\%        & 8.9                        \\
+        \rowcolor{gray!15} QQ浏览器     & 资讯       & 27.8K                      & 5.6                        & 1369           & 43                         & 3.1\%        & 11.6                       \\
+        今日头条                        & 资讯       & 27.4K                      & 4.4                        & 3538           & 179                        & 5.1\%        & 5.6                        \\
+        \rowcolor{gray!15} 应用宝       & 应用市场   & 27K                        & 11.4                       & 2419           & 266                        & 11.0\%       & 11.6                       \\
+        快手                            & 视频       & 24.4K                      & 3.2                        & 8273           & 4270                       & 51.6\%       & 3.5                        \\
+        \rowcolor{gray!15} 腾讯手机管家 & 系统工具   & 24.2K                      & 8.7                        & 2463           & 1340                       & 54.4\%       & 8.7                        \\
+        高德地图                        & 生活       & 24K                        & 6.5                        & 1225           & 51                         & 4.2\%        & 13.1                       \\
+        \rowcolor{gray!15} 酷狗音乐     & 音乐       & 23K                        & 8.6                        & 1313           & 122                        & 9.3\%        & 12.2                       \\
+        QQ音乐                          & 音乐       & 21.7K                      & 9.4                        & 1132           & 65                         & 5.7\%        & 14.6                       \\
+        \rowcolor{gray!15} 百度地图     & 生活       & 21.3K                      & 8.8                        & 2609           & 1438                       & 55.1\%       & 15.3                       \\
+        抖音                            & 视频       & 19.4K                      & 11.1                       & 317            & 12                         & 3.8\%        & 8.3                        \\
+        \rowcolor{gray!15} 京东         & 移动购物   & 18.5K                      & 10.9                       & 5000           & 2377                       & 47.5\%       & 12.3                       \\
+        UC浏览器                        & 资讯       & 16.7K                      & 7.4                        & 4232           & 1624                       & 38.4\%       & 7.0                        \\
+        \rowcolor{gray!15} 360手机卫士  & 系统工具   & 15.4K                      & 12.4                       & 3670           & 1423                       & 38.8\%       & 19.1                       \\
+        全民K歌                         & 音乐       & 14.7K                      & 21.1                       & 618            & 215                        & 34.8\%       & 17.3                       \\
+        \rowcolor{gray!15} 美团         & 生活       & 13K                        & 8.0                        & 4752           & 1415                       & 29.8\%       & 6.9                        \\
+        拼多多                          & 移动购物   & 12.9K                      & 6.6                        & 2327           & 551                        & 23.7\%       & 7.8                        \\
+        \rowcolor{gray!15} 王者荣耀     & 游戏       & 12.5K                      & 15.5                       & 2350           & 1319                       & 56.1\%       & 12.3                       \\
+        美图秀秀                        & 摄影录像   & 12.4K                      & 5.4                        & 1705           & 784                        & 46.0\%       & 5.8                        \\
+        \rowcolor{gray!15} 火山小视频   & 视频       & 12.2K                      & 11.9                       & 410            & 16                         & 3.9\%        & 9.6                        \\
+        墨迹天气                        & 生活       & 12K                        & 4.2                        & 10081          & 7093                       & 70.4\%       & 4.7                        \\
+        \rowcolor{gray!15} 滴滴出行     & 生活       & 11.8K                      & 8.6                        & 943            & 117                        & 12.4\%       & 7.0                        \\
+        华为应用市场                    & 应用市场   & 11.8K                      & N/A                        & 0              & 0                          & 0.0\%        & N/A                        \\
+        \rowcolor{gray!15} 开心消消乐   & 游戏       & 11.2K                      & 19.7                       & 2406           & 1738                       & 72.2\%       & 20.6                       \\
+        酷我音乐盒                      & 音乐       & 11K                        & 2.9                        & 3778           & 69                         & 1.8\%        & 4.2                        \\
+        \rowcolor{gray!15} 西瓜视频     & 视频       & 11K                        & 11.5                       & 866            & 100                        & 11.5\%       & 8.8                        \\
+        OPPO应用商店                    & 应用市场   & 10.8K                      & N/A                        & 0              & 0                          & 0.0\%        & N/A                        \\
+        \rowcolor{gray!15} 猎豹清理大师 & 系统工具   & 9.9K                       & 10.3                       & 1803           & 388                        & 21.5\%       & 13.5                       \\
+        360清理大师                     & 系统工具   & 9.6K                       & 17.3                       & 327            & 8                          & 2.4\%        & 8.5                        \\
+        \rowcolor{gray!15} 360手机助手  & 应用市场   & 9.2K                       & 7.6                        & 1616           & 137                        & 8.5\%        & 8.4                        \\
+        WiFi管家                        & 系统工具   & 8.8K                       & 19.5                       & 1636           & 658                        & 40.2\%       & 15.7                       \\
+        \rowcolor{gray!15} 讯飞输入法   & 系统工具   & 8.6K                       & 6.0                        & 1451           & 8                          & 0.6\%        & 10.1                       \\
+        百度手机助手                    & 应用市场   & 8.2K                       & 11.4                       & 3849           & 437                        & 11.4\%       & 14.5                       \\
+        \rowcolor{gray!15} 小米应用市场 & 应用市场   & 7.8K                       & N/A                        & 0              & 0                          & 0.0\%        & N/A                        \\
+        WPS Office                      & 商务办公   & 7.4K                       & 6.0                        & 1152           & 69                         & 6.0\%        & 7.8                        \\
+        \rowcolor{gray!15} 美颜相机     & 摄影录像   & 7.1K                       & 5.3                        & 1600           & 691                        & 43.2\%       & 6.3                        \\
+        网易云音乐                      & 音乐       & 7K                         & 10.5                       & 616            & 6                          & 1.0\%        & 12.2                       \\
+        \rowcolor{gray!15} 网易新闻     & 资讯       & 6.7K                       & 7.0                        & 1441           & 93                         & 6.5\%        & 5.0                        \\
+        QQ邮箱                          & 商务办公   & 6.6K                       & 16.4                       & 520            & 11                         & 2.1\%        & 10.4                       \\
         \bottomrule
     \end{longtable}
     \vspace{-4mm}
-    \begin{tablenotes}
-        % \item[*] Detailed descriptions are given in {\bf Answer to RQ 2.4}
-        \item[*] 详情会在{\bf RQ 2.4. 结果}中给出
-    \end{tablenotes}
 \end{ThreePartTable}
 
-% Our 50 target apps are divided into 11 categories according to their functionalities, Table~\autoref{table:data-statistics} shows these categories and their corresponding fake sample rate.
-根据应用功能划分，本研究的50款目标App可以被分为11个类别。
-\autoref{table:data-statistics}按每款App的热度排序，展示了每款App的类别和他们的仿冒率，同时还有他们的更新频率、关联样本总数等数据。
-% In the same category, the difference between apps on fake rate lies in an acceptable range.
-在相同的类别下，多数应用之间的仿冒率差值都位置在一个合适的水平。
-% Without doubt, entertainment related categories like \texttt{游戏} and \texttt{Social Network} attract more fake samples.
-毫无疑问地，娱乐方向的类别（比如\texttt{游戏}和\texttt{社交网络}）吸引了更多仿冒应用开发者对其仿冒。
-% Another field, \texttt{Online shopping}, has also gained special love from fake developers because online shopping is rapidly developing in China.
-而另一个类别\texttt{移动购物}也特别受到了仿冒应用开发者的``关照''，因为移动购物在中国也正在快速地发展。
-% Relatively, \texttt{商务办公} is not that attractive to fake developers, the average fake sample rate of this filed is only 4.05\%.
-相对来说，商务方向的\texttt{商务办公}分类的应用就不是那么地吸引仿冒应用开发者了，这个领域下的App平均仿冒率只有4.05\%。
-% Apps in these four categories are marked in bold in the table.
-上述四个类别的应用都在表中被加粗标识，读者可以自行查阅。
+\begin{figure*}[htbp]
+    \centering
+    \setlength{\belowcaptionskip}{-10pt}
+    \includegraphics[width=\textwidth]{./Figures/edwin-category-fake-rate.png}
+    \caption{目标应用类别-仿冒率对应图}
+    \label{fig:category_fake_rate}
+\end{figure*}
 
-% The result matches the observation in our daily life, people always tend to use mobile devices for entertainment instead of business purpose.
-这个结果与日常生活中可观察到的结果相符，比起商务类用途，普罗大众更倾向于使用移动设备用作娱乐用途，消遣时间。
-% It's pretty interesting to discover that the number of fake samples in a way reflects how people use their phone in their daily lives.
-仿冒应用的数量从某种角度上反映了人们在日常生活中如何使用移动设备，这是个十分有趣的发现。
+\autoref{table:data-statistics}按每款App的热度排序，展示了每款目标应用的类别、仿冒率、更新频率、关联样本总数等数据。
+将数据代入\autoref{equ:PPMCC}可分别获得应用热度、更新频率与仿冒率之间的关联程度。
+~\autoref{fig:category_fake_rate}显示每款目标应用所在类别及其仿冒率的对应关系，如$x$轴社交网络上对应的三个粉色圆点为三个社交网络类别下目标应用的仿冒率。
 
-% \noindent{\bf Case study 2.} \emph{Fake samples in different gaming apps}
-\subsection{案例 2. 游戏类别下的仿冒应用}
+结果表示，仿冒率与应用热度之间的相关系数为0.246，处于较弱水平；
+更新频率和仿冒率之间相关系数为0.084，两者之间几乎没有关联；
+~\autoref{fig:category_fake_rate}中，除应用市场、商务办公、摄影录像、游戏四类仿冒率相对集中外，其他各类别对应应用的仿冒率较为分散。
 
-% Gaming apps in our target app list (i.e. \texttt{\small ArenaofValor} and \texttt{\small HappyElements}) attract a number of fake samples.
-正如\autoref{table:data-statistics}中数据所示，\texttt{游戏}类应用（\texttt{王者荣耀}和\texttt{开心消消乐}）吸引了大批的仿冒应用样本。
-% To figure out what do these samples look like, we randomly downloaded some of the fake samples of the 2 gaming apps (7 samples for each) and installed them on our testing device.
-出于性能考虑，此处的数据中只提取了APK包的基本信息，并没有对收集到的每个APK文件进行详细的分析。
-因此，为了弄清楚这些仿冒应用究竟是怎么样的，本研究随机从这两款游戏App的仿冒样本中选择了一些样本（每款应用选择7个仿冒样本），然后将这些样本安装到了实验设备上。
+综上，应用热度、更新频率与应用类别都不是影响应用是否会被仿冒的决定性因素，由上述结果可得：
+1）应用被仿冒的的严重程度并非由单一因素决定，未来的分析应尝试从多角度同时入手分析；
+2）应用更新频率与被仿冒的严重程度几乎不相关，进一步巩固了上一节的结论，即数据集中的大部分仿冒样本都不是重打包应用，而是仿冒应用开发者自行开发的。
+无论官方版本受到的保护程度如何，仿冒应用开发者都可以制作对应的仿冒应用；
+3）某些应用类别下的应用仿冒率相对集中，表示该类应用的确更受（或更不受）仿冒应用开发者喜爱，后续探索可从应用市场、商务办公、摄影录像、游戏四类类别入手。
 
-% Fig.~\ref{fig:screenshot_all} shows how these samples look like on a real Android phone, official apps are marked with green frames.
+
+\subsection{仿冒应用功能研究}
+
+\noindent{\bf RQ3：仿冒应用作者制作出了怎样的仿冒应用？是否依然能提供原版应用的功能？}
+
+
+出于性能考虑，本研究并未对每个仿冒APK包进行详尽的拆包解析，为了解仿冒应用在功能、行为上与原版应用的差异，本研究采用案例分析的实证研究方法进行研究。
+\autoref{table:data-statistics}数据显示，\texttt{游戏}类应用（\texttt{王者荣耀}和\texttt{开心消消乐}）吸引了大批的仿冒应用样本。
+本研究随机从这两款游戏应用的仿冒样本中各选择了7个仿冒样本与1个正版样本，将样本安装至实验设备上运行。
+
+测试使用的设备为高配版小米5手机，搭载的CPU为最高主频2.15GHz的骁龙820处理器，3GB内存，64GB机身存储，安装的Android系统版本为Android 6.0（Android Marshmallow，API 23）。
 \autoref{fig:screenshot_all}展示了这些样本在真实的Android设备上安装之后的实际外观。
 官方渠道下载的正版App在图片中由绿色边框标记出。
-% Apparently, fake samples have either a similar name or a similar icon to official ones.
-明显地，与官方应用相比，仿冒应用或者有一个和官方应用名十分相似的应用名，或者在图标上和官方相近甚至相同。
+可见仿冒应用的应用名与原版应用名十分相似，符合前文发现；仿冒应用的图标设计也与原版雷同。
+本研究在测试设备上实际运行了上述安装的14个仿冒样本，将仿冒应用的界面、行为与原版应用对比，同时将样本上传至\textsc{Virustotal}~\cite{virustotal}进行恶意行为扫描。
 
 \begin{figure}[htbp]
     \centering
@@ -440,71 +388,70 @@ App的更新频率也被视作影响仿冒数量的潜在因素，因为频繁�
     \caption{游戏类App及其仿冒样本}
 \end{figure}
 
-% We even ran these apps on our device.
-本研究在测试设备上实际运行了上述安装的14个仿冒样本，然后拿它们和原版的应用对比。
-测试使用的设备为高配版小米5手机，搭载的CPU为最高主频2.15GHz的骁龙820处理器，3GB内存，64GB机身存储，安装的Android系统版本为Android 6.0（Android Marshmallow，API 23）。
-
-% Screenshots were captured when we ran one of the fake samples (see Fig.~\ref{fig:screenshot_fake}) and the official sample (Fig.~\ref{fig:screenshot_official}).
 \autoref{fig:screenshot_official}和\autoref{fig:screenshot_fake}分别是在测试设备上运行官方版本的\texttt{开心消消乐}和其中一个仿冒版的\texttt{开心消消乐}时的系统截屏。
-不难看出，两款应用的外观是十分相像的。
-本研究在测试时发现，两款游戏内部的玩法、实际操作逻辑也一模一样。
-如果不是事先知道了哪一款应用是来自官方渠道下载的正版，一般的应用开发者也未必可判别两个应用的真伪，更不必说是从应用市场搜索结果中找到这些结果的普通用户了。
+从UI布局上看，两款应用的外观十分相像。
+同时，仿冒版的确实现了完整的游戏功能，与正版的玩法、实际操作逻辑一模一样，有较强迷惑性。
+应用开发者未必可判别两个应用的真伪，应用市场的普通用户更难以区分两者。
 
-% As a result, we found that 4 fake samples of \texttt{\small HappyElements} are actually games that are similar to the official one (one is a repackaged app with high confidence), 2 are raiders on the game and the last one crashed when it was launched.
-而这并不是唯一的案例。作为结果，本研究发现7款\texttt{开心消消乐}的仿冒样本中，有4款是与官方样本十分相似的游戏（其中一个十分可能是经过重打包技术处理的应用），2款声称自己是``系统攻略''，还有1款在运行时闪退，无法在测试设备上实际运行。
-% 3 out of the 4 fake games pop up alert windows in the game to require users for In-App purchase, which is very possible to cause unwilling cost.
+7款\texttt{开心消消乐}的仿冒样本中，4款与官方样本十分相似（其中之一可能是经过重打包技术处理的应用），2款声称自己是``系统攻略''，1款在运行时闪退，无法在测试设备上实际运行。
 在4款仿冒游戏中，3款都在游戏中不时自动弹出游戏内购窗口，要求玩家购买道具，十分可能导致玩家不想要的花费。
-% All 7 samples are reported to be malicious on \textsc{Virustotal}~\cite{virustotal}.
-而所有7个仿冒样本都在\textsc{Virustotal}~\cite{virustotal}中被报告为恶意应用。
+所有7个仿冒样本都在\textsc{Virustotal}中被报告为恶意应用。
 
-% Fake samples on \texttt{\small ArenaofValor}, in contrast, barely have functionalities like the official one.
-相比之下，\texttt{王者荣耀}的仿冒样本内容就与官方应用大相径庭了。
-% 3 of those samples are wallpaper setters and the rest 4 are simply puzzle games.
-在7款被安装到测试设备的仿冒样本中，有3款是壁纸浏览器，里面包含了几张游戏内人物的插画，可以在应用内将这些插画设置成系统的桌面壁纸；
-而余下四个是简单的拼图游戏，里面同样包含了王者荣耀游戏人物的插画，应用内容就是简单地把被打乱的插画拼图恢复原状。
-% Virustotal reports 6 out of the 7 samples as malware, the last one is claimed as potentially unwanted program (PUP).
-Virustotal的结果显示，7款仿冒样本中，有6款是恶意软件，涵盖了木马病毒、广告软件等类型，而余下的一款则被报告为潜在有害程序（Potentially Unwanted Program，简称PUP）。
+另一方面，\texttt{王者荣耀}的仿冒样本功能截然不同。
+7款仿冒样本中，3款是壁纸浏览器，内含游戏人物插画，可在应用内将插画设置为系统壁纸；
+余下4款是简单的拼图游戏，同样包含游戏人物的插画，应用内容为把被打乱的插画拼图恢复原状。
+\textsc{Virustotal}显示，7款仿冒样本中，有6款是恶意软件，涵盖了木马病毒、广告软件等类型，而余下的一款则被报告为PUP（Potentially Unwanted Program，潜在有害程序）。
 PUP通常在用户不知情或者不愿意的情况下，通过静默安装或者捆绑安装的形式被安装在系统中。
-尽管这种软件不一定包含恶意代码，但其动机十分可疑。
+该类软件不一定包含恶意代码，但动机存疑。
 
-% We determine it is the difficulty to imitate the official app's functionality that brings about this phenomenon.
-本研究认为，这种现象是由模仿正版应用功能的难易程度带来的。
-% The core implementation of multiplayer online battle arena (MOBA) games like \texttt{\small ArenaofValor} is much more complicated than that in \texttt{\small HappyElements}.
-只从技术角度看，像\texttt{王者荣耀}这样的多人在线战斗竞技场（Multiplayer Online Battle Arena，简称MOBA）游戏核心难度明显要比\texttt{开心消消乐}这样的益智类游戏要高得多。
-一款MOBA游戏除了要解决支持运行运行的物理引擎之外，还要实现聊天系统、在线匹配、负载均衡等业务，更加不必说背后的人物设计技能平衡等更深入的话题了；而一款益智类三三消游戏的核心逻辑就只在于元素三连的判定和随机新出现的元素，再加上道具系统就差不多可以包装成一个完整的游戏推出。
+造成该现象的原因为模仿正版应用功能难易程度不一。
+从技术角度看，\texttt{王者荣耀}的设计、实现难度均比单机益智类游戏如\texttt{开心消消乐}高许多。
+多人在线竞技游戏物理引擎之外，还要实现聊天系统、在线匹配、负载均衡等业务模块；
+相比之下，益智类游戏的核心逻辑较为简单，无需设计多个复杂模块。
 
-% What it costs to develop a complex game like \texttt{\small ArenaofValor} is exorbitant for a fake developer.
-因此，就算不考虑后续的维护问题，要开发一款像\texttt{王者荣耀}这样的复杂游戏，对仿冒应用开发者来说明显是成本过高的。
-但由于这款游戏本身具有超高的热度，可能带来巨大的收益，所以仿冒应用开发者会为了蹭上热度而开发外观相似、内容完全不符的仿冒样本。
-相比之下，\texttt{开心消消乐}由于开发难度相对较小，所以仿冒应用开发者会愿意开发一个内容相似的应用，再通过内购陷阱等手段收取效益。
-这两款App透露出了仿冒应用开发者在仿冒方面两个截然不同的思路。
+因此，即使不考虑维护问题，开发复杂游戏的成本对仿冒应用开发者而言也明显过高。
+但由于\texttt{王者荣耀}的高热度可能带来巨大收益，仿冒应用开发者会为了蹭上热度而开发外观相似、内容完全不符的仿冒样本。
+相比之下，\texttt{开心消消乐}由于开发难度相对较小，仿冒应用开发者可开发一个内容相似的应用，再通过内购陷阱等手段收取效益。
+这两款应用的仿冒样本透露出了仿冒应用开发者在仿冒方面两个截然不同的思路。
 
-% Therefore, we can infer another reason why apps in \texttt{\small productivity} category gain a low fake sample rate:
-本文在\secref{sec:quantitativeStudy}中观察到的\texttt{商务办公}类别有较低仿冒率也可能是类似原因导致的结果。
-% Unlike games, on one hand, productivity tools are less likely to have peripheral products (like wallpaper setter mentioned above);
-一方面，\texttt{商务办公}类的工具核心逻辑比较复杂，对仿冒开发者来说并不是一个有利可图的最佳选项；
-% On the other hand, the inevitably laborious developing procedure also prevents the tools themselves from being shammed.
-另外，这类应用也不像\texttt{游戏}一样会衍生出周边产品（比如\texttt{王者荣耀}的游戏人物就会有不少插画），仿冒应用开发者也没办法从这方面入手蹭热度。
-结合两个原因，\texttt{商务办公}类的应用自然不会引起仿冒应用开发者的太多兴趣。
+结果前文结果分析，\secref{sec:quantitativeStudy}中显示\texttt{商务办公}类别仿冒率较低也可能是类似原因导致的结果。
+一方面，\texttt{商务办公}类的工具核心逻辑比较复杂，仿冒应用开发者不会制作与其功能接近的仿冒应用；
+另一方面，该类应用也不像\texttt{游戏}类应用可衍生出周边产品（如\texttt{王者荣耀}的游戏人物插画），仿冒应用开发者无法从周边入手蹭热度。
+结合两个原因，\texttt{商务办公}类应用相对不受仿冒应用开发者欢迎。
 
-\vspace{5mm}
-\noindent\fbox{
-    \parbox{0.95\linewidth}{
-        % \textbf{Remark 2}: As revealed by statistics, the number of samples returned from an app store does not imply a fake rate.
-        \textbf{本节小结}: 正如由本文的统计和计算揭示的那样，从一个应用市场中能找到的应用样本数量并不能与应用商店的仿冒率相对应。
-        % Additionally, the relationship between apps and market itself influences the number of fake samples from that market.
-        此外，App本身与应用市场的关系也会影响到市场中对应App仿冒样本的数量。
-        % To our surprise, an app's update frequency is not tightly correlated with its fake rate.
-        出人意料的是，App的更新频率并没有与仿冒率相关联。
-        % We owe this to the fact that apps are updated too frequently and that repackaged samples are of minority in our dataset.
-        本研究认为这是由于应用更新频率太高、而且重打包应用在本研究的数据集中占少数而导致的结果。
-        % We further observe that ``category'' as a factor has greater influence on the number of fake samples of an app than ``popularity'' and ``update frequency''.
-        本文进一步观测到，与\texttt{更新频率}和\texttt{应用热度}相比，\texttt{应用分类}这一因素对App的仿冒率有更大的影响。
-        案例分析从游戏类别的仿冒应用入手，说明了仿冒应用开发者对不同应用会采用不同仿冒策略。
-    }
-}
+\subsection{研究结果有效性分析}
+
+结构有效性已于~\autoref{sec:measure_selection}解释，不再赘述。
+内部有效性方面，一个可能的威胁是应用与市场之间的关系对该应用在市场上仿冒应用数量的影响。
+本章在研究中提出了该可能性，并对相关应用单独进行了进一步检查以消去该因素可能带来的干扰。
+外部有效性威胁主要在于实验中仅使用了50款目标应用作为数据，结论可能存在偏差。
+的确，50款应用并不能代表Android应用生态的全貌，但市面上的Android应用无穷无尽，收集全量应用进行分析并不可行。
+本研究采用的50款应用为国内最受欢迎的50款应用，分别源于11个类别，有一定市场影响力与较大用户群体，本身具有一定代表性与普遍性。
+在衡量实验开销与结果有效性后，作者认为选用该组数据进行分析是可行的。
 
 \section{相关工作}
 
+仿冒应用在移动应用行业中早已存在，但少有学者关注仿冒应用的特性。
+在已知文献中，与本章研究较为类似的是Khanmohammadi等人对重打包应用进行的实证研究~\cite{khanmohammadi2019empirical}，文献中采用了2,776款原版应用和与其对应的15,296个重打包样本作为实验数据，来源为AndroZoo数据集~\cite{li2017androzoo++}。
+AndroZoo数据集应用来源是以Google Play市场为主的18个数据源，其中包含4个国内应用市场。
+一方面，本研究的数据来源共有29个，以国内市场为主，可更好地反映国内应用市场的现状。
+另一方面，本研究虽然只选取了50款原版应用作为对比目标，但收集到的对应仿冒样本有62,638个，对比该文献，每款原版应用都有更多仿冒样本作为研究对象提供数据。
+因此，作者认为本文的分析结果更为准确。
+再者，该文献仅对重打包应用进行探索，忽视了仿冒应用开发者重新开发相似应用的可能性。
+结合前文结果可知，重打包应用在仿冒应用中占比并不高，因而本文提供的结果应更具参考性。
+
+
 \section{本章小结与实用建议}
 
+本章从三个不同角度对仿冒应用的基本特征进行了实证研究，研究结果可概括如下：
+从相似度角度分析，由于仿冒应用开发者目的为诱导用户从应用市场中下载仿冒应用，在用户可感知的方面（应用名），仿冒应用与原版应用相似度较高；在用户较难感知的方面（应用包名与APK大小），仿冒应用与原版应用相差较大。
+从影响应用受仿冒程度角度分析，从应用市场规模并不能与应用商店的仿冒率相对应，仿冒应用普遍存在，但应用本身与市场的关系会影响市场中对应的该应用仿冒样本数量；同时，应用的更新频率、热度、类别三个因素均不对应用受仿冒的严重程度起决定性影响，说明应用受仿冒的严重程度是较为复杂的、多因素共同作用的结果。
+从仿冒应用可提供功能的角度分析，研究利用案例分析方法，从游戏类别的仿冒应用入手，揭示了仿冒应用开发者对不同应用会采用不同仿冒策略。
+对结果进行推断，可以得出``仿冒应用作者更倾向重新制作仿冒应用，而非通过重打包方式制作仿冒应用''的结论。
+
+针对本章实证研究过程的发现，有几点实用建议如下：
+1）应用市场方应加强审核流程，除审核应用内容外，也应从外观、应用名、应用内UI等方面对应用进行审核，从源头抵御仿冒应用，保护原版应用作者利益；
+基于案例分析可得，仿冒应用包含恶意行为的可能性较大，应用市场方可在该方面加强管理，拦截仿冒应用。
+2）应用开发者可更积极地与应用市场方联系，督促应用市场对自身应用的监管。
+3）普通用户在搜索、下载应用时，应小心从搜索结果中选择，可结合其他信息（如应用截图、开发者信息）对搜索结果进行判断，避免下载仿冒应用；
+也可参考本研究获取正版样本的方法，直接从应用官网下载原版应用安装。
