@@ -106,9 +106,9 @@
 
 %============================ 可以自定义文字块 ================================%
 \newcommand\mytool{FakeRevealer}
-\newcommand\componentA{应用收集器}
-\newcommand\componentB{迭代搜索器}
-\newcommand\componentC{应用过滤器}
+\newcommand\componentA{过滤模块}
+\newcommand\componentB{数据提取模块}
+\newcommand\componentC{可插拔式规则配置模块}
 
 %交叉引用格式
 \renewcommand\figureautorefname{图}
@@ -182,9 +182,9 @@
 \newcommand{\TheisName}[0]{面向工业界仿冒应用的大规模实证研究}
 \newcommand{\TheisNameEn}[0]{A Large-Scale Empirical Study on Industrial Fake Apps}
 
-\def\yearOfGrduation{2020} % 毕业年份
-\def\monthOfGraduationNum{3} % 毕业月份
-\def\monthOfGraduationEng{March} % 毕业月份 (英文)
+\def\yearOfGrduation{2021} % 毕业年份
+\def\monthOfGraduationNum{12} % 毕业月份
+\def\monthOfGraduationEng{January} % 毕业月份 (英文)
 \def\articleCategory{华东师范大学硕士学位论文} % 论文类型
 
 \def\schoolNameChn{计算机科学与技术学院}
@@ -279,8 +279,8 @@
 
 % 原创性声明。查重时不编译
 \ifx\duplicationCheck \undefined
-  \input{A3-COPYRIGHT}
-  \clearPaperPage
+    \input{A3-COPYRIGHT}
+    \clearPaperPage
 \fi
 
 \input{A4-MEMBERLIST}
@@ -320,8 +320,8 @@
 % 在章首页添加页眉
 
 \fancypagestyle{plain}{%
-  \fancyhead[LE,RO]{\small{\articleCategory}}
-  \fancyhead[RE,LO]{\small{\leftmark}}
+    \fancyhead[LE,RO]{\small{\articleCategory}}
+    \fancyhead[RE,LO]{\small{\leftmark}}
 }
 
 \raggedbottom
@@ -336,7 +336,7 @@
 
 % \input{chapter-fakerevealer}
 % \clearPaperPage
-\input{chapter-dataCollection}
+\input{chapter-research-settings}
 \clearPaperPage
 
 \input{chapter-discoveries-basic}
@@ -345,8 +345,8 @@
 \input{chapter-discoveries-behavior}
 \clearPaperPage
 
-% \input{chapter-feedback}
-% \clearPaperPage
+\input{chapter-framework-prototype}
+\clearPaperPage
 
 % \input{chapter-future}
 % \clearPaperPage
@@ -360,21 +360,21 @@
 
 % 攻读学位期间发表的学术论文
 \fancypagestyle{plain}{%
-  \fancyhead[LE,RO]{\small{\articleCategory}}
-  \fancyhead[RE,LO]{\small{攻读学位期间发表的学术论文}}
+    \fancyhead[LE,RO]{\small{\articleCategory}}
+    \fancyhead[RE,LO]{\small{攻读学位期间发表的学术论文}}
 }
 \input{D2-MYACHIEVEMENTS}
 \clearPaperPage
 
 \fancypagestyle{plain}{%
-  \fancyhead[LE,RO]{\small{\articleCategory}}
-  \fancyhead[RE,LO]{\small{致\quad 谢}}
+    \fancyhead[LE,RO]{\small{\articleCategory}}
+    \fancyhead[RE,LO]{\small{致\quad 谢}}
 }
 % 致谢。匿名与非匿名用不同版本
 \ifx\anonymous \undefined
-  \input{D3-ACKNOWLEDGEMENT}
+    \input{D3-ACKNOWLEDGEMENT}
 \else
-  \input{D3-ACKNOWLEDGEMENT-ANONYMOUS}
+    \input{D3-ACKNOWLEDGEMENT-ANONYMOUS}
 \fi
 \clearPaperPage
 

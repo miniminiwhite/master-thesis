@@ -1,0 +1,28 @@
+\chapter{仿冒应用检测框架\mytool}
+\label{chp:framework_prototype}
+
+前两章分别从仿冒应用基本特征与仿冒应用开发者的行为特征入手，对仿冒应用开展实证研究，获取了仿冒应用命名、大小、投放偏好等特性。
+基于这些特性，作者总结出了数条规则，设计了仿冒应用检测框架\mytool 。
+本章将阐述\mytool 的设计与实现，并对后续的系统实验进行解析。
+
+\section{框架设计与实现}
+
+\subsection{整体设计}
+\mytool 是一个轻量的基于规则的仿冒应用检测框架，具有可插拔式的规则配置模块，用户可根据实际向其中配置仿冒应用的检测规则，进行自定义筛选。
+应用市场方可将其用于大规模的Android应用检测，自动筛选出其中的潜在仿冒应用，再结合人工审查，完成对仿冒应用的验证与归类，维护良好的应用市场环境。
+此外，尽管\mytool 设计的初衷为检测应用市场中的仿冒应用，但基于其规则可插拔的特点，市场方的开发人员也可对其稍加改造后，配置其他规则，以进行针对重打包应用、恶意应用等移动灰黑产的检测。
+
+% todo: 框架流程配图
+
+展示了\mytool 的整体工作流程，框架主要分为\componentA 、\componentB 、\componentC 和人工审查四个部分。
+
+\mytool 以Android应用集为输入，先利用\componentA 对应用集进行初筛，过滤出、，
+
+\subsection{\componentA }
+\subsection{\componentB }
+\subsection{\componentC }
+\subsection{人工审查与特征提取}
+\section{系统实验}
+\subsection{数据收集}
+\subsection{检测结果}
+\section{本章小结}
