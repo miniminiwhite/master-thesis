@@ -11,7 +11,7 @@
 \subsection{整体设计}
 \mytool 是一个轻量的基于规则的仿冒应用检测框架，具有可插拔式的规则配置模块，用户可根据实际向其中配置仿冒应用的检测规则，进行自定义筛选。
 应用市场方可将其用于大规模的Android应用检测，自动筛选出其中的正版应用与潜在仿冒应用，再结合人工审查，完成对仿冒应用的验证与归类，维护良好的应用市场环境。
-此外，尽管\mytool 设计的初衷为检测应用市场中的仿冒应用，但基于其规则可插拔的特点，市场方的开发人员也可对其稍加改造后，配置其他规则，以进行针对重打包应用、恶意应用等移动灰黑产的检测。
+此外，尽管\mytool 设计的初衷为检测应用市场中的仿冒应用，但鉴于其规则可插拔的特点，市场方的开发人员也可对其稍加改造后，配置其他规则，以进行针对重打包应用、恶意应用等移动灰黑产的检测。
 
 % todo: 框架流程配图
 
@@ -27,7 +27,7 @@
 结合框架给出的列表和检测结果，应用市场审核人员可对仿冒应用进行快速判别，提高审核效率。
 同时，各规则的检测结果也可被解读为仿冒应用开发者的开发趋势，应用市场方可根据仿冒样本命中的规则，了解不同应用对应仿冒的趋势、提取更多仿冒应用特征，从而为不同应用指定更为合适的规则。
 
-本框架基于Python 3编写。
+框架基于Python 3编写。
 
 \subsection{\componentA }
 在面向规模较大的应用集输入时，\componentA 有三个主要功能：
@@ -44,7 +44,7 @@
 在应用名匹配部分，判断输入应用是否与某一已知正版应用匹配的依据源于\componentD 中的正版应用命名模式。
 一个正版应用的命名模式由若干个特征点通过逻辑运算（与、或运算）连接而成，每个特征点为该正版应用的命名特征。
 一个特征点可由正则表达式表示，也可以是应用名长度范围。
-由\fullref{chp:discoveries_basic}总结可得，仿冒应用的命名与对应的正版应用十分接近，因此用户也可给出某正版应用名与相似度阈值作为特征点，加入该正版应用的命名模式。
+由\fullref{chp:discoveries_basic}总结可得，仿冒应用的命名与对应的正版应用十分接近，因此应用市场方也可给出某正版应用名与相似度阈值作为特征点，加入该正版应用的命名模式。
 比如，由观察可得\textit{爱奇艺}的应用名常有更改，但总会以``爱奇艺''起始，可用\textit{app\_name(``爱奇艺\*'')}表示该类特征；
 而\textit{similarity(``开心消消乐'', 0.6)}则会将与``开心消消乐''相似度大于等于0.6的应用名纳入匹配范围。
 
@@ -60,7 +60,7 @@
 应用名提取由Android SDK中的aapt命令行工具对APK文件进行解析后，从解析结果中截取获得；
 字符串匹配的相似度由两者之间的编辑距离与给出应用名的长度之比计算。
 
-匹配之后，被判定为与已知应用相似的样本会被打上对应标签，进行后续的数据提取和规则判定。
+匹配之后，被判定为与已知应用相似的样本会被打上对应标签（标记样本与哪个已知应用类似），进行后续的数据提取和规则判定。
 不被\componentA 判定为与已知正版应用相关、且应用证书不在开发者黑名单中的应用样本将进入应用市场方原有审核流程，而非由本框架判定是否仿冒应用或可否上架。
 
 \subsection{\componentB }
@@ -68,7 +68,7 @@
 经过\componentA 对应用初步筛选后，\componentB 对应用进一步提取信息，以满足\componentC 中各规则的数据要求。
 本模块提取的数据有两类，一类为应用的基本数据，另一类为应用的代码数据。
 基本数据指应用的包名、构建应用使用的Android API版本、应用版本名称、应用版本号、应用大小、应用中声明使用的权限、应用入口Activity信息和证书信息，证书信息可利用keytool工具提取，其他信息可通过aapt命令行工具获得。
-代码数据则指利用代码分析技术获取的数据。借助静态分析技术，\componentB 可从代码中获取应用中的模块结构信息，包括应用中的类信息与各类中包含的方法信息。
+代码数据则指利用代码分析技术获取的数据。借助静态分析技术，\componentB 可从代码中获取应用中的模块结构信息，包括应用中的类信息、各类中包含的方法信息和应用写在\textit{AndroidManifest.xml}文件中的配置。
 
 具体来说，\componentB 借助Androguard~\cite{Androguard}，对应用中的dex文件进行反编译，获取反编译后的代码信息。
 假定应用主体代码由Java编写，按类的定义者区分，可将应用代码中包含的类分为三种类型，分别为系统类，用户自定义类和第三方类。
@@ -78,24 +78,165 @@
 Androguard在获取类信息时，会将类标记为外部类与非外部类，其中外部类指系统类和第三方类，非外部类即用户自定义类。
 \componentB 在处理时，会进一步将外部类中的系统类剔除，一来可减少后续分析的数据量，二来在除去系统类之后，能更方便地对样本中使用的第三方库进行识别与匹配。
 
+\begin{algorithm}[!ht]
+    \tablewuhao
+    \caption{敏感API调用关系排查算法}
+    \label{alg:dfs}
+    \KwIn{ $permissions\_API$，列表，Android权限与API映射关系}
+    \KwIn{ $decleared\_permissions$，列表，包含正版应用及其信息键值对}
+    \KwOut{ $calling\_relationship$，集合，敏感API的调用关系}
+    \KwOut{ $redundant\_permission$，集合，应用声明的冗余权限}
+    \SetKwProg{Fn}{Function}{:}{}
+
+    \Fn {iterSearcher($permissions\_API, decleared\_permissions$)} {
+
+        $calling\_relationship \gets \emptyset$;
+
+        $redundant\_permission \gets \emptyset$;
+
+        \For {$permission \in decleared\_permissions$} {
+            $flag \gets$ 0;
+            \For {$API \in permissions\_API[permission]$} {
+
+                $cache \gets $callingTrainTracker($API$.name$, API, \emptyset$);
+
+                \If {$cache$ != $\emptyset$} {
+                    $flag \gets$ 1;
+                }
+
+                $calling\_relationship$.update($cache$);
+            }
+
+            \If {$flag$ = 0}{
+                $redundant\_permission$.add($permission$);
+            }
+
+        }
+        \KwRet{$calling\_relationship, redundant\_permission$};
+
+    }
+\end{algorithm}
+
 除了类信息，\componentB 还提取应用中的方法信息协助之后的规则检测。
 提取的方法信息包括用户自定义的所有方法以及Android框架中较为敏感的方法调用信息。
-用户自定义方法通过对Androguard中获得的非外部类进行方法分析获取；
+用户自定义方法通过对Androguard中获得的非外部类进行方法分析获取：\componentB 遍历所有非外部类，对于某个非外部类，获取其定义的每个方法，再将类名与方法名组合为二元组\textit{<class\_name, method\_name>}，作为该方法在应用中的唯一标识保存；
 敏感方法调用信息则以自底向上的方法进行排查。
 在基本数据获取阶段，\componentB 通过aapt获得了构建应用的Android API版本和应用中声明使用的权限，而Androguard附带了各Android API版本中API与权限的映射关系。
-因此，结合以上信息可获取在某应用中可能会被调用到的敏感API。
-之后，可在Androguard的协助下对API的调用链进行回溯，具体算法可见。
-对于每个敏感API，算法遍历应用中的各个用户自定义类，排查应用中是否有对该敏感API的调用；
-如果所有用户自定义类中均没有调用该敏感API，排查下一个敏感API。
-如果有，利用Androguard回溯对该API进行调用的方法，层层回溯，直至找到调用起点，将调用起点方法和敏感API对（\textit{<starting\_point, sensitive\_API>}）保存。
-对于某个已声明的权限，如果其对应的敏感API均没有调用记录，则该类情况可能是：一，该权限为由开发者声明的冗余权限，可能会被恶意应用利用，造成额外风险；二，开发者通过Java反射机制调用了与权限对应的敏感API，导致该调用无法被静态分析扫描到。
-无论是哪种情况，都可能对用户安全造成损害，也可被视作特征点，因此\componentB 也会为应用的该权限记上特殊标记。
+因此，结合以上信息可获取在某应用中可能会被调用到的敏感API，详情可见\autoref{alg:dfs}。
+对于应用声明的每个权限，先通过映射关系查出其对应的敏感API列表。
+对于每个敏感API，算法遍历应用中的各个用户自定义类，排查应用中是否有对该敏感API的调用。
+如果有，在利用Androguard对该API进行调用的方法层层回溯后，保存该API在应用中的调用信息（第6行），具体流程见后文。
+对于某个已声明的权限，如果其对应的全部敏感API均没有调用记录，则可对应两种情况：一，该权限为由开发者声明的冗余权限，可能会被恶意应用利用，造成额外风险；二，开发者通过Java反射机制调用了与权限对应的敏感API，导致该调用无法被静态分析扫描到。
+无论是哪种情况，都可能对用户安全造成损害，也可被视作特征点，因此\componentB 也会为应用的该权限记上特殊标记（第11行）。
+
+\begin{algorithm}[!ht]
+    \tablewuhao
+    \caption{调用链回溯算法}
+    \label{alg:trackback}
+    \KwIn{ $API\_name$，敏感API名}
+    \KwIn{ $cur\_method$，当前遍历的方法}
+    \KwIn{ $itered\_methods$，集合，已遍历的方法}
+    \KwOut{ $calling\_relationship$，集合，敏感API的调用关系}
+    \SetKwProg{Fn}{Function}{:}{}
+
+    \Fn {callingTrainTracker($API\_name, cur\_method, itered\_methods$)} {
+
+        $calling\_relationship \gets \emptyset$;
+
+        $callers \gets$ getCallers($cur\_method$)
+
+        $cache \gets \emptyset$;
+
+        $flag \gets $ 0;
+
+        \For {$caller \in callers$} {
+            \If{$caller$.is\_not\_eternal}{
+                $flag \gets $ 1;
+
+                \If {$caller \notin itered\_methods$} {
+                    $itered\_methods$.add($caller$)
+
+                    $res \gets$ callingTrainTracker($API\_name, caller, itered\_methods$)
+
+                    $cache$.add($res$)
+                }
+            }
+        }
+        \If {$flag$ = 1}{
+            $calling\_relationship$.add($<cur\_mathod$.name, $API\_name>$)
+        } \Else {
+            $calling\_relationship$.update($cache$)
+        }
+        \KwRet{$calling\_relationship$};
+
+    }
+
+\end{algorithm}
+
+在实现对敏感API调用链的回溯分析时，有两点挑战如下：
+第一点是函数调用路径中可能会出现调用环；第二点是敏感API及其前序方法可能存在多个调用者。
+前者指同一个方法多次出现在调用链中（如某方法多次递归调用自身后再调用敏感API），容易导致工具在进行调用链回溯时出现死循环；
+后者让调用链成为了一棵以敏感API为根节点的调用树，树上的每个节点为一个方法，节点之间的有向边表示方法之间的调用关系。
+编程并不是一个线性过程，各方法之间可灵活地相互调用，从而导致了以上两点挑战。
+
+为应对以上两点挑战，\componentB 采用DFS算法和集合进行调用链回溯处理，具体可见\autoref{alg:trackback}。
+对个某个方法，\componentB 先借助Androguard获取其所有调用者（第3行）。
+对每个调用者，若其之前未被分析过，且其不为外部类中的方法，则递归调用方法$callingTrainTracker$获取以该方法为起始点的调用关系（第6至11行）。
+对于方法是否被调用过的判断可以保证之前分析过的方法不再被重复分析，避免死循环的产生；
+遍历调用者和递归调用$callingTrainTracker$保证了所有调用者均可被回溯。
+如果一个方法没有被其他非外部类方法调用，则该方法为一个调用起点，算法将调用起点方法和敏感API对（\textit{<starting\_method, sensitive\_API>}）保存。
+假设\textit{方法1}是一个调用起点，其调用了\textit{方法2}和\textit{方法3}，\textit{方法2}又调用了\textit{方法3}，\textit{方法3}调用了敏感API。
+上述算法可回溯找到\textit{方法1}、\textit{方法2}和\textit{方法3}三个节点，但限于算法设计，从\textit{方法1}到敏感API的所有调用路径中，只有一条会被找到。
+然而，基于框架设计出发点和性能考虑，一来将所有调用路径补全和比对会带来较大的性能消耗，二来调用路径的敏感度较高，直接比对两应用中的所有敏感路径并非有利于应用之间进行相似度对比。
+因此，\componentB 在采集敏感API调用信息时，只收集了调用起点方法和敏感API对，而非敏感API的所有调用路径。
+
+最后，\componentB 借助Androguard分析\textit{AndroidManifest.xml}文件中的配置，获取应用中各组件的类型、组件名称等元数据信息。
 
 \subsection{\componentC }
+\componentC 是一个数据分发模块，也是一个调度中心。
+其作用是根据\componentA 对应用打上的标签，将\componentB 提取的对应应用数据分发到标签对应的规则中，再汇总各规则的判定结果并输出。
+与\componentA 中应用名匹配部分的命名模式类似，\componentC 的规则也由用户编写。
+用户可根据已知正版应用的特征或已知仿冒应用特征，编写有针对性的规则，达到检测仿冒应用的目的。
+
+出于性能与开发难度考虑，\componentC 的规则利用了软件设计模式中的工厂模式，所有规则派生于框架的规则模板类，支持多线程调用。
+在实际调用时，\componentC 会用应用数据对规则进行实例化，再以多线程调用方式启动规则的判定方法。
+用户在定义规则时，需要在新规则类中定义两部分内容：一部分为规则对应的标签；另一部分为判定方法。
+
+因此，本模块的``可插拔''性体现在两个方面：
+一方面为规则标签可插拔，用户可根据规则上的标签设置决定经由该规则判别的应用类别，实现标签上的插拔；
+另一方面为规则类本身设计可插拔，工厂模式的运用使规则具有插件性质，用户可根据实际需要，完成对新规则的快速开发。
+
+借助在\fullref{chp:discoveries_basic}对仿冒应用基本特征的实证研究和\fullref{chp:discoveries_behavior}对仿冒应用开发者行为特征的实证研究的结果，再结合前人研究~\cite{enck2009lightweight, khanmohammadi2019empirical, CodeMatch}对重打包应用和恶意应用的总结和日常经验，作者为\componentC 预设了以下规则：
+
+\noindent{\bf 规则1：应用包名匹配}
+
+\fullref{chp:discoveries_basic}研究结果表明，仿冒应用的应用名虽然
 
 
 \subsection{人工审查与特征提取}
 \section{系统实验}
 \subsection{数据收集}
 \subsection{检测结果}
+
+\section{已知相关工具}
+
+根据研究前期文献查阅结果，在移动应用领域，针对仿冒应用进行的研究较为缺乏，因此未有其他仿冒应用检测可与本框架进行横向比对。
+然而，在近似的研究领域（重打包应用检测）中，前人有较多的工具可作为参考。
+
+CodeMatch~\cite{CodeMatch}和Wukong~\cite{Wukong}均对应用代码中的第三方库代码信息进行了分离处理。
+CodeMatch在剔除第三方库代码后，通过计算比对余下代码的哈希值判断应用相似度，Wukong则使用了基于计数的代码克隆检测手段，而非基于哈希的技术。
+受两者启发，本框架在负责数据提取的\componentB 中加入了对自定义代码和第三方代码的分离收集。
+然而，本框架旨在提供一个整体流程，而非具体规则实现，\componentB 与负责分发数据进行检测的\componentC 分离，规则应由用户自行编写，无法与上述两者直接进行比对。
+在\componentB 有能力提供相关数据的前提下，用户可在本框架上根据CodeMatch和Wukong的思路复现对应规则，提高对重打包应用的检测精度。
+
 \section{本章小结}
+
+本章介绍了仿冒应用检测框架\mytool 的设计与实现，并对其进行了系统实验。
+\mytool 是设计用于Android应用市场的仿冒应用检测框架，有四个主要组件，用于自动化拦截对已知正版应用进行仿冒的仿冒应用和已知恶意开发者的恶意应用，可减缓应用市场在应用审核方面的人力成本，提高应用市场的安全程度。
+Android应用市场常有大量应用上传等待上架。
+为有效处理大批量Android应用程序，\mytool 采用\componentA 对应用进行快速筛选，剔除与已知正版应用不相似的应用样本，并为匹配的应用贴上对应标签。
+其后，\componentB 对应用进行拆包反编译处理，采集包括应用包名、版本号、声明权限在内的基本数据与应用中的类信息、方法信息等代码数据，传入\componentC 。
+\componentC 根据应用标签，将其数据分发到不同规则中检测。
+若规则中需要与正版应用数据或特征比对，则由\componentD 提供对应数据和特征。
+最后，\componentC 汇总所有规则结果输出，在经过人工确认后，审查流程结束。
+若有需要，应用市场方可再为特定已知应用指定规则以进行个性化检测。
