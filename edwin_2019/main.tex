@@ -63,6 +63,7 @@
 \usepackage[perpage]{footmisc}       % 脚注每页重新编号
 
 \usepackage{longtable,booktabs}
+\usepackage{makecell}   % 表格内换行
 \usepackage{multirow}
 \usepackage{tocloft}
 \usepackage{subfig}
@@ -107,9 +108,10 @@
 %============================ 可以自定义文字块 ================================%
 \newcommand\mytool{FakeRevealer}
 \newcommand\componentA{过滤模块}
-\newcommand\componentB{数据提取模块}
-\newcommand\componentC{可插拔式规则配置模块}
-\newcommand\componentD{应用特征库}
+\newcommand\componentB{鉴别模块模块}
+\newcommand\componentC{代码分析模块}
+\newcommand\componentD{人工审查}
+\newcommand\componentE{应用特征库}
 
 %交叉引用格式
 \renewcommand\figureautorefname{图}
@@ -180,8 +182,8 @@
 \fi
 
 % 基本信息
-\newcommand{\TheisName}[0]{面向工业界仿冒应用的大规模实证研究}
-\newcommand{\TheisNameEn}[0]{A Large-Scale Empirical Study on Industrial Fake Apps}
+\newcommand{\TheisName}[0]{基于Android仿冒应用的大规模实证研究}
+\newcommand{\TheisNameEn}[0]{A Large-Scale Empirical Study on Android Fake Apps}
 
 \def\yearOfGrduation{2021} % 毕业年份
 \def\monthOfGraduationNum{12} % 毕业月份
@@ -293,8 +295,8 @@
 \input{B1-ABSTRACT}
 \clearPaperPage
 
-\input{B2-ABSTRACT-E}
-\clearPaperPage
+% \input{B2-ABSTRACT-E}
+% \clearPaperPage
 
 \phantomsection\addcontentsline{toc}{chapter}{目录}
 \input{B2-TOC}
@@ -349,8 +351,8 @@
 \input{chapter-framework-prototype}
 \clearPaperPage
 
-% \input{chapter-future}
-% \clearPaperPage
+\input{chapter-future}
+\clearPaperPage
 
 % 参考文献
 % 前置\cleardoublepage\phantomsection 以确保目录超链接到正确页码
