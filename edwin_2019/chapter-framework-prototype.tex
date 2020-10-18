@@ -307,11 +307,11 @@ CodeMatch是利用第三方库信息检测重打包应用的工具，用户在�
     \renewcommand{\arraystretch}{1}
     \footnotesize
     \centering
-    \caption{有效性实验结果}
+    \caption{有效性实验判别结果统计}
     \vspace{1mm}
     \begin{tabular}{l ccccccc}
         \toprule
-        \bf{来源应用}                  & \makecell[c]{\bf 正版样本识别数                                                     \\ \bf （TN）} & \makecell[c]{\bf 仿冒样本识别数 \\ \bf （TP/rbg} & \makecell[c]{\bf 仿冒样本识别数 \\ \bf （TP/gray）} & {\bf FN} & \makecell[c]{\bf FP \\ \bf （rbg）} & \makecell[c]{\bf FP \\ \bf （gray）} \\
+        \bf{来源应用}                  & \makecell[c]{\bf 正版样本识别数                                                     \\ \bf （TN）} & \makecell[c]{\bf 仿冒样本识别数 \\ \bf （TP/rgb）} & \makecell[c]{\bf 仿冒样本识别数 \\ \bf （TP/gray）} & {\bf FN} & \makecell[c]{\bf FP \\ \bf （rgb）} & \makecell[c]{\bf FP \\ \bf （gray）} \\
         \midrule
         抖音                           & 30                              & 15        & 17       & 0      & 3       & 1       \\
         \rowcolor{gray!15}开心消消乐   & 49                              & 24        & 24       & 0      & 3       & 3       \\
@@ -335,7 +335,47 @@ CodeMatch是利用第三方库信息检测重打包应用的工具，用户在�
 综合效果与运算速度，gray模式更适合本框架使用。
 另外，\mytool 在两种模式下均能正确辨认所有正版样本，因此\autoref{table:exp_1_effectiveness}中的TN与FN不再分模式列出数据。
 
-从实验数据看，\mytool 的平均准确率（$Precision = \frac{TP}{TP+FP}$）分别为81.48\%（rgb模式）和82.22\%（gray模式），召回率（$Recall = \frac{TP}{TP+FN}$）均为100\%，F1值（$2\times \frac{Precision \times Recall}{Precision + Recall}$）则分别为89.80\%（rgb模式）和90.24\%（gray模式），无正版应用错判记录，整体可用性较好，在个别应用（\textit{贪吃蛇大作战}）下甚至可以识别出所有仿冒样本。
+\begin{table}[htbp]
+    \renewcommand{\arraystretch}{1}
+    \footnotesize
+    \centering
+    \caption{实验准确率、召回率与F1值（单位：\%）}
+    \vspace{1mm}
+    \begin{tabular}{l ccccccc}
+        \toprule
+        \bf{来源应用}                  & \makecell[c]{准确率                                                                   \\（rgb）} & \makecell[c]{准确率\\（gray）} & \makecell[c]{召回率\\（rgb）} & \makecell[c]{召回率\\（gray）} & \makecell[c]{F1值\\（rgb）} & \makecell[c]{F1值\\（gray）} \\
+        \midrule
+        抖音                           & 83.33               & 94.44       & 100.0     & 100.0     & 90.91       & 97.14       \\
+        \rowcolor{gray!15}开心消消乐   & 88.89               & 88.89       & 100.0     & 100.0     & 94.12       & 94.12       \\
+        保卫萝卜                       & 66.67               & 73.33       & 100.0     & 100.0     & 80.0        & 84.62       \\
+        \rowcolor{gray!15}贪吃蛇大作战 & 100.0               & 100.0       & 100.0     & 100.0     & 100.0       & 100.0       \\
+        WiFi万能钥匙                   & 69.57               & 65.22       & 100.0     & 100.0     & 82.05       & 78.95       \\
+        \rowcolor{gray!15}噪声应用     & N/A                 & N/A         & N/A       & N/A       & N/A         & N/A         \\
+        {\bf 平均}                     & {\bf 81.48}         & {\bf 82.22} & {\bf 100} & {\bf 100} & {\bf 89.80} & {\bf 90.24} \\
+        \bottomrule
+    \end{tabular}
+    \label{table:exp_1_accuracy_etc}
+    \vspace{-3mm}
+\end{table}
+
+\begin{equation}
+    Precision = \frac{TP}{TP+FP} \,,
+    \label{equ:precision}
+\end{equation}
+\begin{equation}
+    Recall = \frac{TP}{TP+FN} \,,
+    \label{equ:recall}
+\end{equation}
+\begin{equation}
+    F1 = 2\times \frac{Precision \times Recall}{Precision + Recall} \,.
+    \label{equ:f1}
+\end{equation}
+
+\autoref{table:exp_1_accuracy_etc}展示了\mytool 在本次实验的准确率（\autoref{equ:precision}）、召回率（\autoref{equ:recall}）和F1值（\autoref{equ:f1}）数据。
+\mytool 平均准确率分别为81.48\%（rgb模式）和82.22\%（gray模式），
+没有对正版应用误判的记录，两种模式下的召回率均为100\%，
+平均F1值则分别为89.80\%（rgb模式）和90.24\%（gray模式）。
+总体上看，\mytool 整体可用性较好，在个别应用（\textit{贪吃蛇大作战}）下甚至可以识别出所有仿冒样本。
 \mytool 不对正版错判的原因有两个，一个是于\secref{sec:signature}中介绍的Android签名机制，另一个是\componentB 将正版图标特征反馈回特征数据库的机制。
 前者保证持有正版开发者证书的应用不会被误判为仿冒应用，后者保证\mytool 对新图标有一定容错性。
 
@@ -358,9 +398,11 @@ CodeMatch是利用第三方库信息检测重打包应用的工具，用户在�
 \noindent{\bf 实验2：对比实验}
 
 本组实验用于比较CodeMatch与\mytool 在分析应用时的有效性，分为时效性对比与准确性对比。
-实验采用\textit{WiFi万能钥匙}一组的样本作为实验对象。
-由于CodeMatch并不能直接判断应用是否为仿冒应用，因此作者直接以2个正版样本与46个仿冒样本组成的92个应用对作为CodeMatch的输入，检查46个仿冒应用中是否存在正版应用的重打包样本。
-\mytool 组以实验1中的gray模式实验数据作为结果与CodeMatch对比。
+实验采用\textit{WiFi万能钥匙}与\textit{保卫萝卜}的样本作为实验对象。
+CodeMatch的输入为两个APK文件组成的应用对，输出为两文件是否存在重打包关系，并不能直接判断某个应用样本是否仿冒。
+因此，作者直接以应用的正版样本与对应仿冒样本组成的应用对作为CodeMatch的输入，两两比对，检查仿冒应用中是否存在正版应用的重打包样本。
+\textit{WiFi万能钥匙}组中包含2个正版样本与46个仿冒样本组成的92个应用对；\textit{保卫萝卜}组包含21个正版样本与15个仿冒样本组成的315个应用对。
+\mytool 方面则以实验1中的gray模式实验数据作为结果与CodeMatch对比。
 
 \begin{table}[htbp]
     \renewcommand{\arraystretch}{1}
@@ -368,23 +410,25 @@ CodeMatch是利用第三方库信息检测重打包应用的工具，用户在�
     \centering
     \caption{对比实验结果}
     \vspace{1mm}
-    \begin{tabular}{l ccc}
+    \begin{tabular}{l cccc}
         \toprule
-        {\bf 工具名}    & 平均用时  & 判断出的仿冒应用（或重打包应用）数 \\
+        {\bf 工具名}                     & 应用组别     & 运行次数 & 平均每次用时 & 判断出的仿冒应用（或重打包应用）数 \\
         \midrule
-        {\bf CodeMatch} & 51.86分钟 & 0                                  \\
-        {\bf \mytool }  & 1.13分钟  & 30                                 \\
+        {\bf CodeMatch}                  & WiFi万能钥匙 & 92       & 51.86分钟    & 0                                  \\
+        \rowcolor{gray!15}{\bf \mytool } & WiFi万能钥匙 & 30       & 2.13分钟     & 30                                 \\
+        {\bf CodeMatch}                  & 保卫萝卜     & 315      & 10.98分钟    & 0                                  \\
+        \rowcolor{gray!15}{\bf \mytool } & 保卫萝卜     & 30       & 1.32分钟     & 11                                 \\
 
         \bottomrule
     \end{tabular}
     \label{table:exp_2_comparison}
 \end{table}
 
-\autoref{table:exp_2_comparison}显示，46个仿冒应用样本中未有针对2个正版应用样本的重打包应用，因此CodeMatch并未能检查出异常。
+\autoref{table:exp_2_comparison}显示，两组应用的仿冒样本中均未包含对正版样本的重打包应用，因此CodeMatch并未能检查出异常。
 重打包应用只是仿冒应用的一种，且商业应用迭代速度较快，相隔数个版本的应用已有较大区别，使用重打包检测方法检查仿冒应用不仅会遗漏非重打包形式的仿冒应用，也缺乏灵活性。
 仿冒应用凭借外观迷惑用户，检测方应该以应用名和图标鉴别仿冒应用，因而\mytool 的有效性明显高于CodeMatch。
-用时方面，由于重打包应用需要在获取应用代码之后将代码和数据库中的所有已知第三方库逐一比对，难免有较大的时间开销；
-相比之下，\mytool 直接根据应用名模式与图标特征对应用进行筛选，需处理的数据量远小于重打包检测中逐行代码比对产生的数据，因此也明显在速度上占优。
+用时方面，由于重打包应用需要在获取应用代码之后将代码和数据库中的所有已知第三方库逐一比对，难免有较大的时间开销，且开销增长速度呈线性上升；
+相比之下，\mytool 直接根据应用名模式与图标特征对应用进行筛选，需处理的数据量远小于重打包检测中逐行代码比对产生的数据，主要时间开销用于对仿冒样本的分析中，因此也明显在速度上占优。
 
 综上，重打包检测并非检测仿冒应用的有效思路，以应用外观为依据检测仿冒应用是更有效且快捷的方法。
 
