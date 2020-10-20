@@ -107,9 +107,10 @@ Android应用面对的业务场景是十分复杂的，类似的方法调用行�
 \subsection{\componentB }
 \componentB 根据\componentA 的标签对应用进行进行仿冒鉴别，筛选应用集里的仿冒样本。
 判别依据为样本内的证书指纹信息。
-由\secref{sec:signature}可知，Android应用的签名信息可在大部分场景下指向应用的最后修改者，可通过签名信息甄别应用开发者。
+由\secref{sec:signature}可知，在大部分场景下，Android应用的签名信息指向应用的最后修改者，可直接通过签名信息甄别应用开发者。
 然而，恶意开发者仍可利用在2017年被揭露的Janus漏洞，绕过V1机制签名，篡改APK文件。
 因此，有必要对针对Janus漏洞进行额外检测，防止受攻击应用上架，妨害用户安全。
+本小节将先简述Janus漏洞原理，再介绍本框架的检测手段。
 
 \begin{figure}[htbp]
     \centering
@@ -178,7 +179,7 @@ Android Studio对应用项目进行编译打包时，会将部分系统类、项
 
                 \For {$caller \in callers$} {
 
-                    $cache$ = PermissionCallAnalysis($caller$, $\emptyset$);
+                    $cache$ = PermissionCallAnalysis($caller$, $set(caller)$);
 
                     $calling\_sequence$.update($cache$);
 
@@ -205,7 +206,7 @@ Android Studio对应用项目进行编译打包时，会将部分系统类、项
 结合以上信息可获取在某应用中可能会被调用到的敏感API，详情可见\autoref{alg:dfs}。
 对于应用声明的每个权限，先通过映射关系查出其对应的敏感API列表；
 对于每个敏感API，算法遍历应用中的各个用户自定义类和第三方类，排查应用中是否有对该敏感API的调用（第6行）。
-如果有，则对调用该API的方法层层回溯，分析出敏感API的调用序列（第11行），具体流程见后文。
+如果有，则对调用该API的方法层层回溯，分析出敏感API的调用序列（第10行），具体流程见后文。
 对于某个已声明的权限，如果其对应的全部敏感API均没有调用记录，则可对应两种情况：
 一，该权限为由开发者声明的冗余权限，可能会被恶意应用利用，造成额外风险；
 二，开发者通过Java反射机制调用了与权限对应的敏感API，导致该调用无法被静态分析扫描到。
@@ -251,7 +252,7 @@ Android Studio对应用项目进行编译打包时，会将部分系统类、项
             }
         }
     }
-    \If {$calling\_sequence$.is\_empty $\&\&$ not $cur\_seq$ != []}{
+    \If {$calling\_sequence$.is\_empty $\&\&$ $cur\_seq$ != []}{
 
     $calling\_sequence$.add($cur\_seq$);
 
@@ -408,6 +409,7 @@ CodeMatch是利用第三方库信息检测重打包应用的工具，用户在�
 \begin{equation}
     F1 = 2\times \frac{Precision \times Recall}{Precision + Recall} \,.
     \label{equ:f1}
+    \vspace{5mm}
 \end{equation}
 
 \autoref{table:exp_1_accuracy_etc}展示了\mytool 在本次实验的准确率（\autoref{equ:precision}）、召回率（\autoref{equ:recall}）和F1值（\autoref{equ:f1}）数据。
@@ -433,6 +435,19 @@ CodeMatch是利用第三方库信息检测重打包应用的工具，用户在�
 
 为确保\mytool 仅对已知应用样本生效，测试集还包含了31个随机搜集的应用样本（噪声应用），该组样本的图标和应用名均与已知的5种应用不类似，用于测试\mytool 是否会对未收录的应用类别产生误报。
 数据显示，31个噪声应用均未被判定为正版或仿冒，\mytool 具有一定抗干扰能力。
+
+\begin{figure}[ht]
+    \centering
+    \includegraphics[width=\textwidth]{./Figures/edwin-component-C.jpg}
+    \caption{\componentC 输出结果（局部）}
+    \label{fig:componentC}
+    \vspace{-3mm}
+\end{figure}
+
+\autoref{fig:componentC}给出了\componentC 针对其中一个仿冒样本的输出结果。
+由于原输出数据量较大，此处不全部列出。
+输出以Json字符串形式给出，有较清晰的结构性，在数据量较大的情况下也能易于查阅。
+
 
 \noindent{\bf 实验2：对比实验}
 
@@ -470,9 +485,11 @@ CodeMatch的输入为两个APK文件组成的应用对，输出为两文件是�
 最重要的是，重打包应用只是仿冒应用的一种，使用重打包检测方法检查仿冒应用会遗漏非重打包形式的仿冒应用，缺乏灵活性。
 仿冒应用凭借外观迷惑用户，检测方应该以应用名和图标鉴别仿冒应用，因而\mytool 的有效性明显高于CodeMatch。
 用时方面，由于重打包应用需要在获取应用代码之后将代码和数据库中的所有已知第三方库逐一比对，故CodeMatch的时间开销明显高于\mytool ；
-相比之下，\mytool 直接根据应用名模式与图标特征对应用进行筛选，需处理的数据量远小于重打包检测中逐行代码比对产生的数据，主要时间开销用于对仿冒样本的分析中，因此也明显在速度上占优。
+相比之下，\mytool 直接根据应用名模式与图标特征对应用进行筛选，需处理的数据量远小于重打包检测中逐行代码比对产生的数据，主要时间开销用于对仿冒样本的分析中，因此也明显在速度上占优；
+此外，CodeMatch只能告知用户两个应用是否具有重打包关系，并未给出更多相关信息，而\mytool 利用\componentC 分析APK文件后，会输出重要信息，方便审核人员验证判别有效性。
 
-综上，重打包检测并非检测仿冒应用的有效思路，以应用外观为依据检测仿冒应用是更有效且快捷的方法。
+综上，作者认为\mytool 在仿冒应用检测上优于CodeMatch。
+重打包检测并非检测仿冒应用的有效思路，以应用外观为依据检测仿冒应用是更有效且快捷的方法。
 
 % \section{已知相关工具}
 
