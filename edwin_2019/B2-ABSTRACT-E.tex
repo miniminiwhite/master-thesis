@@ -5,41 +5,36 @@
 \chapter*{\zihao{2}\heiti{ABSTRACT}}
 \vspace{-5mm}
 
-% 作为世界上最受欢迎的移动操作系统，Android拥有着庞大而完整的应用生态环境，其中不仅包含着带给人便利的各色良性应用，也包含了不怀好意的恶意应用和意图不明的仿冒应用。
-As the most popular mobile operating system in the world, Android owns a huge and complete application ecosystem, in which not only all kinds of benign apps that offer people convenience but also malware with vicious intention and fake apps with unknown purposes are included.
-% 得益于对恶意应用的充分理解，业界实现了对恶意应用的监控；
-Thanks to our full understanding of malware, it is now possible to monitor malware on the industrial level.
-% 而前期调研结果表示，学术界尚未有针对仿冒应用进行的研究，对仿冒应用的认识匮乏将带来隐患。
-Preliminary investigation indicates, however, that there is no study in academia aims at fake apps so far.
-The lack of corresponding knowledge could lead to hidden dangers.
 
-% 为获得关于仿冒应用的第一手资料，本文采取实证研究的方式，直接从工业界收集数据以分析仿冒应用。
-In order to obtain the first-hand data about fake apps, this study adapt the methodology of empirical study and glean data directly from the industry.
-% 针对现有爬虫框架不能定向爬取的问题，笔者设计实现了仿冒应用收集框架\mytool ，进行了仿冒应用的大规模数据收集，将仿冒应用数据整理成集。
-Considering the problem that existing crawler frameworks are not able to achieve targeted collection, this paper design and implement a fake app filter framework called \mytool whereby the large-scale data collection is done and the fake app data is filed as a dataset.
-% 基于该数据集，本文分别从仿冒应用的基本特征、影响仿冒应用数量的因素以及仿冒应用的发展轨迹三个不同视角，结合案例分析，进行了首次基于Android系统仿冒应用的全方位特征解读。
-Based on the filtered dataset, this paper interprets the characteristics of fake apps from three different perspectives: fake apps' characteristics, factors affecting fake apps' quantity and the developing trends of fake apps.
-Additionally, case studies are attached after each perspective, completing the first interpretation on Android fake apps.
-% 进一步地，为验证仿冒应用和移动黑灰产的另一个环节---排名欺诈之间是否存在联系，本文收集了仿冒应用在应用市场上的评级和评论进行了排名欺诈排查。
-One step further, in order to verify whether fake apps interact with another chain in the mobile underground industry --- ranking fraud, this paper conducts a series the ranking fraud detection using the fake apps' ranking and comment data retrieved from an app market.
-% 针对现有排名欺诈检测方法的不足，本文先后提出两种方法创新性地对所得数据进行检测。
-Aim to the drawbacks of existing detecting methods, this paper proposes two innovative approaches to complete the detection.
+Attribute to its characteristics like being open-source and widely used, Android owns a huge application ecosystem containing all sorts of benign software as well as malware, repackaging apps and fake apps.
+Thanks to the extensive previous researches, the mobile application industry has grown a full understanding of various malware and repackaging apps, corresponding detecting mechanisms and defensive measures are thus spawned.
+However, malware and repackaging apps have kept the focus of security-related Android researches in recent years, not much attention from academia was delivered to fake apps, placing a hidden danger in Android app security.
 
-% 在数据收集方面，本文使用\mytool 共收集到了近14万个数据条目，其中每个数据条目代表一个应用样本。
-In terms of data collection, this study obtains approximately 140,000 data entries leveraging \mytool, where one entry represents an app sample.
-% 在特征解读方面，本文得到了如仿冒应用的命名倾向和仿冒应用开发者对市场监管防御机制的规避策略等信息，相关的案例分析更暴露出了仿冒应用开发者针对不同应用进行仿冒的形式和应用市场之间的监管缺陷。
-In terms of characteristic interpretation, this paper provides knowledge like fake apps' naming tendency and the strategies the fake app developers deploy to evade app markets' regulatory mechanisms.
-What's more, our case-studies expose the fact that fake app developers counterfeit different apps in different forms and app markets lack cooperative supervision.
-% 这些信息都有助于对仿冒应用进行理解。
-All the information above does help in understanding fake apps.
-% 评论分析方面，结合人工复核，本文确认了提出的两种检测方法均有效，亦验证了仿冒应用中存在排名欺诈行为。
-In terms of comment analysis, manual inspection infers the proposed two innovative detecting approaches are both effective.
-Meanwhile, this study confirms that fake app developers do utilize ranking fraud to boost their rank.
+So far, there are three problems and challenges for fake app research:
+(1) There is not yet a publicly available large-scale fake app data set for researchers. The difficulty lies in that the scale and variety and representativeness of the data should be considered at the same time.
+(2) ``Fake app'' is still a blur idea in the industry. The characteristics of fake apps are still not clear,  hindering the detection in the next step.
+(3) The behavioral characteristics of fake app developers are not clear either, no effective guidance can be provided for preventing or blocking fake apps.
+In order to obtain raw data on fake apps, an empirical study is adopted in this article to proceed with both analysis and research in-depth in the four aspects below:
 
-% 综上，本文分别从仿冒应用特征解读和仿冒应用评论分析两个方面完成了具有创新性的研究。
-In summary, this paper completes an innovative study from two aspects, namely fake apps characteristics Interpretation and fake apps' comment analysis.
-% 作者希望能借助本文提供的数据和分析结果，提供一个面向仿冒应用及其生态的清晰视角。
-Hopefully, this paper can provide a clear vision toward the fake app and its nature through the data and analysis provided.
 
-% \sihao{\heiti{ 关键词:}} \xiaosi{Android应用程序, 仿冒应用, 实证研究, 数据分析, 排名欺诈}
-{\sihao{\textbf{\newline Keywords:}}} \textit{Android Application, Fake App, Empirical Study, Data Analysis, Ranking Fraud}
+\textbf{Ease on data shortage problem by constructing a large-scale fake app data set. }
+In this research, data was crawled from multiple sources like ``MyApp'' and ``Wandoujia''.
+More than 50, 000 app samples were kept eventually, providing strong data support for latter studies like app feature extraction and behavior analysis.
+
+\textbf{A comprehensive study on Android fake apps' characteristics. }
+According to the aforementioned data set, this article processes multiple analyses on fake apps in terms of similarity and function compared to the original apps and provides fake app features like their naming tendency, serving with case studies.
+The results can act as a reference for common users and app markets on resisting the threads from fake apps.
+
+\textbf{A portrait on fake app developers leveraging certificate information and app-release-time. }
+Combining the release time of fake apps and the certificate information extracted from them, this article develops a series of behavioral portraits of fake app developers from the perspectives of active period and releasing behavior.
+App markets can gain experience in risk-control from these portraits.
+
+\textbf{A practical framework for fake app detection. }
+As shown by the empirical study, no satisfying countermeasure again fake apps are proposed in app stores in China.
+In response to the situation, \mytool is introduced in this article to help achieve quick identifications on known original apps and the corresponding fake app samples.
+
+In summary, this study has collected a large-scale data set, empowers further exploration and studies in the future.
+Meanwhile, depending on these data, a comprehensive analysis is conducted on fake apps. 
+Our study put forward practical suggestions for both common users and app markets and propose a feasible framework for fake app detection to raise awareness of fake apps.
+
+{\sihao{\textbf{\newline Keywords:}}} \textit{Android Application, Fake App, Empirical Study, Data Analysis}
