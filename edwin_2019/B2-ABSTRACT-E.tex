@@ -8,36 +8,35 @@
 
 Android, the well known operating system, is famous for its characteristics like open-source and being widely used.
 Attribute to these characteristics, it owns a huge application ecosystem containing all sorts of software including benign apps, malware, repackaging apps, as well as fake apps.
-Thanks to the extensive previous researches, the mobile application industry has grown a full understanding of some potentially harmful apps.\footnote{We use ``the industry'' to replace ``the mobile application industry'' for simplicity in the up-coming text.}
-A variety of mechanisms and measures aim at malware and repackaging apps detection have derived.
-However, whlie malware and repackaging apps keep holding the focus of security-related Android researches lately, not much attention from academia was delivered to fake apps, placing a hidden danger in Android app security.
+Thanks to extensive previous research, the mobile application industry has grown a full understanding of some potentially harmful apps.
+A variety of mechanisms and measures aimed at malware and repackaging app detection have been proposed.
+However, while malware and repackaging apps keep holding the focus of security-related Android research lately, not much attention from academia was delivered to fake apps, placing a hidden danger in Android app security.
 
 So far, there are three problems and challenges for fake app research:
-(1) There is not yet a publicly available large-scale fake app data set for researchers. The difficulty lies in that the scale and variety and representativeness of the data should be considered at the same time.
-(2) ``Fake app'' is still a blur idea in the industry. The characteristics of fake apps are still not clear,  hindering the detection in the next step.
-(3) The behavioral characteristics of fake app developers are not clear either, no effective guidance can be provided for preventing or blocking fake apps.
+(1) There is not yet an openly available large-scale fake app data set for researchers. The difficulty lies in that the scale and variety and representativeness of the data should be considered at the same time.
+(2) ``Fake app'' is still a blurry idea in the industry. The characteristics of fake apps are not clear,  hindering detection in the next step.
+(3) The behavioral characteristics of fake app developers are not clear either. No effective guidance is provided for preventing or blocking fake apps yet.
 In order to obtain raw data on fake apps, an empirical study is adopted in this article to proceed with both analysis and research in-depth in the four aspects below:
 
-
-\textbf{Ease on data shortage problem by constructing a large-scale fake app data set. }
+\textbf{Ease of data shortage problem by constructing a large-scale fake app data set. }
 In this research, data was crawled from multiple sources like \texttt{MyApp} and \texttt{Wandoujia}.
 More than 50, 000 app samples were kept eventually, providing strong data support for latter studies like app feature extraction and behavior analysis.
 
 \textbf{A comprehensive study on Android fake apps' characteristics. }
 According to the aforementioned data set, this article processes multiple analyses on fake apps in terms of similarity and function compared to the original apps and provides fake app features like their naming tendency, serving with case studies.
-The results can act as a reference for common users and app markets on resisting the threads from fake apps.
+The results can act as a reference for common users and app markets for resisting the threads from fake apps.
 
 \textbf{A portrait on fake app developers leveraging certificate information and app-release-time. }
-Combining the release time of fake apps and the certificate information extracted from them, this article develops a series of behavioral portraits of fake app developers from the perspectives of active period and releasing behavior.
+Combining the release time of fake apps and the certificate information extracted from them, this article develops a series of behavioral portraits of fake app developers from the perspectives of active periods and releasing behavior.
 App markets can gain experience in risk-control from these portraits.
 
 \textbf{Design and implementation of a light-weight framework for fake app detection. }
-As shown by the empirical study, no satisfying countermeasure again fake apps are proposed in app stores in China.
+As shown by the empirical study, no satisfying countermeasure against fake apps are proposed in app stores in China.
 In response to the situation, \mytool is introduced in this article.
 Empowered by image processing and static analysis techniques, it can achieve quick identification of known original apps and the corresponding fake app samples and provide evidence for revision.
 
-In summary, this study has collected a large-scale data set, enable further exploration and studies in the future.
-Meanwhile, depending on these data, a comprehensive analysis is conducted on fake apps.
-Our study put forward practical suggestions for both common users and app markets and propose a feasible framework for fake app detection to raise awareness of fake apps.
+In summary, this study has collected a large-scale data set, enabling further exploration and studies in the future.
+Meanwhile, depending on this data set, a comprehensive analysis is conducted on fake apps.
+Our study put forward practical suggestions for both common users and app markets and proposed a feasible framework for fake app detection to raise awareness of fake apps.
 
 {\sihao{\textbf{\newline Keywords:}}} \textit{Android Application, Fake App, Empirical Study, Data Analysis}
