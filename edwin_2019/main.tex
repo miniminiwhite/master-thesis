@@ -114,9 +114,14 @@
 \newcommand\componentE{应用特征库}
 
 %交叉引用格式
-\renewcommand\figureautorefname{图}
-\renewcommand\tableautorefname{表}
-\renewcommand\equationautorefname{式}
+% 确保子图引用出现正确括号
+\newcommand{\subfigureautorefname}{图}
+\captionsetup[subfigure]{labelformat=simple}
+\renewcommand\thesubfigure{(\alph{subfigure})}
+% 其他交叉引用
+\renewcommand{\figureautorefname}{图}
+\renewcommand{\tableautorefname}{表}
+\renewcommand{\equationautorefname}{式}
 \renewcommand{\algorithmautorefname}{算法}
 
 \renewcommand{\contentsname}{\hfill\bfseries\Large {目~~~~录}\hfill}
@@ -169,7 +174,7 @@
 \newcommand{\Line}[1]{ \textit{ Line .#1}}
 
 % 匿名开关
-\newcommand{\anonymous}[1]{\phantom{ #1 }}
+% \newcommand{\anonymous}[1]{\phantom{ #1 }}
 
 % 查重开关
 % \newcommand{\duplicationCheck}[1]{\phantom{ #1 }}

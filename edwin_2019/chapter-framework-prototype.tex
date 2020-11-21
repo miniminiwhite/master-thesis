@@ -164,11 +164,11 @@ Android Studio对应用项目进行编译打包时，会将部分系统类、项
 
         $redundant\_permission \gets \emptyset$;
 
-        \For {$permission \in decleared\_permissions$} {
+        \ForEach {$permission \in decleared\_permissions$} {
 
             $flag \gets$ 0;
 
-            \For {$API \in permissions\_API[permission]$} {
+            \ForEach {$API \in permissions\_API[permission]$} {
 
                 $callers \gets $getCallers($API$);
 
@@ -178,7 +178,7 @@ Android Studio对应用项目进行编译打包时，会将部分系统类、项
 
                 }
 
-                \For {$caller \in callers$} {
+                \ForEach {$caller \in callers$} {
 
                     $cache$ = PermissionCallAnalysis($caller$, $set(caller)$);
 
@@ -232,7 +232,7 @@ Android Studio对应用项目进行编译打包时，会将部分系统类、项
 
     $cur\_seq \gets  []$;
 
-    \For {$callee \in callees$} {
+    \ForEach {$callee \in callees$} {
         \If{$callee$.is\_permission\_related\_API}{
             permission = $callee$.get\_related\_permission();
 
@@ -240,13 +240,13 @@ Android Studio对应用项目进行编译打包时，会将部分系统类、项
         }
     }
 
-    \For {$caller \in callers$} {
+    \ForEach {$caller \in callers$} {
         \If{$caller$.is\_self\_defined $\&\& caller \notin itered\_methods$} {
             $itered\_methods$.add($caller$);
 
             $res \gets$ PermissionCallAnalysis($caller, itered\_methods$);
 
-            \For {$sequence \in res$} {
+            \ForEach {$sequence \in res$} {
 
                 $calling\_sequence$.add($sequence$ + $cur\_seq$);
 
@@ -303,7 +303,8 @@ Android Studio对应用项目进行编译打包时，会将部分系统类、项
 
 \subsection{数据收集}
 
-为检验\mytool 的有效性，作者重新从Janus平台上收集了286个应用样本对\mytool 进行测试。
+\mytool 的部分鉴别规则源于从\autoref{chp:research_settings}采集的数据，为了检验\mytool 的有效性，应用另一批样本对框架进行测试。
+为此，作者重新从Janus平台上收集了286个应用样本对\mytool 进行系统实验。
 286个应用样本包含了采集自5个热门应用的255个样本和随机采集的31个噪声样本，详细分布可见~\autoref{table:exp_data_count}。
 
 \begin{table}[htbp]

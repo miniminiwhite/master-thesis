@@ -6,7 +6,7 @@
 随着移动市场于近年逐渐兴起，Android系统作为一个主流的移动端操作系统也在蓬勃发展。
 数据分析机构StatCounter资料显示，Android市场占有率自发布之日起就在逐年稳步增长。
 截至2020年，Android系统已经占据全球移动端市场份额的74.3\%~\cite{MobileOSMktShare}。
-与此同时，Android应用的数量也伴随着Android市场的蓬勃发展节节攀高。\footnote{应用、App在本文中均用以指代Android应用程序，下文不再区分}
+与此同时，Android应用的数量也伴随着Android市场的蓬勃发展节节攀高\footnote{应用、App在本文中均用以指代Android应用程序，下文不再区分。}。
 仅Android官方的应用商店Google Play就在2017年中新上架了近一百万个可供下载的应用程序。
 虽然因为各种原因，Google Play上的应用数量在2018年有所回落，但如\autoref{fig:app_number}所示，应用市场上目前仍有近三百万个可用的应用程序，Android应用市场依然充满活力~\cite{StatistaAppNumber}。
 
@@ -62,7 +62,7 @@
 防止应用被重打包的研究多基于检测原有代码是否被更改而开展。
 Zhou等人提出了两个基于改版Dalvik虚拟机的对抗工具：其中，AppInk~\cite{zhou2013appink}利用一种``水印''技术（Watermarking）对抗重打包，但需要利用一个改版的Dalvik虚拟机进行文件检查；另一工具DIVILAR~\cite{zhou2014divilar}为应用的Dalvik代码提出了一种新编码形式，同时也需要修改用户设备Android系统中的Dalvik虚拟机以对新的编码进行解码。
 Luo等人提出了在代码中注入大量检测节点的方法对抗重打包，并推荐开发者进行代码混淆，以避免令重打包开发者发现注入的检测节点~\cite{luo2016repackage}。
-与之相似，Zeng等人也提出了在代码中注入逻辑炸弹的方法，并在研究中讨论了多种避免重打包开发者发现代码注入的策略~\cite{zeng2018resilient}。
+与之相似，Zeng等人也提出了在代码中注入逻辑炸弹的方法，并在论文中提出了以字节码形式为应用赋予重打包检测能力的工具BombDroid~\cite{zeng2018resilient}。
 
 \subsection{恶意应用的研究现状}
 针对恶意应用的研究可分为两个方面，分别是面向恶意应用进行实证研究工作与面向恶意应用检测的研究。
@@ -70,7 +70,7 @@ Luo等人提出了在代码中注入大量检测节点的方法对抗重打包�
 面向恶意应用的实证研究众多，较有代表性的有以下两篇文献：
 Felt等人的研究~\cite{Felt2011ASO}仔细剖析了来自多个不同平台的46个恶意程序样本以了解这些样本的激励机制，揭示了这些样本的运行机制和行为策略，为后人抵御此类恶意行为提供参考；
 Zhou和Jiang~\cite{Zhou2012DissectingAM}搜集了来自多个主要恶意应用家族的、超过1,200个恶意应用样本，并系统性地描绘了这批样本的不同性质，包括其安装手段、激活机制和其如何执行有效负载（实现恶意行为）。
-虽然恶意应用与仿冒应用有重合之处，但两者有一定区别，相关理论知识直接套用并不合适。
+虽然恶意应用与仿冒应用有重合之处，但两者有一定区别（如恶意应用未必以独立、可用的应用形态存在，仿冒应用未必全部具有恶意等），相关理论知识直接套用并不合适。
 
 以上述实证研究与数据分析作为基础，研究者对恶意应用有了较好的了解，从而得以有针对性地进行恶意应用检测。
 相关方法可大致分为静态分析、动态分析与机器学习三个方向。
@@ -236,7 +236,7 @@ Chen等人发布了漏洞检测工具Ausera~\cite{chen2018ausera}，该工具通
 	      \setlength{\parsep}{0pt}
 	\item \emph{仿冒应用数据集整理与开放} \quad
 	      借助自行实现的仿冒应用收集框架，本研究尽可能广泛地收集了来自29个应用来源的约14万个应用样本，并从中筛选出5万个仿冒样本，整理成已知的首个仿冒应用数据集，以供其后的相关研究使用。
-	      相关数据可于github访问。\footnote{数据集地址：\url{https://github.com/miniminiwhite/FakeRevealer/tree/master/dataset}}
+	      相关数据可于github访问\footnote{数据集地址：\url{https://github.com/miniminiwhite/FakeRevealer/tree/master/dataset}}。
 
 	\item \emph{仿冒应用数据画像与现实案例分析} \quad
 	      本文从基本信息与开发者行为两个方向入手分别进行了实证研究，前者对仿冒引用进行了较为多维的数据画像，后者根据仿冒应用开发者行为推断出现有应用市场监管不足之处。
@@ -247,7 +247,7 @@ Chen等人发布了漏洞检测工具Ausera~\cite{chen2018ausera}，该工具通
 
 	\item \emph{仿冒应用检测框架} \quad
 	      依靠前序研究中对仿冒应用的理解与解读，作者结合图像处理技术与静态分析技术设计并实现了轻量级仿冒应用检测框架\mytool ，快速筛选仿冒应用，并为人工审核提供判别依据。
-	      相关代码可于github访问。\footnote{代码库地址：\url{https://github.com/miniminiwhite/FakeRevealer}}
+	      相关代码可于github访问\footnote{代码库地址：\url{https://github.com/miniminiwhite/FakeRevealer}}。
 
 \end{itemize}
 
